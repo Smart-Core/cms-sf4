@@ -25,6 +25,7 @@
         "symfony/profiler-pack": "^1.0",
         "symfony/security-bundle": "4.2.*",
         "symfony/swiftmailer-bundle": "^3.2",
+        "symfony/web-server-bundle": "4.2.*",
         "symfony/yaml": "^4.2"
     },
     "config": {
