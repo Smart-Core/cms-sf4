@@ -12,6 +12,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-xml": "*",
+        "sensio/framework-extra-bundle": "^5.3",
         "symfony/console": "^4.2",
         "symfony/dotenv": "^4.2",
         "symfony/flex": "^1.1",
