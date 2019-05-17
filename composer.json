@@ -15,6 +15,7 @@
         "cache/cache-bundle": "^1.1",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "knplabs/knp-menu-bundle": "^2.2",
+        "liip/imagine-bundle": "^2.1",
         "liip/theme-bundle": "^1.6",
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^5.0",

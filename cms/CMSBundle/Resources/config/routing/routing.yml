@@ -1,7 +1,3 @@
-controllers:
-    resource: '../../../Controller/'
-    type: annotation
-
 #site.images:
 #    resource: '@SmartMediaBundle/Resources/config/routing.yml'
 #    prefix: /_media/
@@ -44,6 +40,10 @@ cms_admin:
 #        slug: ''
 #    requirements:
 #        slug: '.+'
+
+controllers:
+    resource: '../../../Controller/'
+    type: annotation
 
 # @todo Эти маршруты нужны для генерации ссылок к модулям с учетом пути, куда они подключены.
 cms_modules:

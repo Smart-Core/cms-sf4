@@ -3,7 +3,8 @@
 namespace Smart\CoreBundle\Controller;
 
 use Smart\CoreBundle\Flash\Message;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseController;
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 
 /**
  * Inspired by KnpRadBundle

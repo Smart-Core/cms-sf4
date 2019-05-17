@@ -19,6 +19,7 @@ return [
     Cache\AdapterBundle\CacheAdapterBundle::class => ['all' => true],
     Cache\CacheBundle\CacheBundle::class => ['all' => true],
     Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
+    Smart\CoreBundle\SmartCoreBundle::class => ['all' => true],
     SmartCore\Bundle\DbDumperBundle\SmartDbDumperBundle::class => ['all' => true],
     SmartCore\Bundle\HtmlBundle\HtmlBundle::class => ['all' => true],
     SmartCore\Bundle\FelibBundle\FelibBundle::class => ['all' => true],
