@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb33b84512f1306665c4a652283151f6",
+    "content-hash": "144d94c2c2fe20f3415262f55fb6c99a",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -2534,6 +2534,37 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2018-12-19T17:14:59+00:00"
+        },
+        {
+            "name": "smart-core/db-dumper-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Smart-Core/DbDumperBundle.git",
+                "reference": "bfe7affb683989f1565b6c0d89e11df4dfbddf26"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Smart-Core/DbDumperBundle/zipball/bfe7affb683989f1565b6c0d89e11df4dfbddf26",
+                "reference": "bfe7affb683989f1565b6c0d89e11df4dfbddf26",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SmartCore\\Bundle\\DbDumperBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Smart and simple database dumper for Symfony2",
+            "homepage": "http://smart-core.org",
+            "time": "2019-05-16T15:08:30+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6611,7 +6642,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "smart-core/db-dumper-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

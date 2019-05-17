@@ -194,6 +194,9 @@
             "./config/packages/security_checker.yaml"
         ]
     },
+    "smart-core/db-dumper-bundle": {
+        "version": "dev-master"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },
