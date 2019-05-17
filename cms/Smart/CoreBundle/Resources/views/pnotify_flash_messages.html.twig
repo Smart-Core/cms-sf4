@@ -1,0 +1,58 @@
+{# red #}
+{% if app.session.flashbag.has('error') %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new PNotify({
+                    title: '{{ 'Error'|trans }}!',
+                    text: '{{ flashMessage|raw }}',
+                    type: 'error'
+                });
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+{# blue #}
+{% if app.session.flashbag.has('notice') %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new PNotify({
+                    title: '{{ 'Information'|trans }}!',
+                    text: '{{ flashMessage|raw }}',
+                    type: 'info'
+                });
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+{# yello #}
+{% if app.session.flashbag.has('warning') %}
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new PNotify({
+                    title: '{{ 'Information'|trans }}!',
+                    text: '{{ flashMessage|raw }}'
+                });
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+{# green #}
+{% if app.session.flashbag.has('success') %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new PNotify({
+                    title: '{{ 'Success'|trans }}!',
+                    text: '{{ flashMessage|raw }}',
+                    type: 'success'
+                });
+            });
+        </script>
+    {% endfor %}
+{% endif %}

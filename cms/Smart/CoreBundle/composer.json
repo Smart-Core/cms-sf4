@@ -1,0 +1,18 @@
+{
+    "name":        "smart-core/core-bundle",
+    "description": "Core Bundle for rapid development.",
+    "type":        "symfony-bundle",
+    "homepage":    "https://github.com/Smart-Core/CoreBundle",
+    "license":     "MIT",
+    "require": {
+        "php": ">=5.4.1",
+        "misd/phone-number-bundle": "*",
+        "symfony/framework-bundle": ">=2.1",
+        "sensio/distribution-bundle": ">=5.0.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Smart\\CoreBundle\\": ""
+        }
+    }
+}
