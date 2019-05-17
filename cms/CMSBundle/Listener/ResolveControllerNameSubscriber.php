@@ -106,7 +106,9 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
     protected function getBundleFromController($controller)
     {
         if (0 === preg_match('#^(.*?\\\\Controller\\\\(.+)Controller)::(.+)Action$#', $controller, $match)) {
-            throw new \InvalidArgumentException(sprintf('The "%s" controller is not a valid "class::method" string.', $controller));
+            if (0 === preg_match('#^(.*?\\\\Controller\\\\(.+)Controller)::(.+)$#', $controller, $match)) {
+                throw new \InvalidArgumentException(sprintf('The "%s" controller is not a valid "class::method" string.', $controller));
+            }
         }
 
         $className = $match[1];

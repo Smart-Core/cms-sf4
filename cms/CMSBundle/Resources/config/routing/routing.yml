@@ -46,9 +46,9 @@ controllers:
 #        slug: '.+'
 
 # @todo Эти маршруты нужны для генерации ссылок к модулям с учетом пути, куда они подключены.
-#cms_modules:
-#    resource: .
-#    type: modules_enabled
+cms_modules:
+    resource: .
+    type: modules_enabled
 
 fos_user_security:
     resource: '@FOSUserBundle/Resources/config/routing/security.xml'
