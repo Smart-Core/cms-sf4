@@ -18,6 +18,7 @@
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^5.0",
         "smart-core/db-dumper-bundle": "dev-master",
+        "smart-core/html-bundle": "dev-master",
         "symfony/console": "^4.2",
         "symfony/debug-pack": "^1.0",
         "symfony/dotenv": "^4.2",

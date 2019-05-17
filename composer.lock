@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fa96e7bfaa412a0992f7a45d161f3e7",
+    "content-hash": "7c05c08d0314a6d0387e4fce7efd6bc1",
     "packages": [
         {
             "name": "cache/cache-bundle",
@@ -2507,6 +2507,38 @@
             "description": "Smart and simple database dumper for Symfony2",
             "homepage": "http://smart-core.org",
             "time": "2019-05-16T15:08:30+00:00"
+        },
+        {
+            "name": "smart-core/html-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Smart-Core/HtmlBundle.git",
+                "reference": "3c66c217799026df3de38f0c7286d723a4549ba8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Smart-Core/HtmlBundle/zipball/3c66c217799026df3de38f0c7286d723a4549ba8",
+                "reference": "3c66c217799026df3de38f0c7286d723a4549ba8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SmartCore\\Bundle\\HtmlBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Html boilerplate.",
+            "homepage": "http://smart-core.org",
+            "keywords": [
+                "bundle",
+                "html"
+            ],
+            "time": "2019-05-13T21:10:03+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6199,7 +6231,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
-        "smart-core/db-dumper-bundle": 20
+        "smart-core/db-dumper-bundle": 20,
+        "smart-core/html-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

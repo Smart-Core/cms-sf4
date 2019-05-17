@@ -19,4 +19,5 @@ return [
     Monolith\CMSBundle\CMSBundle::class => ['all' => true],
     Cache\CacheBundle\CacheBundle::class => ['all' => true],
     Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
+    SmartCore\Bundle\HtmlBundle\HtmlBundle::class => ['all' => true],
 ];

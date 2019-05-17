@@ -183,6 +183,9 @@
     "smart-core/db-dumper-bundle": {
         "version": "dev-master"
     },
+    "smart-core/html-bundle": {
+        "version": "dev-master"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },
