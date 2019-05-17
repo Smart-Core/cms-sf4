@@ -159,6 +159,9 @@
     "league/flysystem": {
         "version": "1.0.51"
     },
+    "liip/theme-bundle": {
+        "version": "1.6.1"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -229,6 +232,9 @@
         "version": "dev-master"
     },
     "smart-core/html-bundle": {
+        "version": "dev-master"
+    },
+    "smart-core/simple-profiler-bundle": {
         "version": "dev-master"
     },
     "sonata-project/intl-bundle": {

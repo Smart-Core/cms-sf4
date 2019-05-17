@@ -1,0 +1,21 @@
+# @todo переместить в CMSBundle
+liip_theme:
+    #themes: ['web', 'tablet', 'phone']
+    #active_theme: ~
+    #autodetect_theme: false
+    #load_controllers: false
+    path_patterns:
+        app_resource:
+            - "%%theme_dir%%/views/%%template%%"
+        bundle_resource_dir:
+            - "%%theme_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
+            - "%%theme_dir%%/bundles/%%bundle_name%%/%%override_path%%"
+            - "%%site_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
+            - "%%site_dir%%/%%bundle_name%%/%%override_path%%"
+            - "%%cms_dir%%/%%bundle_name%%/%%override_path%%"
+        bundle_resource:
+            - "%%theme_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
+            - "%%theme_dir%%/bundles/%%bundle_name%%/%%override_path%%"
+            - "%%site_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
+            - "%%site_dir%%/%%bundle_name%%/%%override_path%%"
+            - "%%cms_dir%%/%%bundle_name%%/%%override_path%%"

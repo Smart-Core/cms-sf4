@@ -25,4 +25,6 @@ return [
     SmartCore\Bundle\SettingsBundle\SmartSettingsBundle::class => ['all' => true],
     Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],
     Sonata\IntlBundle\SonataIntlBundle::class => ['all' => true],
+    SmartCore\Bundle\SimpleProfilerBundle\SmartSimpleProfilerBundle::class => ['all' => true],
+    Liip\ThemeBundle\LiipThemeBundle::class => ['all' => true],
 ];

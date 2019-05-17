@@ -17,7 +17,7 @@ class ModulesRoutingResolverPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        /** @var \Monolith\Bundle\CMSBundle\Module\ModuleBundle $moduleBundle */
+        /** @var \Monolith\CMSBundle\Module\ModuleBundle $moduleBundle */
         foreach ($container->getParameter('monolith_cms.modules_paths') as $moduleName => $modulePath) {
             // Обработка routing.yml
             $routingConfig = $modulePath.'/Resources/config/routing.yml';

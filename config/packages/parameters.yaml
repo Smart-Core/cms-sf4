@@ -3,3 +3,5 @@ parameters:
     user_path: user
     mailer_user: test@mail.com
     user_class: App\Entity\User
+    liip_theme.filesystem_loader.class: Monolith\CMSBundle\Twig\Loader\FilesystemLoader # @todo переместить в CMSBundle
+    # sonata.intl.timezone_detector.chain.class: Monolith\CMSBundle\Timezone\SonataChainTimezoneDetector # @todo переместить в CMSBundle

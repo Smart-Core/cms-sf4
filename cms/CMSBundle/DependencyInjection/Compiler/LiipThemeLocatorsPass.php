@@ -11,7 +11,7 @@ class LiipThemeLocatorsPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $container->getDefinition('liip_theme.file_locator')->setClass('Monolith\Bundle\CMSBundle\Twig\Locator\ModuleThemeLocator');
-        $container->getDefinition('liip_theme.templating_locator')->setClass('Monolith\Bundle\CMSBundle\Twig\Locator\TemplateLocator');
+        $container->getDefinition('liip_theme.file_locator')->setClass('Monolith\CMSBundle\Twig\Locator\ModuleThemeLocator');
+        $container->getDefinition('liip_theme.templating_locator')->setClass('Monolith\CMSBundle\Twig\Locator\TemplateLocator');
     }
 }
