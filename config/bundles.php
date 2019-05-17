@@ -20,4 +20,5 @@ return [
     SmartCore\Bundle\DbDumperBundle\SmartDbDumperBundle::class => ['all' => true],
     Monolith\CMSBundle\CMSBundle::class => ['all' => true],
     Cache\CacheBundle\CacheBundle::class => ['all' => true],
+    Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
 ];
