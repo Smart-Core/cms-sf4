@@ -12,6 +12,8 @@ class CMSBundle extends Bundle
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
+
+        //$container->setParameter('container.build_id', '39thod7hkdfg973rf'); // Фикс с версии symfony v3.4.3
     }
 
     public function getThemeDir()

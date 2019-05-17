@@ -20,4 +20,7 @@ return [
     Cache\CacheBundle\CacheBundle::class => ['all' => true],
     Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
     SmartCore\Bundle\HtmlBundle\HtmlBundle::class => ['all' => true],
+    Cache\AdapterBundle\CacheAdapterBundle::class => ['all' => true],
+    SmartCore\Bundle\FelibBundle\FelibBundle::class => ['all' => true],
+    Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],
 ];

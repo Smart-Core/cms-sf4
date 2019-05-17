@@ -1,4 +1,22 @@
 {
+    "cache/adapter-bundle": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.1",
+            "ref": "d6a6e45b7f0f84bde524532d9118bab1f40fe33a"
+        },
+        "files": [
+            "./config/packages/cache_adapter.yaml"
+        ]
+    },
+    "cache/adapter-common": {
+        "version": "1.1.0"
+    },
+    "cache/array-adapter": {
+        "version": "1.0.1"
+    },
     "cache/cache-bundle": {
         "version": "1.0",
         "recipe": {
@@ -10,6 +28,15 @@
         "files": [
             "./config/packages/cache.yaml"
         ]
+    },
+    "cache/filesystem-adapter": {
+        "version": "1.0.0"
+    },
+    "cache/hierarchical-cache": {
+        "version": "1.0.0"
+    },
+    "cache/namespaced-cache": {
+        "version": "1.0.0"
     },
     "cache/session-handler": {
         "version": "1.0.0"
@@ -129,6 +156,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v2.2.1"
     },
+    "league/flysystem": {
+        "version": "1.0.51"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -143,6 +173,18 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.2"
+    },
+    "oneup/flysystem-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0eb87bba411c227da027fe5f7c1dc7954b02f242"
+        },
+        "files": [
+            "./config/packages/oneup_flysystem.yaml"
+        ]
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -181,6 +223,9 @@
         ]
     },
     "smart-core/db-dumper-bundle": {
+        "version": "dev-master"
+    },
+    "smart-core/felib-bundle": {
         "version": "dev-master"
     },
     "smart-core/html-bundle": {
