@@ -88,7 +88,11 @@ class ContextManager
         $siteSwitcher = [];
         $sites = $em->getRepository('CMSBundle:Site')->findBy(['is_enabled' => true], ['position' => 'ASC', 'name' => 'ASC']);
 
-        $rewriteSiteDomains = $this->container->getParameter('cms_sites_domains');
+        if ($this->container->hasParameter('cms_sites_domains')) {
+            $rewriteSiteDomains = $this->container->getParameter('cms_sites_domains');
+        } else {
+            $rewriteSiteDomains = [];
+        }
 
         foreach ($sites as $site) {
             $siteSwitcher[$site->getId()] = [

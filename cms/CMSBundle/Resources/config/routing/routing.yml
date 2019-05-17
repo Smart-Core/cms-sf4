@@ -14,9 +14,9 @@ controllers:
 #    resource: routing_api.yml
 #    prefix: /%cms_api%/
 
-#cms_admin:
-#    resource: routing_admin.yml
-#    prefix: /%admin_path%/
+cms_admin:
+    resource: routing_admin.yml
+    prefix: /%admin_path%/
 
 #elfinder:
 #    resource: '@FMElfinderBundle/Resources/config/routing.yml'

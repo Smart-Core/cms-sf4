@@ -38,13 +38,17 @@ class CMSBundle extends Bundle
         $container->addCompilerPass(new DeprecationsFixesCompilerPass(), PassConfig::TYPE_AFTER_REMOVING);
 //        $container->addCompilerPass(new DefaultRegionCreatorPass(), PassConfig::TYPE_AFTER_REMOVING);
 //        $container->addCompilerPass(new PermissionsPass(), PassConfig::TYPE_AFTER_REMOVING);
-
     }
 
     public function getThemeDir()
     {
-        //$currentTheme = $this->container->get('cms.context')->getSite()->getTheme();
+        if (empty($this->container->get('cms.context')->getSite())) {
+            $currentTheme = 'default';
+        } else {
+            $currentTheme = $this->container->get('cms.context')->getSite()->getTheme();
+        }
 
-        //return $this->container->getParameter('kernel.project_dir').'/themes/'.$currentTheme;
+
+        return $this->container->getParameter('kernel.project_dir').'/themes/'.$currentTheme;
     }
 }
