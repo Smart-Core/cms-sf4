@@ -27,4 +27,5 @@ return [
     Sonata\IntlBundle\SonataIntlBundle::class => ['all' => true],
     SmartCore\Bundle\SimpleProfilerBundle\SmartSimpleProfilerBundle::class => ['all' => true],
     Liip\ThemeBundle\LiipThemeBundle::class => ['all' => true],
+    Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
 ];

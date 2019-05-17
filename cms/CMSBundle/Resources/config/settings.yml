@@ -1,3 +1,6 @@
+instance_uid:
+    value: ''
+    hidden: true
 appearance_editor:
     type: ChoiceType
     choices:
@@ -10,8 +13,9 @@ timezone:
     #title: Timezone
     type: TimezoneType
     value: Europe/Moscow
+html_title_delimiter: '&ndash;'
 site_full_name: Monolith CMS
-site_short_name: Monolith CMS
+site_short_name: Monolith CMSS
 enable_node_cache:
     type: CheckboxType
     value: true

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Monolith\CMSBundle\Module\ModuleBundle;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\ConfigCache;
@@ -27,6 +28,8 @@ class Kernel extends BaseKernel
                 yield new $class();
             }
         }
+
+        //$this->registerMonolithCmsBundles($bundles);
     }
 
     public function getProjectDir(): string
@@ -55,6 +58,24 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 
+    // ======================================================================================================
+
+    /** @var string  */
+    protected $siteName = null;
+
+    /** @var ModuleBundle[] */
+    protected $modules = [];
+
+    /**
+     * Получить список подключенных модулей CMS.
+     *
+     * @return \Monolith\CMSBundle\Module\ModuleBundle[]
+     */
+    public function getModules(): array
+    {
+        return $this->modules;
+    }
+
     /**
      * Для Setting Bundle необходимо отслеживать момент сборки контейнера, чтобы синхронизировать настройки из конфигов с БД.
      *
@@ -68,5 +89,23 @@ class Kernel extends BaseKernel
         $container = require $cache->getPath();
         $container->set('kernel', $this);
         $container->get('settings')->warmupDatabase();
+    }
+
+    /**
+     * Prepares the ContainerBuilder before it is compiled.
+     *
+     * @param ContainerBuilder $container A ContainerBuilder instance
+     */
+    protected function prepareContainer(ContainerBuilder $container): void
+    {
+        parent::prepareContainer($container);
+
+        $modulesPaths = [];
+        foreach ($this->modules as $module) {
+            $modulesPaths[$module->getShortName()] = $module->getPath();
+        }
+
+        $container->setParameter('monolith_cms.modules_paths', $modulesPaths);
+        $container->setParameter('monolith_cms.site_name', $this->siteName);
     }
 }

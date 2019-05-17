@@ -13,7 +13,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/%admin_path%/", name="cms_admin_index", methods={"GET"})
      */
-    public function index(Request $request, string $slug = '', array $options = null)
+    public function indexAction(Request $request, string $slug = '', array $options = null)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             return $this->render('@CMS/Admin/login.html.twig');

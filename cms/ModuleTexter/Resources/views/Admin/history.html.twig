@@ -1,0 +1,58 @@
+{% extends '@TexterModule/Admin/index.html.twig' %}
+
+{% set felib = felib_use('jquery-colorbox') %}
+
+{% block content %}
+<div class="box box-primary">
+    <div class="box-header with-border">
+
+        <h3>История изменений текста: <a href="{{ path('monolith_module.texter.admin.edit', {'id': item.id}) }}">#{{ item.id }}</a></h3>
+
+        <a href="{{ path('monolith_module.texter.admin') }}">
+            <i class="fa fa-arrow-circle-o-left"></i>
+            Назад к списку всех текстов.
+        </a>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>{{ 'Date'|trans }}</th>
+                <th>{{ 'Text'|trans }}</th>
+                <th>{{ 'Action'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items_history %}
+                <tr>
+                    <td>{{ item.createdAt|format_datetime }}</td>
+                    <td>
+                        <a class="history_view_{{ loop.index }}" href="{{ path('monolith_module.texter.admin.history_view', {'id': item.id}) }}">{{ item.announce }}</a>
+
+                        <script>
+                            $(document).ready(function(){
+                                $('.history_view_{{ loop.index }}').colorbox({
+                                    iframe:true,
+                                    width:'60%',
+                                    initialWidth:'60%',
+                                    height:'85%',
+                                    initialHeight:'85%',
+                                    speed: 100,
+                                    fadeOut: 200,
+                                    opacity: 0.7
+                                });
+                            });
+                        </script>
+
+                    </td>
+                    <td>
+                        <a href="{{ path('monolith_module.texter.admin.rollback', {'id': item.id}) }}" title=""><i class="icon-forward"></i><span class="glyphicon glyphicon-forward" aria-hidden="true"></span>Откатить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock content %}

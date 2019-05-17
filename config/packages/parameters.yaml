@@ -1,7 +1,10 @@
+# @todo переместить в CMSBundle
 parameters:
     admin_path: admin
     user_path: user
     mailer_user: test@mail.com
     user_class: App\Entity\User
-    liip_theme.filesystem_loader.class: Monolith\CMSBundle\Twig\Loader\FilesystemLoader # @todo переместить в CMSBundle
-    # sonata.intl.timezone_detector.chain.class: Monolith\CMSBundle\Timezone\SonataChainTimezoneDetector # @todo переместить в CMSBundle
+    liip_theme.filesystem_loader.class: Monolith\CMSBundle\Twig\Loader\FilesystemLoader
+    sonata.intl.timezone_detector.chain.class: Monolith\CMSBundle\Timezone\SonataChainTimezoneDetector
+    router.class: Monolith\CMSBundle\Router\NodeRouter
+    router.options.generator_dumper_class: Monolith\CMSBundle\Router\PhpGeneratorDumper

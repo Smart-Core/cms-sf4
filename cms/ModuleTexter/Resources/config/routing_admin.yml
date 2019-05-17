@@ -1,0 +1,33 @@
+
+monolith_module.texter.admin:
+    path: /
+    defaults:
+        _controller: TexterModuleBundle:Admin:index
+
+monolith_module.texter.admin.history:
+    path: /{id}/history/
+    defaults:
+        _controller: TexterModuleBundle:Admin:history
+    requirements:
+        id: \d+
+
+monolith_module.texter.admin.history_view:
+    path: /{id}/history/view/
+    defaults:
+        _controller: TexterModuleBundle:Admin:historyView
+    requirements:
+        id: \d+
+
+monolith_module.texter.admin.rollback:
+    path: /rollback/{id}/
+    defaults:
+        _controller: TexterModuleBundle:Admin:rollback
+    requirements:
+        id: \d+
+
+monolith_module.texter.admin.edit:
+    path: /{id}/
+    defaults:
+        _controller: TexterModuleBundle:Admin:item
+    requirements:
+        id: \d+

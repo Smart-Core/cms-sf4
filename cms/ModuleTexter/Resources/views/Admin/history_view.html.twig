@@ -1,0 +1,23 @@
+{% extends '@Html/base.html.twig' %}
+
+{% set use_libs = {
+    'bootstrap': '3',
+} %}
+
+{% block body %}
+    <div class="wrapper">
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#html" aria-controls="home" role="tab" data-toggle="tab">HTML</a></li>
+            <li role="presentation"><a href="#source" aria-controls="profile" role="tab" data-toggle="tab">Source</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="html">{{ item_history.text }}</div>
+            <div role="tabpanel" class="tab-pane" id="source">
+                <textarea class="focused" autofocus="autofocus" style="width: 96%;" rows="30">{{ item_history.text|raw }}</textarea>
+            </div>
+        </div>
+
+    </div>
+{% endblock body %}

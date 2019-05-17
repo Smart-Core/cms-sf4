@@ -1,0 +1,16 @@
+{
+    "name": "monolith-software/module-texter",
+    "type": "monolith-cms-module",
+    "homepage": "http://monolith-cms.com",
+    "description": "Store and edit text blocks.",
+    "keywords": ["text", "document"],
+    "version": "v0.2",
+    "time": "2017-11-31",
+    "license": "MIT",
+    "extra": {
+        "description_ru": "Текстовые блоки"
+    },
+    "autoload": {
+        "psr-4": { "Monolith\\Module\\Texter\\": "" }
+    }
+}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle;
 
+use Monolith\CMSBundle\Container;
 use Monolith\CMSBundle\DependencyInjection\Compiler\ChangeRouterClassPass;
 use Monolith\CMSBundle\DependencyInjection\Compiler\DefaultRegionCreatorPass;
 use Monolith\CMSBundle\DependencyInjection\Compiler\DeprecationsFixesCompilerPass;
@@ -18,6 +19,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class CMSBundle extends Bundle
 {
+    public function boot(): void
+    {
+        Container::setContainer($this->container);
+    }
+
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
@@ -27,9 +33,9 @@ class CMSBundle extends Bundle
 //        $container->addCompilerPass(new ChangeRouterClassPass());
         $container->addCompilerPass(new TwigLoaderPass());
         $container->addCompilerPass(new LiipThemeLocatorsPass());
-//        $container->addCompilerPass(new ModulesRoutingResolverPass());
-//        $container->addCompilerPass(new FormPass());
-//        $container->addCompilerPass(new DeprecationsFixesCompilerPass(), PassConfig::TYPE_AFTER_REMOVING);
+        $container->addCompilerPass(new ModulesRoutingResolverPass());
+        $container->addCompilerPass(new FormPass());
+        $container->addCompilerPass(new DeprecationsFixesCompilerPass(), PassConfig::TYPE_AFTER_REMOVING);
 //        $container->addCompilerPass(new DefaultRegionCreatorPass(), PassConfig::TYPE_AFTER_REMOVING);
 //        $container->addCompilerPass(new PermissionsPass(), PassConfig::TYPE_AFTER_REMOVING);
 

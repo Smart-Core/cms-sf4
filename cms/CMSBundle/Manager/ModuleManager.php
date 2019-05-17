@@ -11,6 +11,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class ModuleManager
 {
@@ -29,7 +30,7 @@ class ModuleManager
      *
      * @param CMSAppKernel $kernel
      */
-    public function __construct(CMSAppKernel $kernel)
+    public function __construct(KernelInterface $kernel)
     {
         $this->kernel  = $kernel;
         $this->modules = $kernel->getModules();
@@ -88,7 +89,7 @@ class ModuleManager
 
         // 2) Подключение модуля.
         $modulesList = $this->kernel->getModules();
-        $modulesList['Example'] = '\Monolith\Module\Example\ExampleModule'; // @todo ['class'] and ['path']
+        $modulesList['Example'] = '\Monolith\ModuleExample\ExampleModule'; // @todo ['class'] and ['path']
         ksort($modulesList);
 
         $modulesIni = '';

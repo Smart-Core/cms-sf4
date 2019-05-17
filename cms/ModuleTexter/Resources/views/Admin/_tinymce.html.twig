@@ -1,0 +1,29 @@
+{% extends '@TexterModule/Admin/index.html.twig' %}
+
+{% block body_js %}
+    {{ parent() }}
+
+    {{ elfinder_tinymce_init4('tinymce4', {'width': 980, 'height': 430, 'title': 'Файловый менеджер' }) }}
+    {{ tinymce_init() }}
+
+    <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+            $(this.hash + ' input.focused').focus();
+            tinyMCE.get($(this.hash + ' textarea').attr('id')).getBody().focus();
+        });
+
+        $().ready(function() {
+            var $window = $(window);
+
+            $window.resize(function(){
+                var $win_height = $window.height() - 350;
+
+                tinyMCE.activeEditor.theme.resizeTo('100%', $win_height);
+            });
+
+            tinyMCE.DOM.setStyle(tinyMCE.DOM.get($('.wysiwyg').attr('id')), 'height', $window.height() - 350 + 'px');
+        });
+    </script>
+{% endblock body_js %}
