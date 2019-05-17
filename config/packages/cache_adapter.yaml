@@ -2,7 +2,14 @@ cache_adapter:
     providers:
         default:
             factory: cache.factory.array
-        smart_felib:
+        smart_felib: # @todo переместить в SettingsBundle
+            factory: cache.factory.array
+            # Constructing service "oneup_flysystem.default_filesystem" from a parent definition is not supported at build time.
+            #factory: "cache.factory.filesystem"
+            #options:
+                #flysystem_service: 'oneup_flysystem.default_filesystem'
+                #flysystem_service: 'app.my_filesystem'
+        monolith_cms_fs: # @todo переместить в CMSBundle
             factory: cache.factory.array
             # Constructing service "oneup_flysystem.default_filesystem" from a parent definition is not supported at build time.
             #factory: "cache.factory.filesystem"
