@@ -18,4 +18,5 @@ return [
     ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
     FOS\UserBundle\FOSUserBundle::class => ['all' => true],
     SmartCore\Bundle\DbDumperBundle\SmartDbDumperBundle::class => ['all' => true],
+    Monolith\Bundle\CMSBundle\CMSBundle::class => ['all' => true],
 ];
