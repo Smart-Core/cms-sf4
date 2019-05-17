@@ -13,6 +13,7 @@
         "ext-mbstring": "*",
         "ext-xml": "*",
         "api-platform/api-pack": "^1.2",
+        "cache/cache-bundle": "^1.1",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^5.0",

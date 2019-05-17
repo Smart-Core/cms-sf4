@@ -19,4 +19,5 @@ return [
     FOS\UserBundle\FOSUserBundle::class => ['all' => true],
     SmartCore\Bundle\DbDumperBundle\SmartDbDumperBundle::class => ['all' => true],
     Monolith\Bundle\CMSBundle\CMSBundle::class => ['all' => true],
+    Cache\CacheBundle\CacheBundle::class => ['all' => true],
 ];
