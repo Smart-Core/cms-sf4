@@ -231,6 +231,9 @@
     "smart-core/html-bundle": {
         "version": "dev-master"
     },
+    "sonata-project/intl-bundle": {
+        "version": "2.6.0"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },

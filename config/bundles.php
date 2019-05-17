@@ -24,4 +24,5 @@ return [
     SmartCore\Bundle\FelibBundle\FelibBundle::class => ['all' => true],
     SmartCore\Bundle\SettingsBundle\SmartSettingsBundle::class => ['all' => true],
     Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],
+    Sonata\IntlBundle\SonataIntlBundle::class => ['all' => true],
 ];
