@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\Bundle\CMSBundle\Entity;
+namespace Monolith\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Smart\CoreBundle\Doctrine\ColumnTrait;

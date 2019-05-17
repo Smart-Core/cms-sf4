@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\Bundle\CMSBundle\Entity;
+namespace Monolith\CMSBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

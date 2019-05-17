@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\Bundle\CMSBundle\Entity;
+namespace Monolith\CMSBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +12,7 @@ use Monolith\Bundle\CMSBundle\Tools\FrontControl;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Monolith\Bundle\CMSBundle\Repository\NodeRepository")
+ * @ORM\Entity(repositoryClass="Monolith\CMSBundle\Repository\NodeRepository")
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="cms_nodes",
  *      indexes={

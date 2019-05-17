@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\Bundle\CMSBundle\Entity;
+namespace Monolith\CMSBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="Monolith\Bundle\CMSBundle\Repository\FolderRepository")
+ * @ORM\Entity(repositoryClass="Monolith\CMSBundle\Repository\FolderRepository")
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="cms_folders",
  *      indexes={

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\Bundle\CMSBundle;
+namespace Monolith\CMSBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;

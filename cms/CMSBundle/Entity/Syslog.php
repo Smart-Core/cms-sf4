@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Monolith\Bundle\CMSBundle\Entity;
+namespace Monolith\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
 
 /**
- * @ORM\Entity(repositoryClass="Monolith\Bundle\CMSBundle\Repository\SyslogRepository")
+ * @ORM\Entity(repositoryClass="Monolith\CMSBundle\Repository\SyslogRepository")
  * @ORM\Table(name="cms_syslog",
  *      indexes={
  *          @ORM\Index(columns={"created_at"}),
