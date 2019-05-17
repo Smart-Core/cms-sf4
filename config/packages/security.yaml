@@ -1,24 +1,67 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        FOS\UserBundle\Model\UserInterface:
+            algorithm: 'argon2i'
+            cost:      30
+
     providers:
-        in_memory: { memory: ~ }
+        #in_memory: { memory: ~ }
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            anonymous: ~
+            context: monolith_cms
+            pattern: ^/%admin_path%
+            form_login:
+                check_path: /%admin_path%/login_check
+                login_path: /%admin_path%/
+                default_target_path: /%admin_path%/
+            logout:
+                path: /%admin_path%/logout
+            remember_me:
+                secret: "%env(APP_SECRET)%"
+                name: REMEMBER_ME
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~
         main:
-            anonymous: true
-
-            # activate different ways to authenticate
-
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
+            anonymous: ~
+            context: monolith_cms
+            pattern: ^/
+            form_login:
+                # csrf_provider: form.csrf_provider # @deprecated in 3.x
+                check_path: /%user_path%/login_check
+                login_path: /%user_path%/
+                default_target_path: /%user_path%/
+            logout:
+                path: /%user_path%/logout
+            remember_me:
+                secret: "%env(APP_SECRET)%"
+                name: REMEMBER_ME
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/_assistant/, roles: ROLE_ADMIN }
+        - { path: ^/%admin_path%/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%admin_path%/resetting$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%admin_path%/system/config/, role: ROLE_ADMIN_CONFIG }
+        - { path: ^/%admin_path%, roles: ROLE_ADMIN }
+        - { path: ^/efconnect, role: ROLE_FILEMANAGER }
+        - { path: ^/elfinder, role: ROLE_FILEMANAGER }
+        - { path: ^/%user_path%/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%user_path%/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%user_path%/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%user_path%, roles: ROLE_USER }

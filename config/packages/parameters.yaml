@@ -1,0 +1,5 @@
+parameters:
+    admin_path: admin
+    user_path: user
+    mailer_user: test@mail.com
+    user_class: App\Entity\User
