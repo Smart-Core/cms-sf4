@@ -45,7 +45,8 @@
         "psr-4": {
             "App\\": "src/",
             "Monolith\\Bundle\\": "cms/",
-            "Monolith\\Module\\": "cms/"
+            "Monolith\\Module\\": "cms/",
+            "Smart\\": "cms/Smart/"
         }
     },
     "autoload-dev": {
