@@ -4,35 +4,32 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Cache;
 
-use Cache\TagInterop\TaggableCacheItemInterface;
-use Cache\TagInterop\TaggableCacheItemPoolInterface;
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Component\Cache\CacheItem;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
-/**
- * @deprecated
- */
-class CacheWrapper
+class CmsCacheProvider
 {
-    /**
-     * @var TaggableCacheItemPoolInterface
-     */
-    protected $provider;
+    /** @var TagAwareAdapter */
+    protected $pool;
 
     /**
-     * CacheWrapper constructor.
+     * CmsCacheProvider constructor.
      *
-     * @param TaggableCacheItemPoolInterface $provider
+     * @param TagAwareCacheInterface $pool
      */
-    public function __construct(TaggableCacheItemPoolInterface $provider)
+    public function __construct(TagAwareCacheInterface $pool)
     {
-        $this->provider = $provider;
+        $this->pool = $pool;
     }
 
     /**
-     * @return TaggableCacheItemPoolInterface
+     * @return TagAwareAdapter
      */
-    public function getProvider(): TaggableCacheItemPoolInterface
+    public function getPool(): TagAwareAdapter
     {
-        return $this->provider;
+        return $this->pool;
     }
 
     /**
@@ -45,18 +42,19 @@ class CacheWrapper
      */
     public function set(string $key, $value, array $tags = [], $ttl = null)
     {
-        $item = $this->provider->getItem($key);
+        /** @var CacheItem $item */
+        $item = $this->pool->getItem($key);
         $item->set($value);
 
         if (!empty($tags)) {
-            $item->setTags($tags);
+            $item->tag($tags);
         }
 
         if (!empty($ttl)) {
             $item->expiresAfter($ttl);
         }
 
-        $this->provider->save($item);
+        $this->pool->save($item);
     }
 
     /**
@@ -68,7 +66,7 @@ class CacheWrapper
      */
     public function get(string $key)
     {
-        return $this->provider->getItem($key)->get();
+        return $this->pool->getItem($key)->get();
     }
 
     /**
@@ -79,20 +77,18 @@ class CacheWrapper
     public function delete($keys): bool
     {
         if (is_array($keys)) {
-            return $this->provider->deleteItems($keys);
+            return $this->pool->deleteItems($keys);
         }
 
-        return $this->provider->deleteItem($keys);
+        return $this->pool->deleteItem($keys);
     }
 
     /**
      * @param string $key
-     *
-     * @return TaggableCacheItemInterface
      */
-    public function getItem(string $key): TaggableCacheItemInterface
+    public function getItem(string $key)
     {
-        return $this->provider->getItem($key);
+        return $this->pool->getItem($key);
     }
 
     /**
@@ -102,7 +98,7 @@ class CacheWrapper
      */
     public function getItemTags(string $key): array
     {
-        return $this->provider->getItem($key)->getPreviousTags();
+        return $this->pool->getItem($key)->getMetadata();
     }
 
     /**
@@ -112,7 +108,7 @@ class CacheWrapper
      */
     public function invalidateTag(string $tag): bool
     {
-        return $this->provider->invalidateTag($tag);
+        return $this->pool->invalidateTag($tag);
     }
 
     /**
@@ -122,7 +118,7 @@ class CacheWrapper
      */
     public function invalidateTags(array $tags): bool
     {
-        return $this->provider->invalidateTags($tags);
+        return $this->pool->invalidateTags($tags);
     }
 
     /**
@@ -130,6 +126,6 @@ class CacheWrapper
      */
     public function clear()
     {
-        return $this->provider->clear();
+        return $this->pool->clear();
     }
 }

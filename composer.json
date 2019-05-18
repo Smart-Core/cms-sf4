@@ -58,7 +58,8 @@
             "Doctrine\\ORM\\": "cms/CMSBundle/Doctrine/ORM",
             "Monolith\\": "cms/",
             "Smart\\": "cms/Smart/",
-            "SmartCore\\Bundle\\SettingsBundle\\": "cms/SettingsBundle/"
+            "SmartCore\\Bundle\\SettingsBundle\\": "cms/SettingsBundle/",
+            "SmartCore\\Bundle\\SmartSimpleProfilerBundle\\": "cms/SimpleProfilerBundle/"
         }
     },
     "autoload-dev": {

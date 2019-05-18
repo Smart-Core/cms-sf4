@@ -28,6 +28,18 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @param string $slug
+     *
+     * @return Response
+     */
+    public function notFoundAction(string $slug = '')
+    {
+        return $this->render('@CMS/Admin/dashboard.html.twig', [
+            'slug' => $slug,
+        ]);
+    }
+
+    /**
      * Render Elfinder FileManager.
      *
      * @return Response

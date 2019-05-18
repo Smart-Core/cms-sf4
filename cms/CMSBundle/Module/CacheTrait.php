@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Module;
 
-use Monolith\CMSBundle\Cache\CacheWrapper;
+use Monolith\CMSBundle\Cache\CmsCacheProvider;
 
 trait CacheTrait
 {
     /**
-     * @return CacheWrapper
+     * @return CmsCacheProvider
      */
-    protected function getCacheService(): CacheWrapper
+    protected function getCacheService(): CmsCacheProvider
     {
         return $this->get('cms.cache');
     }

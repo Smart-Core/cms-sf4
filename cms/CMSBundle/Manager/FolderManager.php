@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Manager;
 
-use Monolith\CMSBundle\Cache\CacheWrapper;
+use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Form\Type\FolderFormType;
 use Monolith\CMSBundle\Repository\FolderRepository;
@@ -17,22 +17,20 @@ class FolderManager
 {
     use ContainerAwareTrait;
 
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
+    /** @var \Doctrine\ORM\EntityManager */
     protected $em;
 
-    /**
-     * @var FolderRepository
-     */
+    /** @var FolderRepository|\Doctrine\ORM\EntityRepository  */
     protected $repository;
 
     /**
-     * @var CacheWrapper
+     * @var CmsCacheProvider
      */
     protected $cache;
 
     /**
+     * FolderManager constructor.
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)

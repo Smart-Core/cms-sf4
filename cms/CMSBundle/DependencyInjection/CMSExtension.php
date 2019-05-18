@@ -39,7 +39,7 @@ class CMSExtension extends Extension
     protected function createCacheService(ContainerBuilder $container, string $cache_proviver_id): void
     {
         $definition = new Definition(
-            'Monolith\\CMSBundle\\Cache\\CacheWrapper', [
+            'Monolith\\CMSBundle\\Cache\\CmsCacheProvider', [
                 new Reference($cache_proviver_id),
             ]
         );

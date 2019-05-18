@@ -7,6 +7,7 @@ namespace Monolith\CMSBundle\Manager;
 use Doctrine\ORM\EntityManager;
 use Monolith\CMSBundle\Annotation\NodePropertiesForm;
 use Monolith\CMSBundle\Cache\CacheWrapper;
+use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\CMSAppKernel;
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\Node;
@@ -87,7 +88,7 @@ class NodeManager
     protected $is_just_created = false;
 
     /**
-     * @var CacheWrapper
+     * @var CmsCacheProvider
      */
     protected $cache;
 
@@ -96,14 +97,14 @@ class NodeManager
      * @param FormFactoryInterface $formFactory
      * @param KernelInterface $kernel
      * @param ContextManager $context
-     * @param CacheWrapper $cache
+     * @param CmsCacheProvider $cache
      */
     public function __construct(
         EntityManager $em,
         FormFactoryInterface $formFactory,
         KernelInterface $kernel,
         ContextManager $context,
-        CacheWrapper $cache
+        CmsCacheProvider $cache
     ) {
         $this->context      = $context;
         $this->em           = $em;

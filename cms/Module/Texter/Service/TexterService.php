@@ -3,13 +3,13 @@
 namespace Monolith\Module\Texter\Service;
 
 use Doctrine\ORM\EntityManager;
-use Monolith\CMSBundle\Cache\CacheWrapper;
+use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\Module\Texter\Entity\TextItem;
 
 class TexterService
 {
     /**
-     * @var CacheWrapper
+     * @var CmsCacheProvider
      */
     protected $cache;
 
@@ -21,10 +21,10 @@ class TexterService
     /**
      * TexterService constructor.
      *
-     * @param CacheWrapper  $cache
+     * @param CmsCacheProvider  $cache
      * @param EntityManager $em
      */
-    public function __construct(CacheWrapper $cache, EntityManager $em)
+    public function __construct(CmsCacheProvider $cache, EntityManager $em)
     {
         $this->cache = $cache;
         $this->em    = $em;

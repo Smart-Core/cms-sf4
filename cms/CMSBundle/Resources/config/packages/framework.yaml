@@ -1,9 +1,3 @@
 framework:
     templating:
         engines: ['twig', 'php']
-    cache:
-        pools:
-            cms_cache_pool:
-                adapter: cache.adapter.filesystem
-                tags: true
-                public: true

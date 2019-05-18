@@ -39,10 +39,10 @@ node_w_slug: # @deprecated
 
 
 # @todo
-help:
-    path: /help/
-    defaults:
-        _controller: CMSBundle:Admin:notFound
+#help:
+#    path: /help/
+#    defaults:
+#        _controller: CMSBundle:Admin:notFound
 
 
 # ... other
