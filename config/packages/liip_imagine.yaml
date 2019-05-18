@@ -2,20 +2,3 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
-    # @todo переместить в CMSBundle
-    filter_sets: # Важно! символ подчеркивание игнорируется, а минус преобразуется в подчеркивание.
-        100x100:
-            format: jpeg
-            quality: 100
-            filters:
-                thumbnail: { size: [100, 100], mode: inset }
-        200x200:
-            format: jpeg
-            quality: 100
-            filters:
-                thumbnail: { size: [200, 200], mode: inset }
-        300x300:
-            format: jpeg
-            quality: 100
-            filters:
-                thumbnail: { size: [300, 300], mode: inset }

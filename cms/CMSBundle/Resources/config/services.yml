@@ -1,5 +1,8 @@
-#parameters:
-#    admin_path: admin
+#imports:
+#    - { resource: packages/*.yaml }
+
+parameters:
+    admin_path: admin2
 #    user_path: user
 #    mailer_user: test@mail.com
 #    liip_theme.filesystem_loader.class: Monolith\CMSBundle\Twig\Loader\FilesystemLoader

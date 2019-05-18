@@ -1,4 +1,3 @@
-# @todo переместить в CMSBundle
 liip_theme:
     #themes: ['web', 'tablet', 'phone']
     #active_theme: ~

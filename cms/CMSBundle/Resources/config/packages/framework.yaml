@@ -1,0 +1,3 @@
+framework:
+    templating: # @todo переместить в CMSBundle
+        engines: ['twig', 'php']
