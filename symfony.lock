@@ -181,6 +181,12 @@
     "monolog/monolog": {
         "version": "1.24.0"
     },
+    "mopa/bootstrap-bundle": {
+        "version": "v3.3.0"
+    },
+    "mopa/composer-bridge": {
+        "version": "v1.5.0"
+    },
     "nikic/php-parser": {
         "version": "v4.2.1"
     },
@@ -262,6 +268,9 @@
     "symfony/cache": {
         "version": "v4.2.8"
     },
+    "symfony/class-loader": {
+        "version": "v3.4.27"
+    },
     "symfony/config": {
         "version": "v4.2.8"
     },
@@ -309,6 +318,9 @@
         "version": "v4.2.8"
     },
     "symfony/event-dispatcher": {
+        "version": "v4.2.8"
+    },
+    "symfony/expression-language": {
         "version": "v4.2.8"
     },
     "symfony/filesystem": {

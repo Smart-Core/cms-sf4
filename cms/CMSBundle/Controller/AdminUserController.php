@@ -38,8 +38,10 @@ class AdminUserController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
 
+        // @todo заменить на %user_class%
+
         return $this->render('@CMS/Admin/User/index.html.twig', [
-            'users' => $em->getRepository('SiteBundle:User')->findBy([], ['id' => 'DESC']),
+            'users' => $em->getRepository('App:User')->findBy([], ['id' => 'DESC']),
         ]);
     }
 

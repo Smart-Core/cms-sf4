@@ -7,6 +7,10 @@
 #    router.options.generator_dumper_class: Monolith\CMSBundle\Router\PhpGeneratorDumper
 
 services:
+    Monolith\CMSBundle\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+
     # Menu selected items
     cms.menu.voter.request:
         class: Monolith\CMSBundle\Menu\RequestVoter

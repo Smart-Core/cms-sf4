@@ -29,4 +29,5 @@ return [
     SmartCore\Bundle\SimpleProfilerBundle\SmartSimpleProfilerBundle::class => ['all' => true],
     Liip\ThemeBundle\LiipThemeBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
+    Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle::class => ['all' => true],
 ];

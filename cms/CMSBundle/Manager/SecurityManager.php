@@ -13,6 +13,7 @@ use Monolith\CMSBundle\Entity\UserGroup;
 use Monolith\CMSBundle\Model\UserModel;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class SecurityManager
@@ -57,7 +58,7 @@ class SecurityManager
 
         $securityChecker = $this->container->get('security.authorization_checker');
 
-        if ($user instanceof UserModel and $securityChecker->isGranted('ROLE_SUPER_ADMIN', $user)) {
+        if ($user instanceof UserInterface and $securityChecker->isGranted('ROLE_SUPER_ADMIN', $user)) {
             return true;
         }
 
@@ -75,7 +76,7 @@ class SecurityManager
      */
     public function getUserPermissions($user): array
     {
-        if ($user instanceof UserModel) {
+        if ($user instanceof UserInterface) {
             if (!isset($this->usersPermissionsCache[$user->getId()])) {
                 $this->createPermissionsMapForUser($user);
             }

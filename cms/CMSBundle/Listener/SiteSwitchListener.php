@@ -51,7 +51,8 @@ class SiteSwitchListener
                     /** @var \Doctrine\ORM\EntityManager $em */
                     $em = $this->container->get('doctrine.orm.entity_manager');
 
-                    $userToLogin = $em->find('SiteBundle:User', $token_data['user_id']);
+                    // @todo заменить на %user_class%
+                    $userToLogin = $em->find('App:User', $token_data['user_id']);
 
                     $this->container->get('fos_user.security.login_manager')->logInUser('main', $userToLogin);
                 }

@@ -5,13 +5,13 @@
 
     <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>
         {% if item.extras.beforeCode is defined and item.extras.beforeCode %}
-            {{ item.extras.beforeCode }}
+            {{ item.extras.beforeCode | raw }}
         {% endif %}
         <span>
             {{ block('label') }}
         </span>
         {% if item.extras.afterCode is defined and item.extras.afterCode %}
-            {{ item.extras.afterCode }}
+            {{ item.extras.afterCode | raw }}
         {% endif %}
     </a>
 {% endblock %}

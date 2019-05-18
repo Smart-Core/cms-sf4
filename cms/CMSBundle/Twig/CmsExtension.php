@@ -228,9 +228,11 @@ class CmsExtension extends AbstractExtension
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->container->get('doctrine.orm.entity_manager');
 
+        // @todo заменить на %user_class%
+
         $query = $em->createQuery('
             SELECT COUNT(u.id)
-            FROM SiteBundle:User AS u
+            FROM App:User AS u
             JOIN u.groups AS g
             WHERE g.id = :group
         ')->setParameter('group', $group);

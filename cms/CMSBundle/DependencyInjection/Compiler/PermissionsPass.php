@@ -8,6 +8,9 @@ use Doctrine\DBAL\Exception\TableNotFoundException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @deprecated need to move in dumpContainer()
+ */
 class PermissionsPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)

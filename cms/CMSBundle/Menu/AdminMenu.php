@@ -33,6 +33,7 @@ class AdminMenu implements ContainerAwareInterface
 
         $menu->addChild('Dashboard',        ['route' => 'cms_admin_index'])->setExtras(['beforeCode' => '<i class="fa fa-dashboard"></i>']);
 
+
         /** @var ModuleBundle $module */
         foreach ($this->container->get('cms.module')->all() as $module) {
             if ($module->isEnabled()) {

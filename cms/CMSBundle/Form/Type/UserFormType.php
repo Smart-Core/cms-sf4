@@ -53,9 +53,9 @@ class UserFormType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
             ])->add('groups', null, [
                 'required'        => false,
-                'expanded'        => true,
-                'multiple'        => true,
-                'choice_translation_domain' => false,
+//                'expanded'        => true, // @todo ???
+//                'multiple'        => true, // @todo ???
+//                'choice_translation_domain' => false, // @todo ???
             ])
         ;
     }

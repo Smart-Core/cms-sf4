@@ -1,0 +1,34 @@
+{
+    "name": "monolith-software/cms-bundle",
+    "description": "Base Bundle of Monolith CMS.",
+    "keywords": ["cmf", "cms", "bundle", "symfony", "symfony4"],
+    "type": "symfony-bundle",
+    "require": {
+        "php": ">=7.2.0",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-xml": "*",
+        "cache/cache-bundle": "^1.1",
+        "knplabs/knp-menu-bundle": "^2.2",
+        "liip/theme-bundle": "^1.6",
+        "mopa/bootstrap-bundle": "^3.3",
+        "sonata-project/intl-bundle": "^2.6",
+        "symfony/expression-language": "^4.2"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "autoload": {
+        "psr-4": {
+            "Monolith\\CMSBundle\\": ""
+        },
+        "files": [
+            "Doctrine/ORM/Utility/IdentifierFlattener.php"
+        ]
+    }
+}

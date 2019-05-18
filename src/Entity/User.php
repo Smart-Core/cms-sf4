@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use Monolith\CMSBundle\Model\UserModel;
 use Doctrine\ORM\Mapping as ORM;
-use Smart\CoreBundle\Doctrine\ColumnTrait;
-
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class User extends BaseUser
+class User extends UserModel
 {
-    use ColumnTrait\CreatedAt;
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

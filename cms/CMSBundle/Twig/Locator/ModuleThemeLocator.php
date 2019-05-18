@@ -42,7 +42,7 @@ class ModuleThemeLocator extends FileLocator
         //dump($this->kernel->getBundle('CMSBundle')->getThemeDir());
 //        die;
 
-//        $parameters['%theme_dir%']    = $this->kernel->getBundle('CMSBundle')->getThemeDir();
+        $parameters['%theme_dir%']    = $this->kernel->getBundle('CMSBundle')->getThemeDir();
 //        $parameters['%site_dir%']     = $this->kernel->getBundle('SiteBundle')->getPath().'/Resources';
         $parameters['%cms_dir%']      = $this->kernel->getBundle('CMSBundle')->getPath().'/Resources';
         $parameters['%module_theme%'] = $this->moduleTheme;

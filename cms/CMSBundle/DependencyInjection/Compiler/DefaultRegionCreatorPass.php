@@ -14,6 +14,7 @@ class DefaultRegionCreatorPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
+        // @todo убрать в другое место, потому что зависит от сайта
         $container->get('cms.region')->checkForDefault();
     }
 }

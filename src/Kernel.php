@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Doctrine\DBAL\Exception\TableNotFoundException;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -112,6 +113,16 @@ class Kernel extends BaseKernel
         $container = require $cache->getPath();
         $container->set('kernel', $this);
         $container->get('settings')->warmupDatabase();
+
+        // @todo убрать в другое место, потому что зависит от сайта
+        $container->get('cms.region')->checkForDefault();
+
+        try {
+            $container->get('cms.security')->warmupDatabase();
+            $container->get('cms.security')->checkDefaultUserGroups();
+        } catch (TableNotFoundException $e) {
+            // @todo
+        }
     }
 
     /**
