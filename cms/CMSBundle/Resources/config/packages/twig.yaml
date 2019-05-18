@@ -1,2 +1,3 @@
 twig:
-    strict_variables: false # @todo пока только так, потому что требуется для mopa/bootstrap-bundle
+    strict_variables: false
+    autoescape:       false

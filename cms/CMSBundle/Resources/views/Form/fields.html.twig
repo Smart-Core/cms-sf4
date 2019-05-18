@@ -39,7 +39,7 @@
                     {% set choice_translation_domain = translation_domain %}
                 {% endif %}
 
-                {{ choice_translation_domain is same as(false) ? placeholder : placeholder|trans({}, choice_translation_domain) }}
+                {{ choice_translation_domain is same as(false) ? placeholder|raw : placeholder|raw|trans({}, choice_translation_domain) }}
             </option>
         {%- endif -%}
         {%- if preferred_choices|length > 0 -%}
@@ -73,7 +73,7 @@
                     {% set choice_translation_domain = translation_domain %}
                 {% endif %}
 
-                {{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}
+                {{ choice_translation_domain is same as(false) ? choice.label|raw : choice.label|raw|trans({}, choice_translation_domain) }}
             </option>
         {%- endif -%}
     {% endfor %}

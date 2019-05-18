@@ -3,3 +3,4 @@ twig:
     debug: '%kernel.debug%'
 #    strict_variables: '%kernel.debug%'
     strict_variables: false # @todo пока только так, потому что требуется для mopa/bootstrap-bundle
+#    autoescape:       false
