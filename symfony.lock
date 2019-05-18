@@ -302,6 +302,9 @@
     "smart-core/html-bundle": {
         "version": "dev-master"
     },
+    "smart-core/seo-bundle": {
+        "version": "dev-master"
+    },
     "smart-core/simple-profiler-bundle": {
         "version": "dev-master"
     },

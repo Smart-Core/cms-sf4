@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Manager;
 
 use Doctrine\DBAL\Exception\TableNotFoundException;
-use Doctrine\ORM\ORMException;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Monolith\CMSBundle\Entity\Domain;
-use Monolith\CMSBundle\Entity\Language;
 use Monolith\CMSBundle\Entity\Site;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;

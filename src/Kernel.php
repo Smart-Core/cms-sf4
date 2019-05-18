@@ -109,10 +109,14 @@ class Kernel extends BaseKernel
     {
         parent::dumpContainer($cache, $container, $class, $baseClass);
 
+
         /** @var ContainerInterface $container */
         $container = require $cache->getPath();
         $container->set('kernel', $this);
+
         $container->get('settings')->warmupDatabase();
+
+        $container->get('cms.site')->init();
 
         // @todo убрать в другое место, потому что зависит от сайта
         $container->get('cms.region')->checkForDefault();

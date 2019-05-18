@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8610f09d921e538bc66c6b1b938892f",
+    "content-hash": "f5fb3a5c36c720fbfb74bec1c53b93bf",
     "packages": [
         {
             "name": "cache/adapter-bundle",
@@ -4187,6 +4187,47 @@
             "time": "2019-05-17T09:10:35+00:00"
         },
         {
+            "name": "smart-core/seo-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Smart-Core/SeoBundle.git",
+                "reference": "e7ecedaad34723146b269f15cbf5b847bb282177"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Smart-Core/SeoBundle/zipball/e7ecedaad34723146b269f15cbf5b847bb282177",
+                "reference": "e7ecedaad34723146b269f15cbf5b847bb282177",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SmartCore\\Bundle\\SeoBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Artem Ryzhkov",
+                    "email": "artem@smart-core.org",
+                    "homepage": "http://smart-core.org"
+                }
+            ],
+            "description": "SmartCore SEO Bundle.",
+            "keywords": [
+                "bundle",
+                "seo"
+            ],
+            "time": "2016-09-23T18:53:55+00:00"
+        },
+        {
             "name": "smart-core/simple-profiler-bundle",
             "version": "dev-master",
             "source": {
@@ -8273,6 +8314,7 @@
         "smart-core/db-dumper-bundle": 20,
         "smart-core/felib-bundle": 20,
         "smart-core/html-bundle": 20,
+        "smart-core/seo-bundle": 20,
         "smart-core/simple-profiler-bundle": 20
     },
     "prefer-stable": false,
