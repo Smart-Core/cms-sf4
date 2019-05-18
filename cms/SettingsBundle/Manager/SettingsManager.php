@@ -2,7 +2,6 @@
 
 namespace SmartCore\Bundle\SettingsBundle\Manager;
 
-use function Couchbase\defaultDecoder;
 use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityRepository;
@@ -45,7 +44,7 @@ class SettingsManager
     /**
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container, CacheProvider $cache)
+    public function __construct(ContainerInterface $container, CacheProvider $cache = null)
     {
         $this->cache     = $cache;
         $this->container = $container;
@@ -160,7 +159,7 @@ class SettingsManager
 
         $cache_key = $this->getCacheKey($bundle, $name, $this->getUserId());
 
-        if (false == $value = $this->cache->fetch($cache_key)) {
+//        if (false == $value = $this->cache->fetch($cache_key)) {
             $this->initRepo();
 
             try {
@@ -194,8 +193,8 @@ class SettingsManager
                 return null;
             }
 
-            $this->cache->save($cache_key, $value);
-        }
+//            $this->cache->save($cache_key, $value);
+//        }
 
         return $value;
     }
@@ -242,7 +241,7 @@ class SettingsManager
                 $this->em->remove($settingPersonal);
                 $this->em->flush($settingPersonal);
 
-                $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
+//                $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
 
                 return true;
             } else {
@@ -256,7 +255,7 @@ class SettingsManager
                 $settingPersonal->setUser($token->getUser());
             }
 
-            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
+//            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
 
             $this->em->persist($settingPersonal);
             $this->em->flush($settingPersonal);
@@ -284,7 +283,7 @@ class SettingsManager
             $this->em->persist($settingPersonal);
             $this->em->flush($settingPersonal);
 
-            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
+//            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
 
             return true;
         }
@@ -319,7 +318,7 @@ class SettingsManager
 
             $cache_key = $this->getCacheKey($setting->getBundle(), $setting->getName(), $this->getUserId());
 
-            $this->cache->delete($cache_key);
+//            $this->cache->delete($cache_key);
 
             return true;
         }
@@ -337,7 +336,7 @@ class SettingsManager
         $this->em->remove($setting);
         $this->em->flush($setting);
 
-        $this->cache->delete($this->getCacheKey($setting->getBundle(), $setting->getName()));
+//        $this->cache->delete($this->getCacheKey($setting->getBundle(), $setting->getName()));
 
         return true;
     }

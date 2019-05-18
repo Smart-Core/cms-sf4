@@ -11,33 +11,40 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
+if (!defined('START_TIME')) {
+    define('START_TIME', microtime(true));
+}
+if (!defined('START_MEMORY')) {
+    define('START_MEMORY', memory_get_usage());
+}
+
 abstract class CMSKernel extends Kernel
 {
     /** @var ModuleBundle[] */
     protected $modules = [];
 
     /**
-     * Получить список подключенных модулей CMS.
+     * Boots the current kernel.
      *
-     * @return \Monolith\CMSBundle\Module\ModuleBundle[]
+     * @api
      */
-    public function getModules(): array
+    public function boot(): void
     {
-        return $this->modules;
+        parent::boot();
+
+        \Profiler::setKernel($this);
     }
 
     /**
-     * @param string $name
+     * Initializes bundles.
      *
-     * @return \Monolith\CMSBundle\Module\ModuleBundle|null
+     * @throws \LogicException if two bundles share a common name
      */
-    public function getModule(string $name): ?ModuleBundle
+    protected function initializeBundles()
     {
-        if (isset($this->modules[$name])) {
-            return $this->modules[$name];
-        }
+        parent::initializeBundles();
 
-        return null;
+        $this->registerCmsModules($this->bundles);
     }
 
     /**
@@ -50,6 +57,10 @@ abstract class CMSKernel extends Kernel
         /** @var ContainerInterface $container */
         $container = require $cache->getPath();
         $container->set('kernel', $this);
+
+        if ($container->has('cache_warmer')) {
+            $container->get('cache_warmer')->warmUp($container->getParameter('kernel.cache_dir'));
+        }
 
         $container->get('settings')->warmupDatabase();
 
@@ -64,18 +75,6 @@ abstract class CMSKernel extends Kernel
         } catch (TableNotFoundException $e) {
             // @todo
         }
-    }
-
-    /**
-     * Initializes bundles.
-     *
-     * @throws \LogicException if two bundles share a common name
-     */
-    protected function initializeBundles()
-    {
-        parent::initializeBundles();
-
-        $this->registerCmsModules($this->bundles);
     }
 
     /**
@@ -126,5 +125,29 @@ abstract class CMSKernel extends Kernel
         }
 
         $container->setParameter('monolith_cms.modules_paths', $modulesPaths);
+    }
+
+    /**
+     * Получить список подключенных модулей CMS.
+     *
+     * @return \Monolith\CMSBundle\Module\ModuleBundle[]
+     */
+    public function getModules(): array
+    {
+        return $this->modules;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \Monolith\CMSBundle\Module\ModuleBundle|null
+     */
+    public function getModule(string $name): ?ModuleBundle
+    {
+        if (isset($this->modules[$name])) {
+            return $this->modules[$name];
+        }
+
+        return null;
     }
 }

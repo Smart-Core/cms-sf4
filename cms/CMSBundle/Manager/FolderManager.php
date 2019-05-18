@@ -107,10 +107,13 @@ class FolderManager
             $uri = '/';
             $uri_parts = [];
 
+            /** @var Folder $folder */
             $folder = $this->repository->findOneBy([
                 'id'         => $folder_id,
                 'is_active'  => true,
             ]);
+
+            $isFile = $folder->isFile();
 
             if (!empty($folder)) {
                 /* @var $folder Folder */
@@ -133,7 +136,7 @@ class FolderManager
             foreach ($uri_parts as $value) {
                 $uri .= $value;
 
-                if (!$folder->isFile()) {
+                if (!$isFile) {
                     $uri .= '/';
                 }
             }

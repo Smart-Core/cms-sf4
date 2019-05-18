@@ -125,6 +125,8 @@ class MenuBuilder implements ContainerAwareInterface
                     : $itemUrl;
             }
 
+//            dump($uri);
+
             $item_title = $this->is_admin ? (string) $item.' (position: '.$item->getPosition().')' : (string) $item;
             $item_title = isset($menu[$item_title]) ? $item_title.' ('.$item->getId().')' : $item_title;
 

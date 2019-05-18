@@ -9,6 +9,8 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
+\Profiler::enable();
+
 class Kernel extends CMSKernel
 {
     use MicroKernelTrait;
