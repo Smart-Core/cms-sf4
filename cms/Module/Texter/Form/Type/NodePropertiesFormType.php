@@ -1,6 +1,6 @@
 <?php
 
-namespace Monolith\ModuleTexter\Form\Type;
+namespace Monolith\Module\Texter\Form\Type;
 
 use Monolith\CMSBundle\Module\AbstractNodePropertiesFormType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

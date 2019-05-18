@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\ModuleTexter\Controller;
+namespace Monolith\Module\Texter\Controller;
 
 use Monolith\CMSBundle\Module\NodeTrait;
 use Smart\CoreBundle\Controller\Controller;

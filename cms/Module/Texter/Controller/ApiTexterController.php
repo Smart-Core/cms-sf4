@@ -1,6 +1,6 @@
 <?php
 
-namespace Monolith\ModuleTexter\Controller;
+namespace Monolith\Module\Texter\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

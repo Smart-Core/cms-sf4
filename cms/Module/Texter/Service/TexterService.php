@@ -1,10 +1,10 @@
 <?php
 
-namespace Monolith\ModuleTexter\Service;
+namespace Monolith\Module\Texter\Service;
 
 use Doctrine\ORM\EntityManager;
 use Monolith\CMSBundle\Cache\CacheWrapper;
-use Monolith\ModuleTexter\Entity\TextItem;
+use Monolith\Module\Texter\Entity\TextItem;
 
 class TexterService
 {

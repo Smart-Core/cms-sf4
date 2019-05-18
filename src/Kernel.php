@@ -23,8 +23,6 @@ class Kernel extends CMSKernel
                 yield new $class();
             }
         }
-
-        $this->registerCmsModules($bundles);
     }
 
     public function getProjectDir(): string
@@ -38,10 +36,12 @@ class Kernel extends CMSKernel
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir().'/config';
 
+        // Загрузка конфигов CMS.
         $confDirCms = $this->getBundle('CMSBundle')->getPath().'/Resources/config';
         $loader->load($confDirCms.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDirCms.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
 
+        // Потом конфиги проекта.
         $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Monolith\ModuleTexter;
+namespace Monolith\Module\Texter;
 
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Module\ModuleBundle;
-use Monolith\ModuleTexter\Entity\TextItem;
+use Monolith\Module\Texter\Entity\TextItem;
 
 class TexterModuleBundle extends ModuleBundle
 {

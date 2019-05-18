@@ -1,6 +1,6 @@
 
 services:
     monolith_module.texter:
-        class: Monolith\ModuleTexter\Service\TexterService
+        class: Monolith\Module\Texter\Service\TexterService
         public: true
         arguments: [ '@cms.cache', '@doctrine.orm.entity_manager' ]

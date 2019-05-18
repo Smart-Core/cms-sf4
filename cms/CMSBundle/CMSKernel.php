@@ -67,6 +67,18 @@ abstract class CMSKernel extends Kernel
     }
 
     /**
+     * Initializes bundles.
+     *
+     * @throws \LogicException if two bundles share a common name
+     */
+    protected function initializeBundles()
+    {
+        parent::initializeBundles();
+
+        $this->registerCmsModules($this->bundles);
+    }
+
+    /**
      * @param \Symfony\Component\HttpKernel\Bundle\BundleInterface[] $bundles
      *
      * @throws \ReflectionException
@@ -77,8 +89,7 @@ abstract class CMSKernel extends Kernel
             return;
         }
 
-        $reflector = new \ReflectionClass(end($bundles)); // Регистрация модулей строго после регистрции SiteBundle
-        $modulesConfig = dirname($reflector->getFileName()).'/Resources/config/modules.ini';
+        $modulesConfig = $this->getProjectDir().'/config/cms_modules.ini';
 
         if (file_exists($modulesConfig)) {
             foreach (parse_ini_file($modulesConfig) as $module_class => $is_enabled) {

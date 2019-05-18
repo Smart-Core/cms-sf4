@@ -1,10 +1,10 @@
 <?php
 
-namespace Monolith\ModuleTexter\Controller;
+namespace Monolith\Module\Texter\Controller;
 
 use Monolith\CMSBundle\Module\CacheTrait;
-use Monolith\ModuleTexter\Entity\TextItem;
-use Monolith\ModuleTexter\Entity\TextItemHistory;
+use Monolith\Module\Texter\Entity\TextItem;
+use Monolith\Module\Texter\Entity\TextItemHistory;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

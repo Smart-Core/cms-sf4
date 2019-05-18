@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\ModuleTexter\Entity;
+namespace Monolith\Module\Texter\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;

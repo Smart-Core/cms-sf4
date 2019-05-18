@@ -1,6 +1,6 @@
 <?php
 
-namespace Monolith\ModuleTexter\Controller;
+namespace Monolith\Module\Texter\Controller;
 
 use Monolith\CMSBundle\Entity\Node;
 use Smart\CoreBundle\Controller\Controller;

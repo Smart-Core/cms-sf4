@@ -1,6 +1,6 @@
 <?php
 
-namespace Monolith\ModuleTexter\Entity;
+namespace Monolith\Module\Texter\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
