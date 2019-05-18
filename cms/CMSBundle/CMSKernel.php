@@ -96,7 +96,7 @@ abstract class CMSKernel extends Kernel
                 if (class_exists($module_class)) {
                     /** @var \Monolith\CMSBundle\Module\ModuleBundle $module_bundle */
                     $module_bundle = new $module_class();
-
+//dump($module_bundle);
                     if ($module_bundle instanceof ModuleBundle) {
                         $module_bundle->setIsEnabled((bool) $is_enabled);
                         $this->modules[$module_bundle->getName()] = $module_bundle;
