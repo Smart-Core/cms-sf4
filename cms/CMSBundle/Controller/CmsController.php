@@ -15,7 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class CmsController extends AbstractController
 {
     /**
-     * @Route("/{slug<.+>}", name="cms_index", methods={"GET"})
+     * @Route("/", name="cms_index", methods={"GET"})
+     * Route("/{slug<.+>}", name="cms_index", methods={"GET"})
      */
     public function index(Request $request, string $slug = '', array $options = null)
     {

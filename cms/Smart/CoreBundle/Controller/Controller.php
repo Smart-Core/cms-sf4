@@ -89,4 +89,14 @@ class Controller extends BaseController
 
         return $default;
     }
+
+    /**
+     * Gets a container configuration parameter by its name.
+     *
+     * @return mixed
+     */
+    protected function getParameter(string $name)
+    {
+        return $this->container->getParameter($name);
+    }
 }

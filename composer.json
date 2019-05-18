@@ -6,6 +6,8 @@
         "php": "^7.2.0",
         "cache/cache-bundle": "^1.1",
         "friendsofsymfony/user-bundle": "~2.0@dev",
+        "helios-ag/fm-elfinder-bundle": "~8",
+        "helios-ag/fm-elfinder-php-connector": "*",
         "knplabs/knp-menu-bundle": "^2.2",
         "liip/imagine-bundle": "^2.1",
         "liip/theme-bundle": "^1.6",
@@ -39,6 +41,7 @@
     },
     "config": {
         "apcu-autoloader": true,
+        "component-dir": "public/components",
         "preferred-install": {
             "*": "dist"
         },

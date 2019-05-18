@@ -1,0 +1,138 @@
+fm_elfinder:
+    assets_path: /components
+    instances:
+        default:
+            locale: "%locale%"  # defaults to current request locale
+            editor: tinymce     # other choices are ckeditor, tinymce or simple
+            theme: smoothness
+            tinymce_popup_path: 'asset[bundles/stfalcontinymce/vendor/tiny_mce/tiny_mce_popup.js]'
+            fullscreen: true    # defaults true, applies to simple and ckeditor editors
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false    # defaults to false
+                binds:
+                    mkfile.pre:
+                        - Plugin.Normalizer.cmdPreprocess
+                        - Plugin.Sanitizer.cmdPreprocess
+                    upload.presave:
+                        - Plugin.Normalizer.onUpLoadPreSave
+                        - Plugin.Sanitizer.onUpLoadPreSave
+                plugins:
+                    Normalizer:
+                        enable: true
+                        nfc: true
+                        nfkc: true
+                    Sanitizer:
+                        enable: true
+                        targets: ['\\','/',':','*','?','"','<','>','|',' ']
+                        replace: '_'
+                roots:          # at least one root must be defined
+                    #                    images:
+                    #                        driver: LocalFileSystem
+                    #                        path: images
+                    #                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
+                    #                        upload_deny: ['all']
+                    #                        upload_max_size: 2M
+                    uploads:
+                        driver: LocalFileSystem
+                        path: "%uploads_dir%"
+                        upload_allow:
+                            - 'image/png'
+                            - 'image/jpg'
+                            - 'image/jpeg'
+                            - 'image/gif'
+                            - 'application/gzip'
+                            - 'application/pdf'
+                            - 'application/vnd.oasis.opendocument.text'
+                            - 'application/vnd.oasis.opendocument.spreadsheet'
+                            - 'application/vnd.oasis.opendocument.presentation'
+                            - 'application/vnd.oasis.opendocument.graphics'
+                            - 'application/vnd.ms-excel'
+                            - 'application/msword'
+                            - 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                            - 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                            - 'application/x-rar-compressed'
+                            - 'application/x-shockwave-flash'
+                            - 'application/x-tar'
+                            - 'application/zip'
+                            - 'audio/mpeg3'
+                            - 'video/x-flv'
+                            - 'video/mpeg'
+                            - 'video/mp4'
+                            - 'video/ogg'
+                        upload_deny: ['all']
+                        upload_max_size: 50M
+        form:
+            locale: '%locale%' # defaults to current request locale
+            editor: form # other choices are tinymce or simple, and form
+            fullscreen: true # defaults true, applies to simple and ckeditor editors
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false # defaults to false
+                roots:       # at least one root must be defined
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads
+                        upload_allow:
+                            - 'image/png'
+                            - 'image/jpg'
+                            - 'image/jpeg'
+                            - 'image/gif'
+                            - 'application/gzip'
+                            - 'application/pdf'
+                            - 'application/vnd.oasis.opendocument.text'
+                            - 'application/vnd.oasis.opendocument.spreadsheet'
+                            - 'application/vnd.oasis.opendocument.presentation'
+                            - 'application/vnd.oasis.opendocument.graphics'
+                            - 'application/vnd.ms-excel'
+                            - 'application/msword'
+                            - 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                            - 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                            - 'application/x-rar-compressed'
+                            - 'application/x-shockwave-flash'
+                            - 'application/x-tar'
+                            - 'application/zip'
+                            - 'audio/mpeg3'
+                            - 'video/x-flv'
+                            - 'video/mpeg'
+                            - 'video/mp4'
+                            - 'video/ogg'
+                        upload_deny: ['all']
+                        upload_max_size: 2M
+        tinymce4:
+            locale: "%locale%"  # defaults to current request locale
+            editor: tinymce4    # other choices are ckeditor, tinymce or simple
+            tinymce_popup_path: 'asset[bundles/stfalcontinymce/vendor/tiny_mce/tiny_mce_popup.js]'
+            fullscreen: true    # defaults true, applies to simple and ckeditor editors
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false    # defaults to false
+                binds:
+                    mkfile.pre:
+                        - Plugin.Normalizer.cmdPreprocess
+                        - Plugin.Sanitizer.cmdPreprocess
+                    upload.presave:
+                        - Plugin.Normalizer.onUpLoadPreSave
+                        - Plugin.Sanitizer.onUpLoadPreSave
+                plugins:
+                    Normalizer:
+                        enable: true
+                        nfc: true
+                        nfkc: true
+                    Sanitizer:
+                        enable: true
+                        targets: ['\\','/',':','*','?','"','<','>','|',' ']
+                        replace: '_'
+                roots:          # at least one root must be defined
+                    #                    images:
+                    #                        driver: LocalFileSystem
+                    #                        path: images
+                    #                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                    #                        upload_deny: ['all']
+                    #                        upload_max_size: 2M
+                    uploads:
+                        driver: LocalFileSystem
+                        path: "%uploads_dir%"
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 50M

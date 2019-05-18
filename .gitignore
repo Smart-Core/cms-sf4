@@ -14,3 +14,22 @@
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+
+/public_html
+bower_components/
+/build/
+node_modules/
+/phpunit.xml
+/public/_media/
+/public/media/
+/public/images/
+/public/components/
+/public/bundles/
+/public/uploads/
+/public/sitemap.xml
+composer.phar
+*.quarantine
+*.tmb
+*.php~
+!*.gitkeep
+!*.gitignore

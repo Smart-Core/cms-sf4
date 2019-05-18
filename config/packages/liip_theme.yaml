@@ -10,12 +10,12 @@ liip_theme:
         bundle_resource_dir:
             - "%%theme_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
             - "%%theme_dir%%/bundles/%%bundle_name%%/%%override_path%%"
-            - "%%site_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
-            - "%%site_dir%%/%%bundle_name%%/%%override_path%%"
+#            - "%%site_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
+#            - "%%site_dir%%/%%bundle_name%%/%%override_path%%"
             - "%%cms_dir%%/%%bundle_name%%/%%override_path%%"
         bundle_resource:
             - "%%theme_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
             - "%%theme_dir%%/bundles/%%bundle_name%%/%%override_path%%"
-            - "%%site_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
-            - "%%site_dir%%/%%bundle_name%%/%%override_path%%"
+#            - "%%site_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
+#            - "%%site_dir%%/%%bundle_name%%/%%override_path%%"
             - "%%cms_dir%%/%%bundle_name%%/%%override_path%%"

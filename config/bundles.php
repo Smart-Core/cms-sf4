@@ -31,4 +31,5 @@ return [
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle::class => ['all' => true],
     WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle::class => ['all' => true],
+    FM\ElfinderBundle\FMElfinderBundle::class => ['all' => true],
 ];
