@@ -78,6 +78,7 @@ class ModuleControllerModifierListener
         }
 
         $request = $event->getRequest();
+
         if ($request->attributes->has('node')) {
             /** @var $node \Monolith\CMSBundle\Entity\Node */
             $node = $request->attributes->get('node');
