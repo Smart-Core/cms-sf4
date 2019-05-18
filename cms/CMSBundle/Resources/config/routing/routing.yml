@@ -2,6 +2,12 @@ cms.smart_media:
     resource: '@SmartMediaBundle/Resources/config/routing.yml'
     prefix: /_media/
 
+cms_admin.site_switch_selected:
+    path: /__cms_site_switch_selected/
+    methods: POST
+    defaults:
+        _controller: CMSBundle:Cms:switchSelectedSite
+
 cms_api:
     resource: routing_api.yml
     prefix: /%api_path%/

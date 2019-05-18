@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Contracts\Cache\ItemInterface;
 use Twig\Error\LoaderError;
@@ -223,5 +224,51 @@ class CmsController extends AbstractController
             'message' => 'Некорректный запрос.',
             'data'    => [],
         ], 404);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     */
+    public function switchSelectedSiteAction(Request $request): RedirectResponse
+    {
+        $site_id = $request->request->get('site', 0);
+        $route   = $request->request->get('route', 'cms_admin.index');
+
+        $switcher = $this->get('cms.context')->getSiteSwitcher();
+
+        try {
+            $url = $this->generateUrl($route);
+        } catch (RouteNotFoundException $e) {
+            $url = $this->generateUrl('cms_admin.index');
+        }
+
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $site = $em->getRepository('CMSBundle:Site')->find((int) $site_id);
+
+        if ($site) {
+            if (isset($switcher[$site_id])) {
+                $url = $switcher[$site_id]['domain'] . $url;
+            } else {
+                // @todo если не указан домен
+                $url = $site->getDomain()->getName() . $url;
+            }
+        }
+
+        $token = md5(microtime());
+
+        $data = [
+            'token'   => $token,
+            'user_id' => $this->getUser()->getId(),
+        ];
+
+        $this->get('doctrine_cache.providers.cms')->save($token, $data, 3);
+
+        $redirect = $this->redirect('//'.$url.'?switch_site_token='.$token);
+
+        return $redirect;
     }
 }
