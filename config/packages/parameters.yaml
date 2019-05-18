@@ -9,4 +9,4 @@ parameters:
     liip_theme.filesystem_loader.class: Monolith\CMSBundle\Twig\Loader\FilesystemLoader
     sonata.intl.timezone_detector.chain.class: Monolith\CMSBundle\Timezone\SonataChainTimezoneDetector
     router.class: Monolith\CMSBundle\Router\NodeRouter
-    router.options.generator_dumper_class: Monolith\CMSBundle\Router\PhpGeneratorDumper
+

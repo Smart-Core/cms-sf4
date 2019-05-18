@@ -13,9 +13,6 @@ use Symfony\Component\HttpKernel\Kernel;
 
 abstract class CMSKernel extends Kernel
 {
-    /** @var string  */
-    protected $siteName = null;
-
     /** @var ModuleBundle[] */
     protected $modules = [];
 
@@ -41,14 +38,6 @@ abstract class CMSKernel extends Kernel
         }
 
         return null;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSiteName(): string
-    {
-        return $this->siteName;
     }
 
     /**
@@ -126,6 +115,5 @@ abstract class CMSKernel extends Kernel
         }
 
         $container->setParameter('monolith_cms.modules_paths', $modulesPaths);
-        $container->setParameter('monolith_cms.site_name', $this->siteName);
     }
 }

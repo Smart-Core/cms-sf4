@@ -10,16 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class AdminController extends AbstractController
 {
     /**
      * @Route("/%admin_path%/", name="cms_admin.index", methods={"GET"})
      */
-    public function index(AuthorizationCheckerInterface $authorizationChecker, string $slug = '')
+    public function index(string $slug = '')
     {
-//        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
         if (!$this->get('cms.security')->isGranted('ROLE_ADMIN')) {
             return $this->render('@CMS/Admin/login.html.twig');
         }

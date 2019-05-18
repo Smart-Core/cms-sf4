@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Router;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\RequestContext;
 
 class NodeRouter extends Router
@@ -26,23 +27,26 @@ class NodeRouter extends Router
      * @param array              $options   An array of options
      * @param RequestContext     $context   The context
      */
-    public function __construct(ContainerInterface $container, $resource, array $options = [], RequestContext $context = null)
+    public function __construct(ContainerInterface $container, $resource, array $options = [], RequestContext $context = null, ContainerInterface $parameters = null, LoggerInterface $logger = null, string $defaultLocale = null)
     {
-        parent::__construct($container, $resource, $options, $context);
+        parent::__construct($container, $resource, $options, $context, $parameters, $logger, $defaultLocale);
+
         $this->mycontainer = $container;
     }
 
     /**
      * В случае, если в пути маршрута есть паттерн {_folderPath}, то пробуем подставить его из $parameters или атрибута _route_params.
-     *
-     * {@inheritdoc}
      */
     public function generate($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH): string
     {
         // Метод getDeclaredRouteData() генерируется через Monolith\CMSBundle\Router\PhpGeneratorDumper
-        $declaredRouteData = $this->getGenerator()->getDeclaredRouteData($name);
+        // этот код работает чуть-чуть быстрее примерно на 10%
 
-        if (isset($declaredRouteData[0][0]) and in_array('_folderPath', $declaredRouteData[0])) {
+        // $declaredRouteData = $this->getGenerator()->getDeclaredRouteData($name);
+        // if (isset($declaredRouteData[0][0]) and in_array('_folderPath', $declaredRouteData[0])) {
+
+        $route = $this->getRouteCollection()->get($name);
+        if ($route->hasRequirement('_folderPath')) {
             if (isset($parameters['_folderPath'])) {
                 // Удаление последнего слеша
                 if (mb_substr($parameters['_folderPath'], -1) == '/') {

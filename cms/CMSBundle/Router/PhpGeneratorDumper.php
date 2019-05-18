@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Router;
 
 use Symfony\Component\Routing\Generator\Dumper\GeneratorDumper;
+//use Symfony\Component\Routing\Generator\Dumper\PhpGeneratorDumper;
 
 /**
  * Своеобразное решение с методом getDeclaredRouteData($name), который возвращает данные из private static $declaredRoutes[]
  * Сделано из-за того, что метод getRouteCollection() очень ресурсоёмкий.
  *
  * @todo можно попробовать сделать пулл реквест в симфони.
+ *
+ * @deprecated пока не используется.
  */
 class PhpGeneratorDumper extends GeneratorDumper
 {

@@ -30,7 +30,7 @@ class CMSBundle extends Bundle
 
         //$container->setParameter('container.build_id', '39thod7hkdfg973rf'); // Фикс с версии symfony v3.4.3
 
-//        $container->addCompilerPass(new ChangeRouterClassPass());
+        $container->addCompilerPass(new ChangeRouterClassPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
         $container->addCompilerPass(new TwigLoaderPass());
         $container->addCompilerPass(new LiipThemeLocatorsPass());
         $container->addCompilerPass(new ModulesRoutingResolverPass());
