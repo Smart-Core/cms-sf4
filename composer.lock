@@ -4313,12 +4313,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/FelibBundle.git",
-                "reference": "ba583203da43c31becd719b8507e2f2849dbab35"
+                "reference": "9affae28697be94336fe6adf170b01e5397a01f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/FelibBundle/zipball/ba583203da43c31becd719b8507e2f2849dbab35",
-                "reference": "ba583203da43c31becd719b8507e2f2849dbab35",
+                "url": "https://api.github.com/repos/Smart-Core/FelibBundle/zipball/9affae28697be94336fe6adf170b01e5397a01f9",
+                "reference": "9affae28697be94336fe6adf170b01e5397a01f9",
                 "shasum": ""
             },
             "require": {
@@ -4339,7 +4339,7 @@
             ],
             "description": "Font-End Library Managment Bundle",
             "homepage": "http://smart-core.org",
-            "time": "2019-05-18T16:35:29+00:00"
+            "time": "2019-05-18T22:20:40+00:00"
         },
         {
             "name": "smart-core/html-bundle",
@@ -4503,12 +4503,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/SimpleProfilerBundle.git",
-                "reference": "2851cdd2a4092f2921b7797ee867015c77769b4d"
+                "reference": "fd1e51f64cf74c225c214ccd18dc8f07f010dd70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/SimpleProfilerBundle/zipball/2851cdd2a4092f2921b7797ee867015c77769b4d",
-                "reference": "2851cdd2a4092f2921b7797ee867015c77769b4d",
+                "url": "https://api.github.com/repos/Smart-Core/SimpleProfilerBundle/zipball/fd1e51f64cf74c225c214ccd18dc8f07f010dd70",
+                "reference": "fd1e51f64cf74c225c214ccd18dc8f07f010dd70",
                 "shasum": ""
             },
             "require": {
@@ -4516,9 +4516,6 @@
             },
             "type": "symfony-bundle",
             "autoload": {
-                "files": [
-                    "Profiler.php"
-                ],
                 "psr-4": {
                     "SmartCore\\Bundle\\SimpleProfilerBundle\\": ""
                 }
@@ -4537,7 +4534,7 @@
             "keywords": [
                 "profiler"
             ],
-            "time": "2016-11-09T04:50:35+00:00"
+            "time": "2019-05-18T20:11:14+00:00"
         },
         {
             "name": "sonata-project/intl-bundle",

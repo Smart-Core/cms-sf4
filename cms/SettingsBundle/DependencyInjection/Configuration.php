@@ -28,11 +28,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-//                ->scalarNode('table_prefix')
-//                    ->defaultValue('')
-//                ->end()
-                ->scalarNode('doctrine_cache_provider')
-                    ->defaultNull()
+                ->scalarNode('cache_provider')
+                    ->defaultValue('smart_settings_cache_pool.filesystem')
                 ->end()
                 ->booleanNode('show_bundle_column')
                     ->defaultTrue()

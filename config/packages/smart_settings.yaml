@@ -1,2 +1,2 @@
-smart_settings:
-    doctrine_cache_provider: smart_settings
+#smart_settings:
+    #cache_provider: smart_settings_cache_pool.filesystem

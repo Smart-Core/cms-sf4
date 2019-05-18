@@ -2,11 +2,11 @@
 
 namespace SmartCore\Bundle\SettingsBundle\Manager;
 
-use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\SchemaValidator;
 use FOS\UserBundle\Model\UserInterface;
+use SmartCore\Bundle\SettingsBundle\Cache\CacheProvider;
 use SmartCore\Bundle\SettingsBundle\Cache\DummyCacheProvider;
 use SmartCore\Bundle\SettingsBundle\Entity\Setting;
 use SmartCore\Bundle\SettingsBundle\Entity\SettingHistory;
@@ -14,6 +14,7 @@ use SmartCore\Bundle\SettingsBundle\Entity\SettingPersonal;
 use SmartCore\Bundle\SettingsBundle\Model\SettingHistoryModel;
 use SmartCore\Bundle\SettingsBundle\Model\SettingModel;
 use SmartCore\Bundle\SettingsBundle\Model\SettingPersonalModel;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -42,9 +43,12 @@ class SettingsManager
     protected $settingsConfigRuntimeCache;
 
     /**
+     * SettingsManager constructor.
+     *
      * @param ContainerInterface $container
+     * @param CacheProvider      $cache
      */
-    public function __construct(ContainerInterface $container, CacheProvider $cache = null)
+    public function __construct(ContainerInterface $container, CacheProvider $cache)
     {
         $this->cache     = $cache;
         $this->container = $container;
@@ -159,7 +163,7 @@ class SettingsManager
 
         $cache_key = $this->getCacheKey($bundle, $name, $this->getUserId());
 
-//        if (false == $value = $this->cache->fetch($cache_key)) {
+        if (false == $value = $this->cache->get($cache_key)) {
             $this->initRepo();
 
             try {
@@ -193,8 +197,8 @@ class SettingsManager
                 return null;
             }
 
-//            $this->cache->save($cache_key, $value);
-//        }
+            $this->cache->set($cache_key, $value);
+        }
 
         return $value;
     }
@@ -241,7 +245,7 @@ class SettingsManager
                 $this->em->remove($settingPersonal);
                 $this->em->flush($settingPersonal);
 
-//                $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
+                $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
 
                 return true;
             } else {
@@ -255,7 +259,7 @@ class SettingsManager
                 $settingPersonal->setUser($token->getUser());
             }
 
-//            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
+            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
 
             $this->em->persist($settingPersonal);
             $this->em->flush($settingPersonal);
@@ -283,7 +287,7 @@ class SettingsManager
             $this->em->persist($settingPersonal);
             $this->em->flush($settingPersonal);
 
-//            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
+            $this->cache->delete($this->getCacheKey($settingPersonal->getSetting()->getBundle(), $settingPersonal->getSetting()->getName(), $this->getUserId()));
 
             return true;
         }
@@ -318,7 +322,7 @@ class SettingsManager
 
             $cache_key = $this->getCacheKey($setting->getBundle(), $setting->getName(), $this->getUserId());
 
-//            $this->cache->delete($cache_key);
+            $this->cache->delete($cache_key);
 
             return true;
         }
@@ -336,7 +340,7 @@ class SettingsManager
         $this->em->remove($setting);
         $this->em->flush($setting);
 
-//        $this->cache->delete($this->getCacheKey($setting->getBundle(), $setting->getName()));
+        $this->cache->delete($this->getCacheKey($setting->getBundle(), $setting->getName()));
 
         return true;
     }

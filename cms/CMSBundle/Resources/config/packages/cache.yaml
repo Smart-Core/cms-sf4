@@ -19,9 +19,14 @@ framework:
             cms_cache_pool.array:
                 adapter: cache.adapter.array
                 tags: true
-            cms_cache_pool.apcu:
-                adapter: cache.adapter.apcu
-                tags: true
+#            cms_cache_pool.apcu:
+#                adapter: cache.adapter.apcu
+#                tags: true
             cms_cache_pool.filesystem:
+                adapter: cache.adapter.filesystem
+                tags: true
+            smart_settings_cache_pool.filesystem:
+                adapter: cache.adapter.filesystem
+            smart_felib_cache_pool.filesystem:
                 adapter: cache.adapter.filesystem
                 tags: true

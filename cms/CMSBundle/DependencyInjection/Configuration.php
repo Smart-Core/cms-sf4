@@ -20,11 +20,17 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('cms');
-        $rootNode = $treeBuilder->getRootNode();
+
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $rootNode = $treeBuilder->root('cms');
+        }
 
         $rootNode
             ->children()
-                ->scalarNode('cache_provider')->defaultValue('cache.provider.monolith_cms_fs')->end()
+                ->scalarNode('cache_provider')->defaultValue('cms_cache_pool.filesystem')->end()
             ->end()
         ;
 
