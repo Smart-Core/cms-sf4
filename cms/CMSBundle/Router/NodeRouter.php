@@ -4,34 +4,27 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Router;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Psr\Container\ContainerInterface;
-use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class NodeRouter extends Router
 {
-    /** @var ContainerInterface */
-    protected $mycontainer;
+    /** @var RequestStack */
+    protected $request_stack;
 
     /** @var string */
     protected $rootHash = 'kksdg7724tkshdfvI6734khvsdfKHvdf74';
 
     /**
-     * Приходится переопределять конструктор из-за того, что в Router container приватный :(.
+     * @param mixed $request_stack
      *
-     * Constructor.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
-     * @param mixed              $resource  The main resource to load
-     * @param array              $options   An array of options
-     * @param RequestContext     $context   The context
+     * @return $this
      */
-    public function __construct(ContainerInterface $container, $resource, array $options = [], RequestContext $context = null, ContainerInterface $parameters = null, LoggerInterface $logger = null, string $defaultLocale = null)
+    public function setRequestStack($request_stack): self
     {
-        parent::__construct($container, $resource, $options, $context, $parameters, $logger, $defaultLocale);
+        $this->request_stack = $request_stack;
 
-        $this->mycontainer = $container;
+        return $this;
     }
 
     /**
@@ -60,7 +53,7 @@ class NodeRouter extends Router
                 }
             }
 
-            $routeParams = $this->mycontainer->get('request_stack')->getCurrentRequest()->attributes->get('_route_params', null);
+            $routeParams = $this->request_stack->getCurrentRequest()->attributes->get('_route_params', null);
 
             if (isset($routeParams['_folderPath']) and (!isset($parameters['_folderPath']) or empty($parameters['_folderPath']))) {
                 $parameters['_folderPath'] = empty($routeParams['_folderPath']) ? $this->rootHash : $routeParams['_folderPath'];

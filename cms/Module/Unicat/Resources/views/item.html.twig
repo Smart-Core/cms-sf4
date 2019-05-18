@@ -7,39 +7,39 @@
             {% set is_found_default_taxonomy = false %}
             {% for taxon in item.taxons %}
                 {% if configuration.defaultTaxonomy.id == taxon.taxonomy.id and is_found_default_taxonomy == false %}
-                    {{ attr.openTag }}
-                        <a href="{{ path('unicat.item_in_taxonomy', {'taxonomySlug': taxon.slugFull, 'itemSlug': item.slug}) }}">{{ item.attribute(attr.name) }}</a>
-                    {{ attr.closeTag }}
+                    {{ attr.openTag | raw }}
+                        <a href="{{ path('unicat.item_in_taxonomy', {'taxonomySlug': taxon.slugFull, 'itemSlug': item.slug}) }}">{{ item.attribute(attr.name) | raw }}</a>
+                    {{ attr.closeTag | raw }}
                     {% set is_found_default_taxonomy = true %}
                 {% endif %}
             {% endfor %}
             {% if is_found_default_taxonomy == false %}
                 {% if attr.type == 'image' %}
-                    {{ attr.openTag }}<a href="{{ path('unicat.item', {'itemSlug': item.slug}) }}">{{ smart_media_img(item.attribute(attr.name), attr.params.filter) }}</a>{{ attr.closeTag }}
+                    {{ attr.openTag | raw }}<a href="{{ path('unicat.item', {'itemSlug': item.slug}) }}">{{ smart_media_img(item.attribute(attr.name), attr.params.filter) }}</a>{{ attr.closeTag }}
                 {% else %}
-                    {{ attr.openTag }}<a href="{{ path('unicat.item', {'itemSlug': item.slug}) }}">{{ item.attribute(attr.name) }}</a>{{ attr.closeTag }}
+                    {{ attr.openTag | raw }}<a href="{{ path('unicat.item', {'itemSlug': item.slug}) }}">{{ item.attribute(attr.name) }}</a>{{ attr.closeTag | raw }}
                 {% endif %}
             {% endif %}
         {% elseif attr.type == 'checkbox' %}
-            {{ attr.openTag }}{{ attr.title }}: {% if item.attribute(attr.name) %} да {% else %} нет {% endif %}{{ attr.closeTag }}
+            {{ attr.openTag | raw }}{{ attr.title }}: {% if item.attribute(attr.name) %} да {% else %} нет {% endif %}{{ attr.closeTag | raw }}
         {% elseif attr.type == 'image' %}
-            {{ attr.openTag }}{{ smart_media_img(item.attribute(attr.name), attr.params.filter) }}{{ attr.closeTag }}
+            {{ attr.openTag | raw }}{{ smart_media_img(item.attribute(attr.name), attr.params.filter) }}{{ attr.closeTag | raw }}
         {% elseif attr.type == 'date' or attr.type == 'datetime' %}
             {% if val is not empty %}
-                {{ attr.openTag }}
+                {{ attr.openTag | raw }}
                 {{ item.attribute(attr.name)|format_date }}
-                {{ attr.closeTag }}
+                {{ attr.closeTag | raw }}
             {% endif %}
         {% elseif attr.type == 'gallery' %}
-            {{ attr.openTag }}
+            {{ attr.openTag | raw }}
             {% if attr.isShowTitle %}{{ attr.title }}: {% endif %}
 
             {% for img in item.attribute(attr.name) %}
                 {{ smart_media_img(img.id, attr.params.filter) }}
             {% endfor %}
-            {{ attr.closeTag }}
+            {{ attr.closeTag | raw }}
         {% else %}
-            {{ attr.openTag }}
+            {{ attr.openTag | raw }}
             {% if attr.isShowTitle %}{{ attr.title }}: {% endif %}
             {% set val = item.attribute(attr.name) %}
             {% if val is iterable %}
@@ -51,7 +51,7 @@
             {% else %}
                 {{ val }}
             {% endif %}
-            {{ attr.closeTag }}
+            {{ attr.closeTag | raw }}
         {% endif %}
     {% endif %}
 {% endfor %}

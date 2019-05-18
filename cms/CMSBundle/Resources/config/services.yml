@@ -195,8 +195,8 @@ services:
         public: true
         tags:
             - { name: doctrine.event_listener, event: prePersist }
-            #- { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: preUpdate }
+            #- { name: doctrine.event_listener, event: postPersist }
             #- { name: doctrine.event_listener, event: preFlush }
             #- { name: doctrine.event_listener, event: onFlush }
             #- { name: doctrine.event_listener, event: postFlush }

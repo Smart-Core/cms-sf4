@@ -79,6 +79,8 @@ class UnicatController extends Controller
             ], ['position' => 'ASC']);
         }
 
+//        dump($node);
+
         $this->buildFrontControlForTaxon($node, $ucm, $lastTaxon);
 
         $cacheKey = md5('smart_module.unicat.yaml_params'.$node->getId());
@@ -186,7 +188,7 @@ class UnicatController extends Controller
         $this->get('cms.breadcrumbs')->add($this->generateUrl('unicat.item', [
 //                'slug' => empty($lastTaxon) ? '' : $lastTaxon->getSlugFull(),
                 'itemSlug' => $item->getSlug(),
-            ]), $item->getAttribute('title', $item->getSlug())); // @todo сделать настраиваемое поле для ХК.
+            ]), (string) $item->getAttribute('title', $item->getSlug())); // @todo сделать настраиваемое поле для ХК.
 
         $node->addFrontControl('edit')
             ->setTitle('Редактировать')

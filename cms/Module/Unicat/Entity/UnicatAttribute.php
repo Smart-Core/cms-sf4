@@ -513,7 +513,7 @@ class UnicatAttribute
     {
         $this->params_yaml = $params_yaml;
 
-        $params = Yaml::parse($params_yaml);
+        $params = Yaml::parse((string) $params_yaml);
 
         if (empty($params)) {
             $params = [];

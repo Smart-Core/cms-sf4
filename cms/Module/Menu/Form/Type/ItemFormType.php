@@ -44,7 +44,7 @@ class ItemFormType extends AbstractType
         ;
 
         if ($menu) {
-            $properties = Yaml::parse($menu->getProperties());
+            $properties = Yaml::parse((string) $menu->getProperties());
 
             if (is_array($properties)) {
                 $builder->add(

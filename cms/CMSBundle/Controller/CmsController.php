@@ -20,8 +20,7 @@ use Twig\Error\LoaderError;
 class CmsController extends AbstractController
 {
     /**
-     * @Route("/", name="cms_index", methods={"GET"})
-     * Route("/{slug<.+>}", name="cms_index", methods={"GET"})
+     * @Route("/{slug<.+>}", name="cms_index", methods={"GET"})
      */
     public function index(Request $request, string $slug = '', array $options = null)
     {

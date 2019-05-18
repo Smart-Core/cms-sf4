@@ -57,7 +57,7 @@ class TaxonFormType extends AbstractType
         }
 
         if ($taxonomy) {
-            $properties = Yaml::parse($taxonomy->getProperties());
+            $properties = Yaml::parse((string) $taxonomy->getProperties());
 
             if (is_array($properties)) {
                 $builder->add(
