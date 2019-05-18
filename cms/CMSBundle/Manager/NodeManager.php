@@ -460,7 +460,7 @@ class NodeManager
                 if ($node->getController() === null) { // @todo убрать
                     $moduleResponse = new Response('Module controller "'.$node->getModule().'" is unavailable.');
                 } elseif ($this->container->get('cms.module')->has($node->getModule())) {
-                    $moduleResponse = $this->forward($node->getId(), [
+                    $moduleResponse = $this->forward((string) $node->getId(), [
                         '_route' => 'cms_frontend_run',
                         '_route_params' => $node->getParams() + $request->attributes->get('_route_params'),
                     ], $request->query->all());

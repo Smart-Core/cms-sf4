@@ -128,7 +128,7 @@ class ThemeManager
     {
         $projectDir = $this->container->get('kernel')->getProjectDir();
 
-        $publicDir = $projectDir.'/public/bundles/cms/themes/';
+        $publicDir = $projectDir.'/public/bundles/cms/theme/';
 
         if (is_dir($publicDir)) {
             $dirsToRemove = Finder::create()->depth(0)->directories()->in($publicDir);

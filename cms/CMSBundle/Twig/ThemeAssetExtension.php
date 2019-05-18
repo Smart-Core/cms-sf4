@@ -47,7 +47,7 @@ class ThemeAssetExtension extends AbstractExtension
     {
         $currentTheme = $this->container->get('cms.context')->getSite()->getTheme();
 
-        $sitePublicPath = $this->packages->getUrl('bundles/site/theme/'.$currentTheme, $packageName);
+        $sitePublicPath = $this->packages->getUrl('bundles/cms/theme/'.$currentTheme, $packageName);
 
         return $sitePublicPath.'/'.$path;
     }
