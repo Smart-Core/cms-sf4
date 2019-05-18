@@ -18,7 +18,8 @@
         "liip/theme-bundle": "^1.6",
         "mopa/bootstrap-bundle": "^3.3",
         "sonata-project/intl-bundle": "^2.6",
-        "symfony/expression-language": "^4.2"
+        "symfony/expression-language": "^4.2",
+        "white-october/pagerfanta-bundle": "^1.0"
     },
     "config": {
         "preferred-install": "dist"

@@ -211,6 +211,9 @@
             "./config/packages/oneup_flysystem.yaml"
         ]
     },
+    "pagerfanta/pagerfanta": {
+        "version": "v2.1.2"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -594,6 +597,9 @@
     },
     "webonyx/graphql-php": {
         "version": "v0.13.4"
+    },
+    "white-october/pagerfanta-bundle": {
+        "version": "v1.2.4"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"
