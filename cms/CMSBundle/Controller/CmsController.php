@@ -15,6 +15,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\VarDumper\Cloner\Data;
+use Symfony\Contracts\Cache\ItemInterface;
 use Twig\Error\LoaderError;
 
 class CmsController extends AbstractController
@@ -24,16 +26,31 @@ class CmsController extends AbstractController
      */
     public function index(Request $request, string $slug = '', array $options = null)
     {
+        $pool       = $this->get('cms_cache_pool');
         $twig       = $this->get('twig');
         $cmsContext = $this->get('cms.context');
         $site       = $this->get('cms.context')->getSite();
 
         // Кеширование роутера.
         $cache_key = md5('site_id='.$site->getId().'cms_router='.$request->getBaseUrl().$slug);
+
+/*
+        $router_data = $pool->get($cache_key, function (ItemInterface $item) use ($options, $request, $slug) {
+            $item->tag(['folder', 'node']);
+            $item->expiresAfter(40);
+
+            return $this->get('cms.router')->match($request->getBaseUrl(), $slug, HttpKernelInterface::MASTER_REQUEST, $options);
+        });
+*/
+
+        // ------------------------------------------------------------------------------
         if (null === $router_data = $this->get('cms.cache')->get($cache_key)) {
+
             $router_data = $this->get('cms.router')->match($request->getBaseUrl(), $slug, HttpKernelInterface::MASTER_REQUEST, $options);
+
             $this->get('cms.cache')->set($cache_key, $router_data, ['folder', 'node']);
         }
+        // ------------------------------------------------------------------------------
 
         if ($router_data['status'] == 301 and $router_data['redirect_to']) {
             return new RedirectResponse($router_data['redirect_to'], $router_data['status']);

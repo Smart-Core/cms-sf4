@@ -36,7 +36,6 @@ class CMSBundle extends Bundle
         $container->addCompilerPass(new ModulesRoutingResolverPass());
         $container->addCompilerPass(new FormPass());
         $container->addCompilerPass(new DeprecationsFixesCompilerPass(), PassConfig::TYPE_AFTER_REMOVING);
-//        $container->addCompilerPass(new PermissionsPass(), PassConfig::TYPE_AFTER_REMOVING); // dumpContainer()
     }
 
     public function getThemeDir()

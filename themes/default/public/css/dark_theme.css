@@ -1,5 +1,6 @@
 body {
     background-color: #505050;
+    color: white;
 }
 body > .container {
     color: white;
