@@ -1,0 +1,27 @@
+{% extends '@SliderModule/Admin/index.html.twig' %}
+
+{% block title %}{{ 'Slider settings'|trans }} / {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    {% if folderPath %}
+        <a class="btn btn-default btn-small btn-sm" href="{{ folderPath }}" title="{{ app.request.host ~ folderPath }}" style="float: right; margin-top: 8px;">
+            <i class="icon-home"></i><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Перейти на страницу слайдера на сайте
+        </a>
+    {% endif %}
+
+    <ul class="nav nav-pills" id="myTab">
+        <li><a href="{{ path('monolith_module.slider.admin') }}">Список всех слайдеров</a></li>
+        <li><a href="{{ path('monolith_module.slider.admin_slider', {'id': slider.id }) }}">Редактирование слайдера <b>&laquo;{{ slider.title }}&raquo;</b></a></li>
+        <li class="active"><a href="{{ path('monolith_module.slider.admin_slider_edit', {'id': slider.id}) }}">{{ 'Slider settings'|trans }}</a></li>
+    </ul>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+
+    {% include '@CMS/Form/default.html.twig' %}
+
+    </div>
+</div>
+
+{% endblock content %}

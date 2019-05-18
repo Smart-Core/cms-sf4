@@ -1,0 +1,15 @@
+{
+    "name": "monolith-software/module-breadcrumbs",
+    "type": "monolith-cms-module",
+    "homepage": "http://monolith-cms.com",
+    "description": "Breadcrumbs",
+    "keywords": ["breadcrumbs"],
+    "version": "v0.2",
+    "time": "2017-11-29",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Monolith\\Module\\Breadcrumbs\\": ""
+        }
+    }
+}

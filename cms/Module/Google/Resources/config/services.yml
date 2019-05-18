@@ -1,0 +1,7 @@
+parameters:
+#    google_module.example.class: Monolith\Module\Google\Example
+
+services:
+#    google_module.example:
+#        class: "%google_module.example.class%"
+#        arguments: [ '@service_id', plain_value, "%parameter%"]

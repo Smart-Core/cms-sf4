@@ -1,0 +1,12 @@
+{
+    "name": "monolith-software/module-slider",
+    "description": "Create and managment simple sliders",
+    "type": "monolith-cms-module",
+    "homepage": "http://monolith-cms.com",
+    "keywords": ["slider"],
+    "time": "2017-12-11",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "Monolith\\Module\\Slider\\": "" }
+    }
+}

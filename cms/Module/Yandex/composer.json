@@ -1,0 +1,9 @@
+{
+    "name": "monolith-software/module-yandex",
+    "description": "Yandex services.",
+    "autoload": {
+        "psr-4": {
+            "Monolith\\Module\\Yandex\\": ""
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{% set felib = felib_use('nivo-slider') %}
+
+<div class="slider-wrapper theme-default">
+    <div id="slider" class="nivoSlider">
+        {% for img in slider.slides %}
+            {% if img.enabled %}
+            <img src="{{ imgPath ~ img.filename }}" alt="{{ img.title }}" title="{{ img.title }}">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+    $(window).load(function() {
+        $('#slider').nivoSlider({
+            pauseTime: {{ slider.pauseTime }}
+        });
+    });
+});
+</script>
