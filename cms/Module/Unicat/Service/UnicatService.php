@@ -330,7 +330,7 @@ class UnicatService
     {
         $filesystem = new Filesystem();
         /** @var \AppKernel $kernel */
-        $entitiesDir = $this->container->get('kernel')->getBundle('SiteBundle')->getPath().'/Entity/Unicat';
+        $entitiesDir = $this->container->get('kernel')->getProjectDir().'/src/Entity/Unicat';
 
         if (!is_dir($entitiesDir)) {
             $filesystem->mkdir($entitiesDir);
@@ -341,18 +341,19 @@ class UnicatService
         foreach ($this->allConfigurations() as $configuration) {
             $generator = new DoctrineEntityGenerator();
             $generator->setSkeletonDirs($this->container->get('kernel')->getBundle('UnicatModuleBundle')->getPath().'/Resources/skeleton');
-            $siteBundle = $this->container->get('kernel')->getBundle('SiteBundle');
-            $targetDir  = $siteBundle->getPath().'/Entity/Unicat/'.ucfirst($configuration->getName());
+
+            $targetDir  = $this->container->get('kernel')->getProjectDir().'/src/Entity/Unicat/'.ucfirst($configuration->getName());
 
             if (!is_dir($targetDir) and !@mkdir($targetDir, 0777, true)) {
                 throw new \InvalidArgumentException(sprintf('The directory "%s" does not exist and could not be created.', $targetDir));
             }
 
-            $reflector = new \ReflectionClass($siteBundle);
-            $namespace = $reflector->getNamespaceName().'\Entity\\Unicat\\'.ucfirst($configuration->getName());
+            $namespace = 'App\\Entity\\Unicat\\'.ucfirst($configuration->getName());
             $configuration->setEntitiesNamespace($namespace.'\\');
 
             $generator->generate($targetDir, $namespace, $configuration);
+
+            file_put_contents($this->container->get('kernel')->getProjectDir().'/src/Entity/Unicat/.gitignore', "*");
 
             if (empty($configuration->getUser()) and !empty($user)) {
                 $configuration->setUser($user);

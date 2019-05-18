@@ -1,10 +1,10 @@
-#site.images:
-#    resource: '@SmartMediaBundle/Resources/config/routing.yml'
-#    prefix: /_media/
+cms.smart_media:
+    resource: '@SmartMediaBundle/Resources/config/routing.yml'
+    prefix: /_media/
 
-#cms_api:
-#    resource: routing_api.yml
-#    prefix: /%cms_api%/
+cms_api:
+    resource: routing_api.yml
+    prefix: /%api_path%/
 
 cms_admin:
     resource: routing_admin.yml
@@ -23,24 +23,6 @@ module_routes:
 
 #elfinder:
 #    resource: '@FMElfinderBundle/Resources/config/routing.yml'
-
-#cms_index:
-#    path: /{slug}
-#    controller: Monolith\CMSBundle\Controller\CmsController::index
-#    methods: GET
-#    defaults:
-#        slug: ''
-#    requirements:
-#        slug: '.+'
-
-#cms_index_post:
-#    path: /{slug}
-#    methods: POST
-#    defaults:
-#        _controller: CMSBundle:FrontEnd:post
-#        slug: ''
-#    requirements:
-#        slug: '.+'
 
 controllers:
     resource: '../../../Controller/'

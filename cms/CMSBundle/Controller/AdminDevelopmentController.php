@@ -59,7 +59,7 @@ class AdminDevelopmentController extends Controller
         $prodUrl = $this->getParameter('cms_prod_url');
 
         // @todo получение ссылки без app_dev.php
-        $url = $prodUrl.$this->generateUrl('cms_api_syslog');
+        $url = $prodUrl.$this->generateUrl('cms_api.syslog');
 
         $allowKeys = $this->getParameter('cms_dev_api');
 
@@ -133,7 +133,7 @@ class AdminDevelopmentController extends Controller
         $prodUrl = $this->getParameter('cms_prod_url');
 
         if ($request->query->has('start')) {
-            $url = $this->generateUrl('cms_api_get_database_dump');
+            $url = $this->generateUrl('cms_api.get_database_dump');
 
             $allowKeys = $this->getParameter('cms_dev_api');
             if (isset($allowKeys[$this->getUser()->getUsername()])) {

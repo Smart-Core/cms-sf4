@@ -47,7 +47,7 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      sendForm('POST', '{{ path('cms_api_node_index', {'node_id': node_id}) }}', form)
+      sendForm('POST', '{{ path('cms_api.node_index', {'node_id': node_id}) }}', form)
         .then(function () {
           alert('Ваше сообщение отправлено');
         })
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         //do your own request an handle the results
         $.ajax({
-            url: '{{ path('cms_api_node_index', {'node_id': node_id}) }}',
+            url: '{{ path('cms_api.node_index', {'node_id': node_id}) }}',
             type: 'post',
             dataType: 'json',
             data: $('form[name=web_form_{{ web_form.name }}]').serialize(),
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
                 $.ajax({
                     type: 'POST',
-                    url: '{{ path('cms_api_node', {'node_id': node_id, 'slug': 'get_form'}) }}',
+                    url: '{{ path('cms_api.node', {'node_id': node_id, 'slug': 'get_form'}) }}',
                     data: $('form[name=web_form_{{ web_form.name }}]').serialize(),
                     success: function (d) {
                         $('#wrapper_web_form_{{ web_form.name }}').html(d);

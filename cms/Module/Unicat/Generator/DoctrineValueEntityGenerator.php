@@ -2,8 +2,6 @@
 
 namespace Monolith\Module\Unicat\Generator;
 
-use Sensio\Bundle\GeneratorBundle\Generator\Generator;
-
 class DoctrineValueEntityGenerator extends Generator
 {
     /**
