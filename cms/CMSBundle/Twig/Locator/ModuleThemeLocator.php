@@ -38,12 +38,10 @@ class ModuleThemeLocator extends FileLocator
      */
     protected function getPathsForBundleResource($parameters): array
     {
-//        dump($this->kernel->getBundle('CMSBundle'));
-        //dump($this->kernel->getBundle('CMSBundle')->getThemeDir());
-//        die;
-
         $parameters['%theme_dir%']    = $this->kernel->getBundle('CMSBundle')->getThemeDir();
 //        $parameters['%site_dir%']     = $this->kernel->getBundle('SiteBundle')->getPath().'/Resources';
+        // @todo %app_dir%
+        //$parameters['%app_dir%']     = $this->kernel->getBundle('SiteBundle')->getPath().'/Resources';
         $parameters['%cms_dir%']      = $this->kernel->getBundle('CMSBundle')->getPath().'/Resources';
         $parameters['%module_theme%'] = $this->moduleTheme;
 

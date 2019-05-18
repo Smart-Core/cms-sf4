@@ -46,7 +46,8 @@ class NodeRouter extends Router
         // if (isset($declaredRouteData[0][0]) and in_array('_folderPath', $declaredRouteData[0])) {
 
         $route = $this->getRouteCollection()->get($name);
-        if ($route->hasRequirement('_folderPath')) {
+
+        if (!empty($route) and $route->hasRequirement('_folderPath')) {
             if (isset($parameters['_folderPath'])) {
                 // Удаление последнего слеша
                 if (mb_substr($parameters['_folderPath'], -1) == '/') {

@@ -2,10 +2,6 @@
 #    resource: '@SmartMediaBundle/Resources/config/routing.yml'
 #    prefix: /_media/
 
-#site:
-#    resource: '@SiteBundle/Resources/config/routing.yml'
-#    prefix: /
-
 #cms_api:
 #    resource: routing_api.yml
 #    prefix: /%cms_api%/
@@ -19,14 +15,14 @@ admin_settings:
     resource: '@SmartSettingsBundle/Resources/config/routing.yml'
     prefix: /%admin_path%/config/
 
+# @todo   Подлючение маршрутов модулей в админку.
+module_routes:
+    resource: .
+    type: module_admin
+    prefix: /%admin_path%/
+
 #elfinder:
 #    resource: '@FMElfinderBundle/Resources/config/routing.yml'
-
-#cms_admin.site_switch_selected:
-#    path: /__cms_site_switch_selected/
-#    methods: POST
-#    defaults:
-#        _controller: CMSBundle:Admin:switchSelectedSite
 
 #cms_index:
 #    path: /{slug}

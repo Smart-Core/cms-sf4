@@ -9,6 +9,12 @@
 #    defaults:
 #        _controller: FOSUserBundle:Security:logout
 
+site_switch_selected:
+    path: /__cms_site_switch_selected/
+    methods: POST
+    defaults:
+        _controller: CMSBundle:Admin:switchSelectedSite
+
 system:
     resource: 'routing_admin_system.yml'
     prefix: /system/
@@ -44,10 +50,6 @@ help:
     defaults:
         _controller: CMSBundle:Admin:notFound
 
-# @todo   Подлючение маршрутов модулей в админку.
-module_routes:
-    resource: .
-    type: module_admin
 
 # ... other
 #404:

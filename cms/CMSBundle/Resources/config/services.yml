@@ -1,18 +1,18 @@
-#imports:
-#    - { resource: packages/*.yaml }
-
-parameters:
-    admin_path: admin2
-#    user_path: user
-#    mailer_user: test@mail.com
-#    liip_theme.filesystem_loader.class: Monolith\CMSBundle\Twig\Loader\FilesystemLoader
-#    router.class: Monolith\CMSBundle\Router\NodeRouter
-#    router.options.generator_dumper_class: Monolith\CMSBundle\Router\PhpGeneratorDumper
-
 services:
     Monolith\CMSBundle\Controller\:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
+
+    Monolith\CMSBundle\Command\:
+        resource: '../../Command'
+
+    # Commands
+    cms.command.themes_create_symlinks:
+        class: Monolith\CMSBundle\Command\CreateThemesSymlinkCommand
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+        tags:
+            - { name: console.command, command: 'cms:themes:create-symlinks' }
 
     # Menu selected items
     cms.menu.voter.request:
@@ -153,12 +153,6 @@ services:
         arguments: [ '@form.factory', "%fos_user.profile.form.name%", Monolith\CMSBundle\Form\Type\UserFormType, "%fos_user.profile.form.validation_groups%" ]
 
     # Listeners
-    #    controller_name_converter: # Заглушка для Symfony\Bundle\FrameworkBundle\Resources\config\web.xml т.к. этот сервис приватный.
-    #        class: Monolith\CMSBundle\Listener\ControllerNameParser
-    #        arguments: [ '@kernel' ]
-    #        tags:
-    #            - { name: monolog.logger, channel: request }
-
     resolve_controller_name_subscriber:
         class: Monolith\CMSBundle\Listener\ResolveControllerNameSubscriber
         arguments: [ '@controller_name_converter', '@cms.node', '@kernel']

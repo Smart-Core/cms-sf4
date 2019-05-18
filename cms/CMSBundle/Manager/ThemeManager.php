@@ -126,23 +126,22 @@ class ThemeManager
      */
     public function createSymlinks(bool $relative = false): array
     {
-        $siteBundle = $this->container->get('kernel')->getBundle('SiteBundle');
+        $projectDir = $this->container->get('kernel')->getProjectDir();
 
-        // @todo возможность симлинкать ресурсы темы в корень паблика сайтбандла или даже произвольную веб папку.
-        $siteBundlePublicDir = $siteBundle->getPath().'/Resources/public/theme/';
+        $publicDir = $projectDir.'/public/bundles/cms/themes/';
 
-        if (is_dir($siteBundlePublicDir)) {
-            $dirsToRemove = Finder::create()->depth(0)->directories()->in($siteBundlePublicDir);
+        if (is_dir($publicDir)) {
+            $dirsToRemove = Finder::create()->depth(0)->directories()->in($publicDir);
             $this->filesystem->remove($dirsToRemove);
         }
 
-        $themesDir = $this->container->getParameter('kernel.project_dir').'/themes/';
+        $themesDir = $projectDir.'/themes/';
 
         $result = [];
         foreach ($this->all() as $name => $data) {
             if (is_dir($themesDir.$name.'/public')) {
                 $originDir = $themesDir.$name.'/public';
-                $targetDir = $siteBundlePublicDir.$name;
+                $targetDir = $publicDir.$name;
 
                 if ($relative) {
                     $method = $this->relativeSymlinkWithFallback($originDir, $targetDir);
@@ -154,7 +153,7 @@ class ThemeManager
                 $result[] = [
                     'method' => $method,
                     'theme'  => $name,
-                    'target' => str_replace($this->container->getParameter('kernel.project_dir'), '.', $targetDir),
+                    'target' => str_replace($projectDir, '.', $targetDir),
                 ];
             }
         }

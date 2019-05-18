@@ -52,6 +52,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
+            "Doctrine\\ORM\\": "cms/CMSBundle/Doctrine/ORM",
             "Monolith\\": "cms/",
             "Smart\\": "cms/Smart/",
             "SmartCore\\Bundle\\SettingsBundle\\": "cms/SettingsBundle/"
@@ -77,10 +78,12 @@
             "security-checker security:check": "script"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "php bin/console cms:themes:create-symlinks"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "php bin/console cms:themes:create-symlinks"
         ]
     },
     "conflict": {

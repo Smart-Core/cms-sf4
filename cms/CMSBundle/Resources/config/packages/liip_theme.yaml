@@ -5,7 +5,7 @@ liip_theme:
     #load_controllers: false
     path_patterns:
         app_resource:
-            - "%%theme_dir%%/views/%%template%%"
+            - "%%theme_dir%%/templates/%%template%%"
         bundle_resource_dir:
             - "%%theme_dir%%/modules/%%bundle_name%%/%%module_theme%%/%%template%%"
             - "%%theme_dir%%/bundles/%%bundle_name%%/%%override_path%%"

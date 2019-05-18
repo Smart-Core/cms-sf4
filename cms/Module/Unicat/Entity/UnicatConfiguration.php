@@ -27,7 +27,7 @@ class UnicatConfiguration
     use ColumnTrait\FosUser;
 
     /**
-     * Пространство имен сущностей, например: DemoSiteBundle\Entity\Unicat\Catalog\.
+     * Пространство имен сущностей, например: App\Entity\Unicat\Catalog\
      *
      * @var string
      *

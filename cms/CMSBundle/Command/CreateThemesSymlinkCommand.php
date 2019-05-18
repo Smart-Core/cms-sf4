@@ -4,38 +4,40 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class CreateThemesSymlinkCommand extends ContainerAwareCommand
+class CreateThemesSymlinkCommand extends Command
 {
+    use ContainerAwareTrait;
+
+    protected static $defaultName = 'cms:themes:create-symlinks';
+
     protected function configure(): void
     {
         $this
-            ->setName('cms:themes:create-symlinks')
-            ->setDescription('Create symlinks from Themes public to SiteBundle public.')
+            ->setDescription('Create symlinks from Themes publics dir to project public.')
             ->addOption('relative', null, InputOption::VALUE_NONE, 'Make relative symlinks')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        try  {
-            $themes = $this->getContainer()->get('cms.theme')->createSymlinks(true);
-        } catch (\InvalidArgumentException $e) {
-            $output->writeln('   "SiteBundle" does not exist.');
+        $themes = $this->container->get('cms.theme')->createSymlinks(true);
 
+        if (empty($themes)) {
             return;
         }
 
         $style = new TableStyle();
         $style
-            ->setVerticalBorderChar(' ')
-            ->setCrossingChar(' ')
+            ->setVerticalBorderChars(' ', ' ')
+            ->setDefaultCrossingChar(' ')
         ;
 
         $table = new Table($output);
