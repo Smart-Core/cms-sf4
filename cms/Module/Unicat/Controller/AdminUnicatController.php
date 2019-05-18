@@ -218,6 +218,10 @@ class AdminUnicatController extends Controller
         $itemType = $em->getRepository(UnicatItemType::class)->find($request->query->get('type', 0));
 
         if (empty($itemType)) {
+            $itemType = $em->getRepository(UnicatItemType::class)->findOneBy(['configuration' => $ucm->getConfiguration()->getId()], ['id' => 'ASC']);
+        }
+
+        if (empty($itemType)) {
             throw new \Exception("Не указан тип записи");
         }
 

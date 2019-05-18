@@ -21,6 +21,7 @@
         "smart-core/seo-bundle": "dev-master",
         "smart-core/simple-profiler-bundle": "dev-master",
         "sonata-project/intl-bundle": "^2.6",
+        "stfalcon/tinymce-bundle": "*",
         "symfony/asset": "4.2.*",
         "symfony/console": "^4.2",
         "symfony/debug-pack": "^1.0",

@@ -79,8 +79,6 @@ class UnicatController extends Controller
             ], ['position' => 'ASC']);
         }
 
-//        dump($node);
-
         $this->buildFrontControlForTaxon($node, $ucm, $lastTaxon);
 
         $cacheKey = md5('smart_module.unicat.yaml_params'.$node->getId());
@@ -213,6 +211,7 @@ class UnicatController extends Controller
             ->setUri($this->generateUrl('unicat_admin.item_create_in_taxon', [
                 'configuration'    => $ucm->getConfiguration()->getName(),
                 'default_taxon_id' => empty($lastTaxon) ? 0 : $lastTaxon->getId(),
+                'type' => $node->getParam('item_type_id', 0),
             ]));
 
         if (!empty($lastTaxon)) {
