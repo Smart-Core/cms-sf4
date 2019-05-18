@@ -85,7 +85,7 @@ class UnicatController extends Controller
 
         $params_yaml = $params;
         if (null === $params = $this->getCacheService()->get($cacheKey)) {
-            $params = Yaml::parse($params_yaml);
+            $params = Yaml::parse((string) $params_yaml);
 
             $this->getCacheService()->set($cacheKey, $params, ['smart_module.unicat', 'node_'.$node->getId(), 'node']);
         }
