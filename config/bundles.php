@@ -36,4 +36,5 @@ return [
     WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle::class => ['all' => true],
     FM\ElfinderBundle\FMElfinderBundle::class => ['all' => true],
     Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle::class => ['all' => true],
+    Misd\PhoneNumberBundle\MisdPhoneNumberBundle::class => ['all' => true],
 ];
