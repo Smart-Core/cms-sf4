@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace SmartCore\Bundle\SettingsBundle\Cache;
 
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\Cache\Adapter\TraceableAdapter;
 use Symfony\Component\Cache\CacheItem;
 
 class CacheProvider
 {
-    /** @var TraceableAdapter */
+    /** @var AdapterInterface */
     protected $pool;
 
     /**
      * CmsCacheProvider constructor.
      *
-     * @param TraceableAdapter $pool
+     * @param AdapterInterface $pool
      */
-    public function __construct(TraceableAdapter $pool)
+    public function __construct(AdapterInterface $pool)
     {
         $this->pool = $pool;
     }
@@ -26,7 +27,7 @@ class CacheProvider
     /**
      * @return TagAwareAdapter
      */
-    public function getPool(): TagAwareAdapter
+    public function getPool(): AdapterInterface
     {
         return $this->pool;
     }
