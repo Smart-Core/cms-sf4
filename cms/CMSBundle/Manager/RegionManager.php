@@ -13,24 +13,16 @@ use Symfony\Component\Form\FormInterface;
 
 class RegionManager
 {
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     protected $em;
 
-    /**
-     * @var FormFactoryInterface
-     */
+    /** @var FormFactoryInterface */
     protected $formFactory;
 
-    /**
-     * @var \Doctrine\ORM\EntityRepository
-     */
+    /** @var \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository */
     protected $repository;
 
-    /**
-     * @var ContextManager
-     */
+    /** @var ContextManager */
     protected $cmsContext;
 
     /**
