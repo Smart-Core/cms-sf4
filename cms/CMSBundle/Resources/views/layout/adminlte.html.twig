@@ -121,7 +121,7 @@
 
             <!-- Logo -->
             {% block logo %}
-            <a href="{{ path('cms_admin_index') }}" class="logo">
+            <a href="{{ path('cms_admin.index') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>C</b>MS</span>
                 <!-- logo for regular state and mobile devices -->
@@ -172,7 +172,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="{{ path('cms_admin_user_edit', {'id': app.user.id}) }}" class="btn btn-default btn-flat">{{ 'My profile'|trans }}</a>
+                                        <a href="{{ path('cms_admin.user_edit', {'id': app.user.id}) }}" class="btn btn-default btn-flat">{{ 'My profile'|trans }}</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{{ logout_path() }}" class="btn btn-default btn-flat">{{ 'Exit'|trans }}</a>
@@ -195,8 +195,8 @@
                     {% set sites = cms_sites_switcher() %}
                     {% if sites|length > 1 %}
                     <div class="cms-site-switcher">
-                    <form method="post" action="{{ path('cms_admin_site_switch_selected') }}" name="cms-site-switcher">
-                        <input type="hidden" name="route" value="cms_admin_index">
+                    <form method="post" action="{{ path('cms_admin.site_switch_selected') }}" name="cms-site-switcher">
+                        <input type="hidden" name="route" value="cms_admin.index">
                         <select name="site" onchange="this.form.submit()">
                             {% for s in sites %}
                                 {% if s.selected == s.id %}

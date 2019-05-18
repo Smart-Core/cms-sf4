@@ -8,7 +8,7 @@
 
 {% block content_body %}
     {% if storages|length > 0 %}
-    <h3>Коллекции <a href="{{ path('cms_admin_config_media_create_collection') }}" class="btn btn-default btn-xs btn-mini"><i class="icon-plus"></i><span class="glyphicon glyphicon-plus"></span> {{ 'Create collection'|trans }}</a></h3>
+    <h3>Коллекции <a href="{{ path('cms_admin.config_media_create_collection') }}" class="btn btn-default btn-xs btn-mini"><i class="icon-plus"></i><span class="glyphicon glyphicon-plus"></span> {{ 'Create collection'|trans }}</a></h3>
 
     <table class="table table-bordered table-hover">
         <thead><tr>
@@ -22,7 +22,7 @@
         {% for collection in collections %}
             <tr>
                 <td>{{ collection.id }}</td>
-                <td><a href="{{ path('cms_admin_config_media_edit_collection', {'id': collection.id}) }}">{{ collection.title }}</a></td>
+                <td><a href="{{ path('cms_admin.config_media_edit_collection', {'id': collection.id}) }}">{{ collection.title }}</a></td>
                 <td>{{ collection.relativePath }}</td>
                 <td>{{ collection.fileRelativePathPattern }}</td>
                 <td>{{ collection.filenamePattern }}</td>
@@ -32,7 +32,7 @@
     </table>
     {% endif %}
 
-    <h3>Хранилища <a href="{{ path('cms_admin_config_media_create_storage') }}" class="btn btn-default btn-xs btn-mini"><i class="icon-plus"></i><span class="glyphicon glyphicon-plus"></span> {{ 'Create storage'|trans }}</a></h3>
+    <h3>Хранилища <a href="{{ path('cms_admin.config_media_create_storage') }}" class="btn btn-default btn-xs btn-mini"><i class="icon-plus"></i><span class="glyphicon glyphicon-plus"></span> {{ 'Create storage'|trans }}</a></h3>
 
     <table class="table table-bordered table-hover">
         <thead><tr>
@@ -45,7 +45,7 @@
         {% for storage in storages %}
             <tr>
                 <td>{{ storage.id }}</td>
-                <td><a href="{{ path('cms_admin_config_media_edit_storage', {'id': storage.id}) }}">{{ storage.title }}</a></td>
+                <td><a href="{{ path('cms_admin.config_media_edit_storage', {'id': storage.id}) }}">{{ storage.title }}</a></td>
                 <td>{{ storage.relativePath }}</td>
                 <td>{{ storage.provider }}</td>
             </tr>

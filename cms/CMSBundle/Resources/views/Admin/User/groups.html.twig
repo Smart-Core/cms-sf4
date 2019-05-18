@@ -4,7 +4,7 @@
 
 {% block content_admin_users %}
     <div class="box-header with-border">
-        <a href="{{ path('cms_admin_user_group_create') }}" class="btn btn-success" style="float: right;">
+        <a href="{{ path('cms_admin.user_group_create') }}" class="btn btn-success" style="float: right;">
             <i class="icon-plus icon-white"></i><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             {{ 'Create'|trans }}
         </a>
@@ -24,8 +24,8 @@
         {% for e in groups %}
             <tr>
                 <td>{{ e.id }}</td>
-                <td><a href="{{ path('cms_admin_user_group_edit', {'id': e.id}) }}">{{ e.title }}</a></td>
-                <td><a href="{{ path('cms_admin_user_group_edit', {'id': e.id}) }}">{{ e.name}}</a></td>
+                <td><a href="{{ path('cms_admin.user_group_edit', {'id': e.id}) }}">{{ e.title }}</a></td>
+                <td><a href="{{ path('cms_admin.user_group_edit', {'id': e.id}) }}">{{ e.name}}</a></td>
                 <td>{{ e.position }}</td>
                 <td>{{ cms_users_count_in_group(e) }}</td>
             </tr>

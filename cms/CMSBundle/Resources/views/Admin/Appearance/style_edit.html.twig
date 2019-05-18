@@ -9,7 +9,7 @@
     <form id="style_code_wrapper" action="" method="post" style="margin-bottom: 0px;">
         <ul class="nav nav-tabs" id="myTab" style="float: left;" >
             {% for style in styles %}
-                <li{% if style == name %} class="active"{% endif %}><a href="{{ path('cms_admin_appearance_style', {'name': style}) }}">{{ style }}</a></li>
+                <li{% if style == name %} class="active"{% endif %}><a href="{{ path('cms_admin.appearance_style', {'name': style}) }}">{{ style }}</a></li>
             {% endfor %}
         </ul>
 
@@ -22,7 +22,7 @@
         <textarea name="style_code" data-editor="css" class=" input-block-level">{{ style_code|e }}</textarea>
     </form>
 
-    <a href="{{ path('cms_admin_appearance_style_history', {'name': name}) }}" style="float: right;">История изменений стиля <b>{{ name }}</b></a>
+    <a href="{{ path('cms_admin.appearance_style_history', {'name': name}) }}" style="float: right;">История изменений стиля <b>{{ name }}</b></a>
 
     {% if is_setting('cms:appearance_editor', 'ace') %}
     <style type="text/css" media="screen">

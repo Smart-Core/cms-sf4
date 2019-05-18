@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-    <h3>{{ 'Template history'|trans }}: <a href="{{ path('cms_admin_appearance_template', {'name': name}) }}">{{ name }}.html.twig</a></h3>
+    <h3>{{ 'Template history'|trans }}: <a href="{{ path('cms_admin.appearance_template', {'name': name}) }}">{{ name }}.html.twig</a></h3>
 
     <table class="table table-bordered table-hover">
         <thead><tr>
@@ -43,11 +43,11 @@
                             <h3 id="myModalLabel">{{ name }}.html.twig</h3>
                         </div>
                         <div class="modal-body">
-                            <iframe src="{{ path('cms_admin_appearance_history_code', {'id': history.id}) }}?height=390px&disable_autho_height=1&mode=twig"></iframe>
+                            <iframe src="{{ path('cms_admin.appearance_history_code', {'id': history.id}) }}?height=390px&disable_autho_height=1&mode=twig"></iframe>
                         </div>
                         <div class="modal-footer">
                             <a class="btn btn-primary"
-                               href="{{ path('cms_admin_appearance_history_rollback', {'id': history.id}) }}"
+                               href="{{ path('cms_admin.appearance_history_rollback', {'id': history.id}) }}"
                                onclick="return confirm('Вы уверены, что хотите откатить файл {{ name }}.html.twig до даты: {{ history.createdAt|format_datetime }}?')"
                             >{{ 'Rollback'|trans }}</a>
 

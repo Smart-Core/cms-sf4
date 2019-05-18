@@ -25,8 +25,8 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.title }} ({{ item.uriPart }})</td>
                 <td style="width: 1%; white-space: nowrap;">
-                    <a href="{{ path('cms_admin_structure_trash_restore_folder', {'id': item.id}) }}" class="btn btn-small btn-success">Восстановить</a>
-                    <a href="{{ path('cms_admin_structure_trash_purge_folder', {'id': item.id}) }}" class="btn btn-small btn-danger" onclick="return confirm('Вы уверены, что хотите окончательно удалить папку?')">Удалить окончательно</a>
+                    <a href="{{ path('cms_admin.structure_trash_restore_folder', {'id': item.id}) }}" class="btn btn-small btn-success">Восстановить</a>
+                    <a href="{{ path('cms_admin.structure_trash_purge_folder', {'id': item.id}) }}" class="btn btn-small btn-danger" onclick="return confirm('Вы уверены, что хотите окончательно удалить папку?')">Удалить окончательно</a>
                 </td>
             </tr>
         {% endfor %}
@@ -61,8 +61,8 @@
                 <td>{{ item.description }}</td>
                 <td>{{ item.deletedAt|date() }}</td>
                 <td style="width: 1%; white-space: nowrap;">
-                    <a href="{{ path('cms_admin_structure_trash_restore_node', {'id': item.id}) }}" class="btn btn-small btn-success">Восстановить</a>
-                    <a href="{{ path('cms_admin_structure_trash_purge_node', {'id': item.id}) }}" class="btn btn-small btn-danger" onclick="return confirm('Вы уверены, что хотите окончательно удалить ноду?')">Удалить окончательно</a>
+                    <a href="{{ path('cms_admin.structure_trash_restore_node', {'id': item.id}) }}" class="btn btn-small btn-success">Восстановить</a>
+                    <a href="{{ path('cms_admin.structure_trash_purge_node', {'id': item.id}) }}" class="btn btn-small btn-danger" onclick="return confirm('Вы уверены, что хотите окончательно удалить ноду?')">Удалить окончательно</a>
                 </td>
             </tr>
         {% endfor %}

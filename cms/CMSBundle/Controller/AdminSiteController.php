@@ -52,7 +52,7 @@ class AdminSiteController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_site');
+                return $this->redirectToRoute('cms_admin.site');
             }
 
             if ($form->get('create')->isClicked() and $form->isValid()) {
@@ -60,7 +60,7 @@ class AdminSiteController extends Controller
 
                 $this->addFlash('success', 'Site добавлен.');
 
-                return $this->redirectToRoute('cms_admin_site');
+                return $this->redirectToRoute('cms_admin.site');
             }
         }
 
@@ -79,14 +79,14 @@ class AdminSiteController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_site');
+                return $this->redirectToRoute('cms_admin.site');
             }
 
             if ($form->get('update')->isClicked() and $form->isValid()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Site обновлён.');
 
-                return $this->redirectToRoute('cms_admin_site');
+                return $this->redirectToRoute('cms_admin.site');
             }
         }
 

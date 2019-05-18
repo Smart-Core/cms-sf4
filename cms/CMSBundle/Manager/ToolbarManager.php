@@ -29,39 +29,39 @@ class ToolbarManager extends Controller
                     'descr' => '',
                     'icon' => 'admin',
                     'onlyicon' => true,
-                    'uri'   => $router->generate('cms_admin_index'),
+                    'uri'   => $router->generate('cms_admin.index'),
                 ],
                 */
                 'menu' => [
                     'title' => $t->trans('Menu'),
                     'descr' => '',
                     'icon' => 'menu',
-                    'uri'   => $router->generate('cms_admin_index'),
+                    'uri'   => $router->generate('cms_admin.index'),
                     'items' => [
                         'structure' => [
                             'title' => $t->trans('Site structure'),
                             'icon'  => 'structure',
-                            'uri'   => $router->generate('cms_admin_structure'),
+                            'uri'   => $router->generate('cms_admin.structure'),
                         ],
                         'modules' => [
                             'title' => $t->trans('Modules'),
                             'icon'  => 'modules',
-                            'uri'   => $router->generate('cms_admin_module'),
+                            'uri'   => $router->generate('cms_admin.module'),
                         ],
                         'files' => [
                             'title' => $t->trans('Files'),
                             'icon'  => 'file',
-                            'uri'   => $router->generate('cms_admin_files'),
+                            'uri'   => $router->generate('cms_admin.files'),
                         ],
                         'regions' => [
                             'title' => $t->trans('Regions'),
                             'icon'  => 'area',
-                            'uri'   => $router->generate('cms_admin_structure_region'),
+                            'uri'   => $router->generate('cms_admin.structure_region'),
                         ],
                         'users' => [
                             'title' => $t->trans('Users'),
                             'icon'  => 'users',
-                            'uri'   => $router->generate('cms_admin_user'),
+                            'uri'   => $router->generate('cms_admin.user'),
                         ],
                         'config' => [
                             'title' => $t->trans('Configuration'),
@@ -72,17 +72,17 @@ class ToolbarManager extends Controller
                         'appearance' => [
                             'title' => $t->trans('Appearance'),
                             'icon'  => 'code',
-                            'uri'   => $router->generate('cms_admin_appearance'),
+                            'uri'   => $router->generate('cms_admin.appearance'),
                         ],
                         'reports' => [
                             'title' => $t->trans('Reports'),
                             'icon' => 'report',
-                            'uri' => $router->generate('cms_admin_reports'),
+                            'uri' => $router->generate('cms_admin.reports'),
                         ],
                         'help' => [
                             'title' => $t->trans('Help'),
                             'icon' => 'question-sign',
-                            'uri' => $router->generate('cms_admin_help'),
+                            'uri' => $router->generate('cms_admin.help'),
                         ],
                         */
                     ],
@@ -96,7 +96,7 @@ class ToolbarManager extends Controller
                         'folder_edit' => [
                             'title' => $t->trans('Edit folder'),
                             'icon'  => 'edit-toolbar',
-                            'uri'   => $router->generate('cms_admin_structure_folder', [
+                            'uri'   => $router->generate('cms_admin.structure_folder', [
                                 'id' => $current_folder_id,
                                 'redirect_to' => 'self',
                             ]),
@@ -104,7 +104,7 @@ class ToolbarManager extends Controller
                         'folder_new' => [
                             'title' => $t->trans('Create folder'),
                             'icon'  => 'add',
-                            'uri'   => $router->generate('cms_admin_structure_folder_create_in_folder', [
+                            'uri'   => $router->generate('cms_admin.structure_folder_create_in_folder', [
                                 'site' => $this->container->get('cms.context')->getSite()->getId(),
                                 'parent' => $current_folder_id,
                                 'redirect_to' => 'self',
@@ -113,7 +113,7 @@ class ToolbarManager extends Controller
                         'add_module' => [
                             'title' => $t->trans('Add module'),
                             'icon'  => 'add',
-                            'uri'   => $router->generate('cms_admin_structure_node_create_in_folder', [
+                            'uri'   => $router->generate('cms_admin.structure_node_create_in_folder', [
                                 'folder_pid' => $current_folder_id,
                                 'redirect_to' => 'front',
                             ]),
@@ -130,20 +130,20 @@ class ToolbarManager extends Controller
                         /*
                         'admin' => [
                             'title' => $t->trans('Control panel'),
-                            'uri'   => $router->generate('cms_admin_index'),
+                            'uri'   => $router->generate('cms_admin.index'),
                             'icon'  => 'cog',
                             'overalay' => false,
                         ],
                         */
                         'profile' => [
                             'title' => $t->trans('My profile'),
-                            'uri'   => $router->generate('cms_admin_user_edit', ['id' => $this->container->get('security.token_storage')->getToken()->getUser()->getId()]),
+                            'uri'   => $router->generate('cms_admin.user_edit', ['id' => $this->container->get('security.token_storage')->getToken()->getUser()->getId()]),
                             'icon'  => 'profile',
                             'overalay' => false,
                         ],
                         'logout' => [
                             'title' => $t->trans('Logout'),
-                            'uri'   => $this->get('security.logout_url_generator')->getLogoutPath(), // $router->generate('cms_admin_logout'),
+                            'uri'   => $this->get('security.logout_url_generator')->getLogoutPath(), // $router->generate('cms_admin.logout'),
                             'icon'  => 'exit',
                             'overalay' => false,
                         ],

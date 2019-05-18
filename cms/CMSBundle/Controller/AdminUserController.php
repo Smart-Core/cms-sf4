@@ -81,7 +81,7 @@ class AdminUserController extends Controller
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    $url = $this->get('router')->generate('cms_admin_user');
+                    $url = $this->get('router')->generate('cms_admin.user');
                     $response = new RedirectResponse($url);
                 }
 
@@ -113,7 +113,7 @@ class AdminUserController extends Controller
 
         $user = $userManager->findUserBy(['id' => $id]);
         if (!is_object($user) || !$user instanceof UserInterface) {
-            return $this->redirect($this->generateUrl('cms_admin_user'));
+            return $this->redirect($this->generateUrl('cms_admin.user'));
         }
 
         $form = $this->get('cms.form.profile.admin.factory')->createForm();
@@ -133,7 +133,7 @@ class AdminUserController extends Controller
 
                 $this->addFlash('success', 'Данные пользовалеля <b>'.$user->getUsername().'</b> обновлены.');
 
-                return $this->redirect($this->generateUrl('cms_admin_user'));
+                return $this->redirect($this->generateUrl('cms_admin.user'));
             }
         }
 
@@ -181,7 +181,7 @@ class AdminUserController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_user_groups');
+                return $this->redirectToRoute('cms_admin.user_groups');
             }
 
             if ($form->get('update')->isClicked() and $form->isValid()) {
@@ -199,7 +199,7 @@ class AdminUserController extends Controller
 
                 $this->addFlash('success', 'User group updated successfully.');
 
-                return $this->redirectToRoute('cms_admin_user_groups');
+                return $this->redirectToRoute('cms_admin.user_groups');
             }
         }
 
@@ -236,7 +236,7 @@ class AdminUserController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_user_groups');
+                return $this->redirectToRoute('cms_admin.user_groups');
             }
 
             if ($form->get('create')->isClicked() and $form->isValid()) {
@@ -249,7 +249,7 @@ class AdminUserController extends Controller
 
                 $this->addFlash('success', 'User group created successfully.');
 
-                return $this->redirectToRoute('cms_admin_user_groups');
+                return $this->redirectToRoute('cms_admin.user_groups');
             }
         }
 

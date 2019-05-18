@@ -41,7 +41,7 @@ class AdminStructureController extends Controller
         $cmsFolder = $this->get('cms.folder');
 
         if (null === $cmsFolder->get(1)) {
-            return $this->redirectToRoute('cms_admin_structure_folder_create');
+            return $this->redirectToRoute('cms_admin.structure_folder_create');
         }
 
         $structureHash = $cmsFolder->getStructureHash();
@@ -117,7 +117,7 @@ class AdminStructureController extends Controller
         $site = $this->get('cms.context')->getSite();
 
         if (null === $site->getRootFolder()) {
-            return $this->redirectToRoute('cms_admin_structure_folder_create');
+            return $this->redirectToRoute('cms_admin.structure_folder_create');
         }
 
         return $this->render('@CMS/Admin/Structure/structure.html.twig');
@@ -162,7 +162,7 @@ class AdminStructureController extends Controller
         }
 
         $form = $cmsFolder->createForm($folder, [
-            'action' => $this->generateUrl('cms_admin_structure_folder_create'),
+            'action' => $this->generateUrl('cms_admin.structure_folder_create'),
         ]);
 
         // Для корневой папки удаляются некоторые поля формы
@@ -249,7 +249,7 @@ class AdminStructureController extends Controller
                         return $this->get('cms.router')->redirect($folder);
                     }
 
-                    return $this->redirectToRoute('cms_admin_structure');
+                    return $this->redirectToRoute('cms_admin.structure');
                 }
             } elseif ($request->request->has('delete')) {
                 die('@todo');
@@ -273,7 +273,7 @@ class AdminStructureController extends Controller
     public function folderEditAction(Request $request, Folder $folder = null): Response
     {
         if (empty($folder)) {
-            return $this->redirectToRoute('cms_admin_megastructure');
+            return $this->redirectToRoute('cms_admin.megastructure');
         }
 
         $form = $this->get('cms.folder')->createForm($folder);
@@ -313,7 +313,7 @@ class AdminStructureController extends Controller
                         return $this->get('cms.router')->redirect($folder);
                     }
 
-                    return $this->redirectToRoute('cms_admin_structure');
+                    return $this->redirectToRoute('cms_admin.structure');
                 }
             } elseif ($request->request->has('delete')) {
                 $form->handleRequest($request);
@@ -343,7 +343,7 @@ class AdminStructureController extends Controller
                     ]);
                 }
 
-                return $this->redirectToRoute('cms_admin_structure');
+                return $this->redirectToRoute('cms_admin.structure');
 
             }
         }
@@ -384,7 +384,7 @@ class AdminStructureController extends Controller
 
                     $this->get('cms.cache')->invalidateTags(['node', 'folder']);
 
-                    return $this->redirectToRoute('cms_admin_structure_region');
+                    return $this->redirectToRoute('cms_admin.structure_region');
                 }
             } elseif ($request->request->has('delete')) {
                 $region = $form->getData();
@@ -397,7 +397,7 @@ class AdminStructureController extends Controller
                     $this->get('cms.region')->remove($region);
                     $this->addFlash('success', 'Область удалена.');
 
-                    return $this->redirectToRoute('cms_admin_structure_region');
+                    return $this->redirectToRoute('cms_admin.structure_region');
                 }
             }
         }
@@ -445,7 +445,7 @@ class AdminStructureController extends Controller
                 $engineRegion->update($region);
                 $this->addFlash('success', 'Область создана.');
 
-                return $this->redirectToRoute('cms_admin_structure_region');
+                return $this->redirectToRoute('cms_admin.structure_region');
             }
         }
 
@@ -466,7 +466,7 @@ class AdminStructureController extends Controller
     public function nodeCreateAction(Request $request, $folder_pid = 1)
     {
         if (null === $folder = $this->get('cms.folder')->get($folder_pid)) {
-            return $this->redirectToRoute('cms_admin_structure_folder_create');
+            return $this->redirectToRoute('cms_admin.structure_folder_create');
         }
 
         $cmsNode = $this->get('cms.node');
@@ -518,13 +518,13 @@ class AdminStructureController extends Controller
                     }
 
                     if ('front' === $request->query->get('redirect_to')) {
-                        return $this->redirectToRoute('cms_admin_structure_node_setup_controller', [
+                        return $this->redirectToRoute('cms_admin.structure_node_setup_controller', [
                             'id' => $createdNode->getId(),
                             'redirect_to' => 'front',
                         ]);
                     }
 
-                    return $this->redirectToRoute('cms_admin_structure_node_properties', ['id' => $createdNode->getId()]);
+                    return $this->redirectToRoute('cms_admin.structure_node_properties', ['id' => $createdNode->getId()]);
                 }
             } elseif ($request->request->has('delete')) {
                 die('@todo');
@@ -550,7 +550,7 @@ class AdminStructureController extends Controller
         $cmsNode = $this->get('cms.node');
 
         if (empty($node)) {
-            return $this->redirectToRoute('cms_admin_structure');
+            return $this->redirectToRoute('cms_admin.structure');
         }
 
         if (empty($node->getController())) {
@@ -561,7 +561,7 @@ class AdminStructureController extends Controller
                 ]);
             }
 
-            return $this->redirectToRoute('cms_admin_structure_node_setup_controller', ['id' => $node->getId()]);
+            return $this->redirectToRoute('cms_admin.structure_node_setup_controller', ['id' => $node->getId()]);
         }
 
         $nodeParams = $node->getParams();
@@ -655,7 +655,7 @@ class AdminStructureController extends Controller
                         return $this->get('cms.router')->redirect($updatedNode);
                     }
 
-                    return $this->redirectToRoute('cms_admin_structure');
+                    return $this->redirectToRoute('cms_admin.structure');
                 } else {
                     ld('Ошибка валидации формы');
                     ld($nodeParams);
@@ -694,7 +694,7 @@ class AdminStructureController extends Controller
                     return $this->get('cms.router')->redirect($node); // @todo
                 }
 
-                return $this->redirectToRoute('cms_admin_structure');
+                return $this->redirectToRoute('cms_admin.structure');
             }
         }
 
@@ -734,7 +734,7 @@ class AdminStructureController extends Controller
             $this->persist($node, true);
 
             if ($request->query->has('_overlay')) {
-                return $this->redirectToRoute('cms_admin_structure_node_properties', [
+                return $this->redirectToRoute('cms_admin.structure_node_properties', [
                     'id' => $node->getId(),
                     '_overlay' => '1'
                 ]);
@@ -744,7 +744,7 @@ class AdminStructureController extends Controller
                 return $this->get('cms.router')->redirect($node);
             }
 
-            return $this->redirectToRoute('cms_admin_structure_node_properties', [
+            return $this->redirectToRoute('cms_admin.structure_node_properties', [
                 'id' => $node->getId(),
             ]);
         }
@@ -772,13 +772,13 @@ class AdminStructureController extends Controller
                 }
 
                 if ('front' === $request->query->get('redirect_to')) {
-                    return $this->redirectToRoute('cms_admin_structure_node_properties', [
+                    return $this->redirectToRoute('cms_admin.structure_node_properties', [
                         'id' => $node->getId(),
                         'redirect_to' => 'front',
                     ]);
                 }
 
-                return $this->redirectToRoute('cms_admin_structure_node_properties', ['id' => $node->getId()]);
+                return $this->redirectToRoute('cms_admin.structure_node_properties', ['id' => $node->getId()]);
             }
         }
 
@@ -850,7 +850,7 @@ class AdminStructureController extends Controller
 
         $this->addFlash('success', 'Папка восстановлена.');
 
-        return $this->redirectToRoute('cms_admin_structure_trash');
+        return $this->redirectToRoute('cms_admin.structure_trash');
     }
 
     /**
@@ -864,7 +864,7 @@ class AdminStructureController extends Controller
 
         $this->addFlash('success', 'Папка удалена.');
 
-        return $this->redirectToRoute('cms_admin_structure_trash');
+        return $this->redirectToRoute('cms_admin.structure_trash');
     }
 
     /**
@@ -886,7 +886,7 @@ class AdminStructureController extends Controller
 
         $this->addFlash('success', 'Нода восстановлена.');
 
-        return $this->redirectToRoute('cms_admin_structure_trash');
+        return $this->redirectToRoute('cms_admin.structure_trash');
     }
 
     /**
@@ -900,6 +900,6 @@ class AdminStructureController extends Controller
 
         $this->addFlash('success', 'Нода удалена.');
 
-        return $this->redirectToRoute('cms_admin_structure_trash');
+        return $this->redirectToRoute('cms_admin.structure_trash');
     }
 }

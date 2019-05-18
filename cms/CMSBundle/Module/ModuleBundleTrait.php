@@ -141,7 +141,7 @@ trait ModuleBundleTrait
             }
 
             $menu->addChild($this->getShortName(), [
-                'uri' => $this->container->get('router')->generate('cms_admin_index').$this->getShortName().'/',
+                'uri' => $this->container->get('router')->generate('cms_admin.index').$this->getShortName().'/',
             ])->setExtras($extras);
         }
 

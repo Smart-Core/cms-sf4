@@ -1,53 +1,53 @@
-cms_admin_system:
+system:
     path: /
     defaults:
         _controller: CMSBundle:Admin:notFound
 
-cms_admin_files:
+files:
     path: /files/
     defaults:
         _controller: CMSBundle:Admin:elfinder
 
 # Modules
-cms_admin_module:
+module:
     path: /module/
     defaults:
         _controller: CMSBundle:AdminModule:enabled
 
-cms_admin_module_disabled:
+module_disabled:
     path: /module/disabled/
     defaults:
         _controller: CMSBundle:AdminModule:disabled
 
-cms_admin_module_all:
+module_all:
     path: /module/all/
     defaults:
         _controller: CMSBundle:AdminModule:index
 
-cms_admin_module_install_updatedb:
+module_install_updatedb:
     path: /module/install/updatedb
     methods: 'POST'
     defaults:
         _controller: CMSBundle:AdminModule:moduleInstallUpdateDb
 
-cms_admin_module_install:
+module_install:
     path: /module/install/{filename}
     defaults:
         _controller: CMSBundle:AdminModule:install
         filename: ''
 
 # languages
-cms_admin_language:
+language:
     path: /language/
     defaults:
         _controller: CMSBundle:AdminLanguage:index
 
-cms_admin_language_create:
+language_create:
     path: /language/create/
     defaults:
         _controller: CMSBundle:AdminLanguage:create
 
-cms_admin_language_edit:
+language_edit:
     path: /language/{id}/
     defaults:
         _controller: CMSBundle:AdminLanguage:edit
@@ -55,33 +55,33 @@ cms_admin_language_edit:
         id: \d+
 
 # development
-cms_admin_development:
+development:
     path: /development/
     defaults:
         _controller: CMSBundle:AdminDevelopment:index
 
-cms_admin_development_sync:
+development_sync:
     path: /development/sync/
     defaults:
         _controller: CMSBundle:AdminDevelopment:sync
 
-cms_admin_development_db:
+development_db:
     path: /development/db/
     defaults:
         _controller: CMSBundle:AdminDevelopment:database
 
 # sites
-cms_admin_site:
+site:
     path: /site/
     defaults:
         _controller: CMSBundle:AdminSite:index
 
-cms_admin_site_create:
+site_create:
     path: /site/create/
     defaults:
         _controller: CMSBundle:AdminSite:create
 
-cms_admin_site_edit:
+site_edit:
     path: /site/{id}/
     defaults:
         _controller: CMSBundle:AdminSite:edit
@@ -89,24 +89,24 @@ cms_admin_site_edit:
         id: \d+
 
 # domains
-cms_admin_domains:
+domains:
     path: /site/domains/
     defaults:
         _controller: CMSBundle:AdminDomain:index
 
-cms_admin_domain_create:
+domain_create:
     path: /domain_create/
     defaults:
         _controller: CMSBundle:AdminDomain:create
 
-cms_admin_domain_edit:
+domain_edit:
     path: /domain/{id}/
     defaults:
         _controller: CMSBundle:AdminDomain:edit
     requirements:
         id: \d+
 
-cms_admin_domain_create_alias:
+domain_create_alias:
     path: /domain_create_alias/{id}/
     defaults:
         _controller: CMSBundle:AdminDomain:createAlias
@@ -114,71 +114,71 @@ cms_admin_domain_create_alias:
         id: \d+
 
 # reports
-cms_admin_reports:
+reports:
     path: /reports/
     defaults:
         _controller: CMSBundle:Admin:reports
 
 # Backup
-cms_admin_backup_download:
+backup_download:
     path: /backup/{filename}
     defaults:
         _controller: CMSBundle:Admin:backupDownload
         filename: '.+'
 
-cms_admin_backup:
+backup:
     path: /backup/
     defaults:
         _controller: CMSBundle:Admin:backupIndex
 
 # Structure
-cms_admin_structure_index:
+structure_index:
     path: /structure/
     defaults:
         _controller: CMSBundle:AdminStructure:structure
 
-cms_admin_structure:
+structure:
     path: /structure/
     defaults:
         _controller: CMSBundle:AdminStructure:structure
 
-cms_admin_megastructure:
+megastructure:
     path: /megastructure/
     defaults:
         _controller: CMSBundle:AdminStructure:megastructure
 
-cms_admin_structure_trash:
+structure_trash:
     path: /structure/trash/
     defaults:
         _controller: CMSBundle:AdminStructure:trash
 
-cms_admin_structure_trash_restore_node:
+structure_trash_restore_node:
     path: /structure/trash/restore_node/{id}/
     defaults:
         _controller: CMSBundle:AdminStructure:trashRestoreNode
 
-cms_admin_structure_trash_purge_node:
+structure_trash_purge_node:
     path: /structure/trash/purge_node/{id}/
     defaults:
         _controller: CMSBundle:AdminStructure:trashPurgeNode
 
-cms_admin_structure_trash_restore_folder:
+structure_trash_restore_folder:
     path: /structure/trash/restore_folder/{id}/
     defaults:
         _controller: CMSBundle:AdminStructure:trashRestoreFolder
 
-cms_admin_structure_trash_purge_folder:
+structure_trash_purge_folder:
     path: /structure/trash/purge_folder/{id}/
     defaults:
         _controller: CMSBundle:AdminStructure:trashPurgeFolder
 
 # Region
-cms_admin_structure_region:
+structure_region:
     path: /structure/region/
     defaults:
         _controller: CMSBundle:AdminStructure:regionIndex
 
-cms_admin_structure_region_edit:
+structure_region_edit:
     path: /structure/region/{id}/
     defaults:
         _controller: CMSBundle:AdminStructure:regionEdit
@@ -186,20 +186,20 @@ cms_admin_structure_region_edit:
         id: \d+
 
 # Folder
-cms_admin_structure_folder_create:
+structure_folder_create:
     path: /structure/folder/create/
     defaults:
         _controller: CMSBundle:AdminStructure:folderCreate
 #        parent: 1
 
-cms_admin_structure_folder_create_in_folder:
+structure_folder_create_in_folder:
     path: /structure/folder/create/{parent}/
     defaults:
         _controller: CMSBundle:AdminStructure:folderCreate
     requirements:
         parent: \d+
 
-cms_admin_structure_folder:
+structure_folder:
     path: /structure/folder/{id}/
     defaults:
         _controller: CMSBundle:AdminStructure:folderEdit
@@ -207,29 +207,29 @@ cms_admin_structure_folder:
         id: \d+
 
 # Node
-cms_admin_structure_node_create:
+structure_node_create:
     path: /structure/node/create/
     defaults:
         _controller: CMSBundle:AdminStructure:nodeCreate
 
-cms_admin_structure_node_create_in_folder:
+structure_node_create_in_folder:
     path: /structure/node/create/{folder_pid}/
     defaults:
         _controller: CMSBundle:AdminStructure:nodeCreate
 
-#cms_admin_structure_node_all:
+#structure_node_all:
 #    path: /structure/node/
 #    defaults:
 #        _controller: CMSBundle:AdminStructure:node
 
-cms_admin_structure_node_properties:
+structure_node_properties:
     path: /structure/node/{id}/
     defaults:
         _controller: CMSBundle:AdminStructure:nodeEdit
     requirements:
         id: \d+
 
-cms_admin_structure_node_setup_controller:
+structure_node_setup_controller:
     path: /structure/node/{id}/setup_controller/
     defaults:
         _controller: CMSBundle:AdminStructure:nodeSetupController
@@ -237,107 +237,103 @@ cms_admin_structure_node_setup_controller:
         id: \d+
 
 # Appearance
-cms_admin_appearance:
+appearance:
     path: /appearance/
     defaults:
         _controller: CMSBundle:AdminAppearance:index
 
-cms_admin_appearance_template:
+appearance_template:
     path: /appearance/{name}.twig/
     defaults:
         _controller: CMSBundle:AdminAppearance:templateEdit
 
-cms_admin_appearance_template_history:
+appearance_template_history:
     path: /appearance/{name}.twig/history/
     defaults:
         _controller: CMSBundle:AdminAppearance:templateHistory
 
-cms_admin_appearance_style_history:
+appearance_style_history:
     path: /appearance/{name}/history/
     defaults:
         _controller: CMSBundle:AdminAppearance:styleHistory
 
-cms_admin_appearance_history_code:
+appearance_history_code:
     path: /appearance/history/{id}/
     defaults:
         _controller: CMSBundle:AdminAppearance:historyCode
 
-cms_admin_appearance_history_rollback:
+appearance_history_rollback:
     path: /appearance/history/rollback/{id}/
     defaults:
         _controller: CMSBundle:AdminAppearance:historyRollback
 
-cms_admin_appearance_style:
+appearance_style:
     path: /appearance/{name}/
     defaults:
         _controller: CMSBundle:AdminAppearance:styleEdit
 
 # Users
-cms_admin_user:
+user:
     path: /user/
     defaults:
         _controller: CMSBundle:AdminUser:index
 
-cms_admin_user_create:
+user_create:
     path: /user/create/
     defaults:
         _controller: CMSBundle:AdminUser:create
 
-cms_admin_user_groups:
+user_groups:
     path: /user/groups/
     defaults:
         _controller: CMSBundle:AdminUser:groups
 
-cms_admin_user_group_edit:
+user_group_edit:
     path: /user/group/{id}/
     defaults:
         _controller: CMSBundle:AdminUser:groupEdit
     requirements:
         id: \d+
 
-cms_admin_user_group_create:
+user_group_create:
     path: /user/group/create/
     defaults:
         _controller: CMSBundle:AdminUser:groupCreate
     requirements:
         id: \d+
 
-cms_admin_user_edit:
+user_edit:
     path: /user/{id}/
     defaults:
         _controller: CMSBundle:AdminUser:edit
 
 # Configuration
 
-cms_admin_config_media:
+config_media:
     path: /config/media/
     defaults:
         _controller: CMSBundle:AdminMediaLibrary:index
 
-cms_admin_config_media_create_storage:
+config_media_create_storage:
     path: /config/media/storage_create/
     defaults:
         _controller: CMSBundle:AdminMediaLibrary:createStorage
 
-cms_admin_config_media_edit_storage:
+config_media_edit_storage:
     path: /config/media/storage_{id}/
     defaults:
         _controller: CMSBundle:AdminMediaLibrary:editStorage
     requirements:
         id: \d+
 
-cms_admin_config_media_create_collection:
+config_media_create_collection:
     path: /config/media/collection_create/
     defaults:
         _controller: CMSBundle:AdminMediaLibrary:createCollection
 
-cms_admin_config_media_edit_collection:
+config_media_edit_collection:
     path: /config/media/collection_{id}/
     defaults:
         _controller: CMSBundle:AdminMediaLibrary:editCollection
     requirements:
         id: \d+
-
-admin_settings:
-    resource: '@SmartSettingsBundle/Resources/config/routing.yml'
-    prefix:   /config/

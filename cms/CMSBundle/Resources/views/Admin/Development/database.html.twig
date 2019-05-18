@@ -12,9 +12,9 @@
     {% if prod_url is not empty %}
         <a href="{{ prod_url }}" target="_blank" title="Перейти на сайт в новой вкладке">{{ prod_url }}</a>
         &nbsp;
-        <a href="{{ path('cms_admin_development') }}" class="btn btn-info">Локальный лог изменений</a>
+        <a href="{{ path('cms_admin.development') }}" class="btn btn-info">Локальный лог изменений</a>
         &nbsp;
-        <a href="{{ path('cms_admin_development_db') }}" class="btn btn-info">Синхронизация БД</a>
+        <a href="{{ path('cms_admin.development_db') }}" class="btn btn-info">Синхронизация БД</a>
     {% else %}
         [ прописывается в parameters.yml ]
     {% endif %}

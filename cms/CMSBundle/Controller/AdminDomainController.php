@@ -39,7 +39,7 @@ class AdminDomainController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_domains');
+                return $this->redirectToRoute('cms_admin.domains');
             }
 
             if ($form->get('create')->isClicked() and $form->isValid()) {
@@ -51,7 +51,7 @@ class AdminDomainController extends Controller
 
                 $this->addFlash('success', 'Domain добавлен.');
 
-                return $this->redirectToRoute('cms_admin_domains');
+                return $this->redirectToRoute('cms_admin.domains');
             }
         }
 
@@ -71,21 +71,21 @@ class AdminDomainController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_domains');
+                return $this->redirectToRoute('cms_admin.domains');
             }
 
             if ($form->get('delete')->isClicked() and $form->isValid()) {
                 $this->remove($form->getData(), true);
                 $this->addFlash('success', 'Domain удалён.');
 
-                return $this->redirectToRoute('cms_admin_domains');
+                return $this->redirectToRoute('cms_admin.domains');
             }
 
             if ($form->get('update')->isClicked() and $form->isValid()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Domain обновлён.');
 
-                return $this->redirectToRoute('cms_admin_domains');
+                return $this->redirectToRoute('cms_admin.domains');
             }
         }
 
@@ -107,7 +107,7 @@ class AdminDomainController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_domains');
+                return $this->redirectToRoute('cms_admin.domains');
             }
 
             if ($form->get('create')->isClicked() and $form->isValid()) {
@@ -119,7 +119,7 @@ class AdminDomainController extends Controller
 
                 $this->addFlash('success', 'Domain alias добавлен.');
 
-                return $this->redirectToRoute('cms_admin_domains');
+                return $this->redirectToRoute('cms_admin.domains');
             }
         }
 

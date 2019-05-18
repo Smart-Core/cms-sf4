@@ -46,7 +46,7 @@ class AdminAppearanceController extends Controller
         $template_file_path = $this->get('kernel')->getBundle('SiteBundle')->getPath().'/Resources/views/'.$name.'.html.twig';
 
         if (!file_exists($template_file_path)) {
-            return $this->redirectToRoute('cms_admin_appearance');
+            return $this->redirectToRoute('cms_admin.appearance');
         }
 
         $template_code = file_get_contents($template_file_path);
@@ -75,7 +75,7 @@ class AdminAppearanceController extends Controller
 
                 $this->addFlash('success', 'Шаблон обновлён.');
 
-                return $this->redirectToRoute('cms_admin_appearance_template', ['name' => $name]);
+                return $this->redirectToRoute('cms_admin.appearance_template', ['name' => $name]);
             } catch (SyntaxError $e) {
                 $this->addFlash('error', $e->getMessage());
             }
@@ -174,7 +174,7 @@ class AdminAppearanceController extends Controller
             $this->addFlash('error', 'Файл <b>'.$history->getPath().$history->getFilename().'</b> не найден.');
         }
 
-        return $this->redirectToRoute('cms_admin_appearance');
+        return $this->redirectToRoute('cms_admin.appearance');
     }
 
     /**
@@ -188,7 +188,7 @@ class AdminAppearanceController extends Controller
         $style_file_path = $this->get('kernel')->getBundle('SiteBundle')->getPath().'/Resources/public/css/'.$name;
 
         if (!file_exists($style_file_path)) {
-            return $this->redirectToRoute('cms_admin_appearance');
+            return $this->redirectToRoute('cms_admin.appearance');
         }
 
         $style_code = file_get_contents($style_file_path);
@@ -210,7 +210,7 @@ class AdminAppearanceController extends Controller
 
             $this->addFlash('success', 'Стиль обновлён.');
 
-            return $this->redirectToRoute('cms_admin_appearance_style', ['name' => $name]);
+            return $this->redirectToRoute('cms_admin.appearance_style', ['name' => $name]);
         }
 
         return $this->render('@CMS/Admin/Appearance/style_edit.html.twig', [

@@ -87,7 +87,7 @@
 {% if is_image %}
     <p style="float: left;">{{ 'File edit'|trans }}: /{{ theme.dirname }}/{{ dir }}/{{ relativePathname }}</p>
 
-    <a style="float: right; margin-bottom: 8px; margin-right: 8px" class="btn btn-default btn-sm" href="{{ path('cms_admin_theme_show', {'name': theme.dirname}) }}">{{ 'Cancel'|trans }}</a>
+    <a style="float: right; margin-bottom: 8px; margin-right: 8px" class="btn btn-default btn-sm" href="{{ path('cms_admin.theme_show', {'name': theme.dirname}) }}">{{ 'Cancel'|trans }}</a>
 
     <div style="clear: both"></div>
 
@@ -96,7 +96,7 @@
     <form id="code_wrapper" action="" method="post" style="margin-bottom: 0px;">
         <button style="float: right; margin-bottom: 8px;" class="btn btn-success btn-sm" type="submit" name="submit" value="save">{{ 'Save'|trans }}</button>
 
-        <a style="float: right; margin-bottom: 8px; margin-right: 8px" class="btn btn-default btn-sm" href="{{ path('cms_admin_theme_show', {'name': theme.dirname}) }}">{{ 'Cancel'|trans }}</a>
+        <a style="float: right; margin-bottom: 8px; margin-right: 8px" class="btn btn-default btn-sm" href="{{ path('cms_admin.theme_show', {'name': theme.dirname}) }}">{{ 'Cancel'|trans }}</a>
 
         <p style="float: left;">{{ 'File edit'|trans }}: /{{ theme.dirname }}/{{ dir }}/{{ relativePathname }}</p>
 

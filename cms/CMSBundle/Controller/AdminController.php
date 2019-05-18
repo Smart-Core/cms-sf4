@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/%admin_path%/", name="cms_admin_index", methods={"GET"})
+     * @Route("/%admin_path%/", name="cms_admin.index", methods={"GET"})
      */
     public function index(AuthorizationCheckerInterface $authorizationChecker, string $slug = '')
     {
@@ -52,14 +52,14 @@ class AdminController extends AbstractController
     public function switchSelectedSiteAction(Request $request): RedirectResponse
     {
         $site_id = $request->request->get('site', 0);
-        $route   = $request->request->get('route', 'cms_admin_index');
+        $route   = $request->request->get('route', 'cms_admin.index');
 
         $switcher = $this->get('cms.context')->getSiteSwitcher();
 
         try {
             $url = $this->generateUrl($route);
         } catch (RouteNotFoundException $e) {
-            $url = $this->generateUrl('cms_admin_index');
+            $url = $this->generateUrl('cms_admin.index');
         }
 
         /** @var \Doctrine\ORM\EntityManager $em */

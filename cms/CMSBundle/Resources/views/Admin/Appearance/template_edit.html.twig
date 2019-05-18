@@ -9,7 +9,7 @@
     <form id="template_code_wrapper" action="" method="post" style="margin-bottom: 0px;">
         <ul class="nav nav-tabs" id="myTab" style="float: left;" >
             {% for template in templates %}
-                <li{% if template == name %} class="active"{% endif %}><a href="{{ path('cms_admin_appearance_template', {'name': template}) }}">{{ template }}</a></li>
+                <li{% if template == name %} class="active"{% endif %}><a href="{{ path('cms_admin.appearance_template', {'name': template}) }}">{{ template }}</a></li>
             {% endfor %}
         </ul>
 
@@ -22,7 +22,7 @@
         <textarea name="template_code" data-editor="twig" class=" input-block-level">{{ template_code|e }}</textarea>
     </form>
 
-    <a href="{{ path('cms_admin_appearance_template_history', {'name': name}) }}" style="float: right;">История изменений шаблона <b>{{ name }}.html.twig</b></a>
+    <a href="{{ path('cms_admin.appearance_template_history', {'name': name}) }}" style="float: right;">История изменений шаблона <b>{{ name }}.html.twig</b></a>
 
     {% if is_setting('cms:appearance_editor', 'ace') %}
     <style type="text/css" media="screen">

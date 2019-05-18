@@ -161,7 +161,7 @@ class AdminThemeController extends Controller
 
                 $this->addFlash('success', 'Файл обновлён.');
 
-                return $this->redirectToRoute('cms_admin_theme_show', ['name' => $themeName]);
+                return $this->redirectToRoute('cms_admin.theme_show', ['name' => $themeName]);
             } catch (SyntaxError $e) {
                 $this->addFlash('error', $e->getMessage());
             }

@@ -485,7 +485,7 @@ class NodeManager
                     $this->front_controls['node']['__node_'.$node->getId()] = $node->getFrontControls();
                     $this->front_controls['node']['__node_'.$node->getId()]['cms_node_properties'] = [
                         'title' => 'Параметры модуля '.$node->getModule(),
-                        'uri'   => $this->generateUrl('cms_admin_structure_node_properties', ['id' => $node->getId()]),
+                        'uri'   => $this->generateUrl('cms_admin.structure_node_properties', ['id' => $node->getId()]),
                     ];
                 }
 

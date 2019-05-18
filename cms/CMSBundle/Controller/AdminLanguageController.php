@@ -41,7 +41,7 @@ class AdminLanguageController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_language');
+                return $this->redirectToRoute('cms_admin.language');
             }
 
             if ($form->get('create')->isClicked() and $form->isValid()) {
@@ -53,7 +53,7 @@ class AdminLanguageController extends Controller
 
                 $this->addFlash('success', 'Язык добавлен.');
 
-                return $this->redirectToRoute('cms_admin_language');
+                return $this->redirectToRoute('cms_admin.language');
             }
         }
 
@@ -72,14 +72,14 @@ class AdminLanguageController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_language');
+                return $this->redirectToRoute('cms_admin.language');
             }
 
             if ($form->get('update')->isClicked() and $form->isValid()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Язык обновлён.');
 
-                return $this->redirectToRoute('cms_admin_language');
+                return $this->redirectToRoute('cms_admin.language');
             }
         }
 

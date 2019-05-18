@@ -12,12 +12,17 @@
 
 cms_admin:
     resource: routing_admin.yml
+    name_prefix: 'cms_admin.'
     prefix: /%admin_path%/
+
+admin_settings:
+    resource: '@SmartSettingsBundle/Resources/config/routing.yml'
+    prefix: /%admin_path%/config/
 
 #elfinder:
 #    resource: '@FMElfinderBundle/Resources/config/routing.yml'
 
-#cms_admin_site_switch_selected:
+#cms_admin.site_switch_selected:
 #    path: /__cms_site_switch_selected/
 #    methods: POST
 #    defaults:

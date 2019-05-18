@@ -119,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     <a href="#" id="btnExpandAll">Развернуть все</a>
 </div>
 
-{% set admin_folder = path('cms_admin_structure') ~ 'folder/' %}
-{% set admin_node   = path('cms_admin_structure') ~ 'node/' %}
+{% set admin_folder = path('cms_admin.structure') ~ 'folder/' %}
+{% set admin_node   = path('cms_admin.structure') ~ 'node/' %}
 
 <div id="tree">
     {{ knp_menu_render('CMSBundle:AdminMenu:structureTree', {'currentClass': 'active'}) }}

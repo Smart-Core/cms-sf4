@@ -31,7 +31,7 @@ class AdminMenu implements ContainerAwareInterface
 
         $menu->addChild('Control panel')->setAttributes(['class' => 'header']);
 
-        $menu->addChild('Dashboard',        ['route' => 'cms_admin_index'])->setExtras(['beforeCode' => '<i class="fa fa-dashboard"></i>']);
+        $menu->addChild('Dashboard',        ['route' => 'cms_admin.index'])->setExtras(['beforeCode' => '<i class="fa fa-dashboard"></i>']);
 
 
         /** @var ModuleBundle $module */
@@ -57,7 +57,7 @@ class AdminMenu implements ContainerAwareInterface
 
         if ($security->isGranted('cms:admin.system')) {
             if ($this->container->get('smart_core.settings.manager')->get('cms:is_collapse_system_menu')) {
-                $menu = $mainMenu->addChild('System', ['route' => 'cms_admin_system'])
+                $menu = $mainMenu->addChild('System', ['route' => 'cms_admin.system'])
                     ->setAttribute('class', 'treeview')
                     ->setExtras([
                         'afterCode'  => '<i class="fa fa-angle-left pull-right"></i>',
@@ -71,47 +71,47 @@ class AdminMenu implements ContainerAwareInterface
                 $menu = $mainMenu;
             }
 
-            $menu->addChild('Site structure',       ['route' => 'cms_admin_structure'])->setExtras(['beforeCode' => '<i class="fa fa-folder-open"></i>']);
+            $menu->addChild('Site structure',       ['route' => 'cms_admin.structure'])->setExtras(['beforeCode' => '<i class="fa fa-folder-open"></i>']);
 
 //            if ($security->isSuperAdmin()) {
-//                $menu->addChild('Mega Structure',   ['route' => 'cms_admin_megastructure'])->setExtras(['beforeCode' => '<i class="fa fa-building"></i>']);
+//                $menu->addChild('Mega Structure',   ['route' => 'cms_admin.megastructure'])->setExtras(['beforeCode' => '<i class="fa fa-building"></i>']);
 //            }
 
             if ($security->isGranted('cms:admin.system.module')) {
-                $menu->addChild('Modules',          ['route' => 'cms_admin_module'])->setExtras(['beforeCode' => '<i class="fa fa-building-o"></i>']);
+                $menu->addChild('Modules',          ['route' => 'cms_admin.module'])->setExtras(['beforeCode' => '<i class="fa fa-building-o"></i>']);
             }
 
-            $menu->addChild('Files',                ['route' => 'cms_admin_files'])->setExtras(['beforeCode' => '<i class="fa fa-download"></i>']);
+            $menu->addChild('Files',                ['route' => 'cms_admin.files'])->setExtras(['beforeCode' => '<i class="fa fa-download"></i>']);
 
             if ($security->isGranted('cms:admin.system.config')) {
                 $menu->addChild('Configuration',    ['route' => 'smart_core_settings'])->setExtras(['beforeCode' => '<i class="fa fa-gears"></i>']);
             }
 
             if ($security->isGranted('cms:admin.system.language')) {
-                $menu->addChild('Languages',        ['route' => 'cms_admin_language'])->setExtras(['beforeCode' => '<i class="fa fa-language"></i>'])
+                $menu->addChild('Languages',        ['route' => 'cms_admin.language'])->setExtras(['beforeCode' => '<i class="fa fa-language"></i>'])
                     ->setAttributes(['title' => 'Настройка языковых и региональных параметров']);
             }
 
             if ($security->isGranted('cms:admin.system.site')) {
-                $menu->addChild('Sites',            ['route' => 'cms_admin_site'])->setExtras(['beforeCode' => '<i class="fa fa-sitemap"></i>']);
+                $menu->addChild('Sites',            ['route' => 'cms_admin.site'])->setExtras(['beforeCode' => '<i class="fa fa-sitemap"></i>']);
             }
 
             if ($security->isGranted('cms:admin.system.development')) {
-                $menu->addChild('Development',      ['route' => 'cms_admin_development'])->setExtras(['beforeCode' => '<i class="fa fa-connectdevelop"></i>']);
+                $menu->addChild('Development',      ['route' => 'cms_admin.development'])->setExtras(['beforeCode' => '<i class="fa fa-connectdevelop"></i>']);
             }
 
             if ($security->isGranted('cms:admin.system.theme')) {
-                $menu->addChild('Design themes',    ['route' => 'cms_admin_theme_index'])->setExtras(['beforeCode' => '<i class="fa fa-image"></i>']);
+                $menu->addChild('Design themes',    ['route' => 'cms_admin.theme_index'])->setExtras(['beforeCode' => '<i class="fa fa-image"></i>']);
             }
 
             if ($security->isGranted('cms:admin.system.user')) {
-                $menu->addChild('Users',            ['route' => 'cms_admin_user'])->setExtras(['beforeCode' => '<i class="fa fa-users"></i>']);
+                $menu->addChild('Users',            ['route' => 'cms_admin.user'])->setExtras(['beforeCode' => '<i class="fa fa-users"></i>']);
             }
 
-            //$menu->addChild('Appearance',       ['route' => 'cms_admin_appearance'])->setExtras(['beforeCode' => '<i class="fa fa-image"></i>']);
-            //$menu->addChild('Backup',           ['route' => 'cms_admin_backup'])->setExtras(['beforeCode' => '<i class="fa fa-file-archive-o "></i>']);
-            //$menu->addChild('Reports',          ['route' => 'cms_admin_reports'])->setExtras(['beforeCode' => '<i class="fa fa-bar-chart"></i>']);
-            //$menu->addChild('Help',             ['route' => 'cms_admin_help'])->setExtras(['beforeCode' => '<i class="fa fa-question"></i>']);
+            //$menu->addChild('Appearance',       ['route' => 'cms_admin.appearance'])->setExtras(['beforeCode' => '<i class="fa fa-image"></i>']);
+            //$menu->addChild('Backup',           ['route' => 'cms_admin.backup'])->setExtras(['beforeCode' => '<i class="fa fa-file-archive-o "></i>']);
+            //$menu->addChild('Reports',          ['route' => 'cms_admin.reports'])->setExtras(['beforeCode' => '<i class="fa fa-bar-chart"></i>']);
+            //$menu->addChild('Help',             ['route' => 'cms_admin.help'])->setExtras(['beforeCode' => '<i class="fa fa-question"></i>']);
 
             return $menu;
         }
@@ -130,13 +130,13 @@ class AdminMenu implements ContainerAwareInterface
         $menu->setExtra('select_intehitance', false);
         $menu->setChildrenAttribute('class', isset($options['class']) ? $options['class'] : 'nav nav-tabs');
 
-        $menu->addChild('All users',    ['route' => 'cms_admin_user']);
-        $menu->addChild('Create user',  ['route' => 'cms_admin_user_create']);
+        $menu->addChild('All users',    ['route' => 'cms_admin.user']);
+        $menu->addChild('Create user',  ['route' => 'cms_admin.user_create']);
 
         $security = $this->container->get('cms.security');
 
         if ($security->isGranted('cms:admin.system.user_groups')) {
-            $menu->addChild('Groups',       ['route' => 'cms_admin_user_groups']);
+            $menu->addChild('Groups',       ['route' => 'cms_admin.user_groups']);
         }
 
         return $menu;
@@ -148,10 +148,10 @@ class AdminMenu implements ContainerAwareInterface
 
         $menu->setExtra('select_intehitance', false);
         $menu->setChildrenAttribute('class', isset($options['class']) ? $options['class'] : 'nav nav-tabs');
-        $menu->addChild('Enables',          ['route' => 'cms_admin_module']);
-        $menu->addChild('Disables',         ['route' => 'cms_admin_module_disabled']);
-        $menu->addChild('All installed',    ['route' => 'cms_admin_module_all']);
-//        $menu->addChild('Install new',      ['route' => 'cms_admin_module_install']);
+        $menu->addChild('Enables',          ['route' => 'cms_admin.module']);
+        $menu->addChild('Disables',         ['route' => 'cms_admin.module_disabled']);
+        $menu->addChild('All installed',    ['route' => 'cms_admin.module_all']);
+//        $menu->addChild('Install new',      ['route' => 'cms_admin.module_install']);
 
         return $menu;
     }
@@ -170,11 +170,11 @@ class AdminMenu implements ContainerAwareInterface
 
         $menu->setExtra('select_intehitance', false);
         $menu->setChildrenAttribute('class', isset($options['class']) ? $options['class'] : 'nav nav-tabs');
-        $menu->addChild('Site structure', ['route' => 'cms_admin_structure']);
-        $menu->addChild('Create folder',  ['route' => 'cms_admin_structure_folder_create']);
-        $menu->addChild('Connect module', ['route' => 'cms_admin_structure_node_create']);
-        $menu->addChild('Regions',        ['route' => 'cms_admin_structure_region']);
-        $menu->addChild('Trash',          ['route' => 'cms_admin_structure_trash']);
+        $menu->addChild('Site structure', ['route' => 'cms_admin.structure']);
+        $menu->addChild('Create folder',  ['route' => 'cms_admin.structure_folder_create']);
+        $menu->addChild('Connect module', ['route' => 'cms_admin.structure_node_create']);
+        $menu->addChild('Regions',        ['route' => 'cms_admin.structure_region']);
+        $menu->addChild('Trash',          ['route' => 'cms_admin.structure_trash']);
 
         return $menu;
     }
@@ -228,7 +228,7 @@ class AdminMenu implements ContainerAwareInterface
                 continue;
             }
 
-            $uri = $this->container->get('router')->generate('cms_admin_structure_folder', ['id' => $folder->getId()]);
+            $uri = $this->container->get('router')->generate('cms_admin.structure_folder', ['id' => $folder->getId()]);
 
             $tpl = $folder->getTemplateSelf();
             if (!empty($tpl)) {
@@ -289,7 +289,7 @@ class AdminMenu implements ContainerAwareInterface
                     $label = '<span style="background-color: #c14b40; color: white;">'.$label.'</span>';
                 }
 
-                $uri = $this->container->get('router')->generate('cms_admin_structure_node_properties', ['id' => $node->getId()]);
+                $uri = $this->container->get('router')->generate('cms_admin.structure_node_properties', ['id' => $node->getId()]);
                 $sub_menu
                     ->addChild($node->getId(), ['uri' => $uri])
                     ->setAttributes([

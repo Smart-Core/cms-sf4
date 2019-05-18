@@ -50,14 +50,14 @@ class AdminMediaLibraryController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
 
             if ($form->isValid()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Хранилище создано');
 
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
         }
 
@@ -78,7 +78,7 @@ class AdminMediaLibraryController extends Controller
         $storage = $em->find(Storage::class, $id);
 
         if (empty($storage)) {
-            return $this->redirectToRoute('cms_admin_config_media');
+            return $this->redirectToRoute('cms_admin.config_media');
         }
 
         $form = $this->createForm(StorageFormType::class, $storage);
@@ -89,14 +89,14 @@ class AdminMediaLibraryController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
 
             if ($form->isValid()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Хранилище обновлено');
 
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
         }
 
@@ -123,14 +123,14 @@ class AdminMediaLibraryController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
 
             if ($form->isValid()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Коллекция создана');
 
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
         }
 
@@ -151,7 +151,7 @@ class AdminMediaLibraryController extends Controller
         $collection = $em->find(Collection::class, $id);
 
         if (empty($collection)) {
-            return $this->redirectToRoute('cms_admin_config_media');
+            return $this->redirectToRoute('cms_admin.config_media');
         }
 
         $form = $this->createForm(CollectionFormType::class, $collection);
@@ -162,14 +162,14 @@ class AdminMediaLibraryController extends Controller
             $form->handleRequest($request);
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
 
             if ($form->isValid()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Коллекция обновлена');
 
-                return $this->redirectToRoute('cms_admin_config_media');
+                return $this->redirectToRoute('cms_admin.config_media');
             }
         }
 

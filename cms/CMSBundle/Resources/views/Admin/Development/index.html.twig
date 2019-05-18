@@ -12,9 +12,9 @@
     {% if prod_url is not empty %}
         <a href="{{ prod_url }}" target="_blank" title="Перейти на сайт в новой вкладке">{{ prod_url }}</a>
         &nbsp;
-        <a href="{{ path('cms_admin_development_sync') }}" class="btn btn-info">Синхронизация</a>
+        <a href="{{ path('cms_admin.development_sync') }}" class="btn btn-info">Синхронизация</a>
         &nbsp;
-        <a href="{{ path('cms_admin_development_db') }}" class="btn btn-info">Синхронизация БД</a>
+        <a href="{{ path('cms_admin.development_db') }}" class="btn btn-info">Синхронизация БД</a>
     {% else %}
         [ прописывается в parameters.yml ]
     {% endif %}
@@ -38,7 +38,7 @@
                 <td>{{ syslog.action }}</td>
                 <td>{{ syslog.bundle }}:{{ syslog.entity }}
                     {% if syslog.entity == 'Folder' %}
-                        <a href="{{ path('cms_admin_structure_folder', {'id': syslog.entityId}) }}"><b>{{ cms_folder(syslog.entityId) }}</b></a> (id: {{ syslog.entityId }})
+                        <a href="{{ path('cms_admin.structure_folder', {'id': syslog.entityId}) }}"><b>{{ cms_folder(syslog.entityId) }}</b></a> (id: {{ syslog.entityId }})
                     {% else %}
                         <b>{{ syslog.entityId }}</b>
                     {% endif %}

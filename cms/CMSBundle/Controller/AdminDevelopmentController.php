@@ -195,7 +195,7 @@ class AdminDevelopmentController extends Controller
 
             $this->addFlash('success', 'База данных синхронизирована.');
 
-            return $this->redirectToRoute('cms_admin_development_db');
+            return $this->redirectToRoute('cms_admin.development_db');
         }
 
         return $this->render('@CMS/Admin/Development/database.html.twig', [

@@ -15,14 +15,14 @@
                     <td style="width: 200px;">
                         {% set first = true %}
                         {% for img_filename in e.screenshots if first %}
-                            <a href="{{ path('cms_admin_theme_show', {'name': name}) }}">
-                                <img src="{{ path('cms_admin_theme_get_screenshot', {'theme': name, 'filename': img_filename}) }}" width="200">
+                            <a href="{{ path('cms_admin.theme_show', {'name': name}) }}">
+                                <img src="{{ path('cms_admin.theme_get_screenshot', {'theme': name, 'filename': img_filename}) }}" width="200">
                             </a>
                             {% set first = false %}
                         {% endfor %}
                     </td>
                     <td>
-                        <h3 style="margin-top: 0; line-height: 20px;"><a href="{{ path('cms_admin_theme_show', {'name': name}) }}">{{ e.title }}</a></h3>
+                        <h3 style="margin-top: 0; line-height: 20px;"><a href="{{ path('cms_admin.theme_show', {'name': name}) }}">{{ e.title }}</a></h3>
 
                         {% if e.description is not empty %}
                             <p><strong>{{ 'Description'|trans }}:</strong> {{ e.description }}</p>
