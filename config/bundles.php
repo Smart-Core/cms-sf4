@@ -24,6 +24,7 @@ return [
     SmartCore\Bundle\HtmlBundle\HtmlBundle::class => ['all' => true],
     SmartCore\Bundle\MediaBundle\SmartMediaBundle::class => ['all' => true],
     SmartCore\Bundle\FelibBundle\FelibBundle::class => ['all' => true],
+    SmartCore\Bundle\RichEditorBundle\SmartRichEditorBundle::class => ['all' => true],
     SmartCore\Bundle\SettingsBundle\SmartSettingsBundle::class => ['all' => true],
     SmartCore\Bundle\SeoBundle\SmartSeoBundle::class => ['all' => true],
     Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],

@@ -305,6 +305,9 @@
     "smart-core/media-bundle": {
         "version": "dev-master"
     },
+    "smart-core/rich-editor-bundle": {
+        "version": "dev-master"
+    },
     "smart-core/seo-bundle": {
         "version": "dev-master"
     },

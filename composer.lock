@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0e364cc0de10f07cce9089414a5392c",
+    "content-hash": "3ef3a0ee3453a0f37b23a95e66bc7451",
     "packages": [
         {
             "name": "cache/adapter-bundle",
@@ -4229,6 +4229,47 @@
             "time": "2019-05-18T12:28:23+00:00"
         },
         {
+            "name": "smart-core/rich-editor-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Smart-Core/RichEditorBundle.git",
+                "reference": "7bfcd619f5d9ddd2ef2676deb61330e79b0637d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Smart-Core/RichEditorBundle/zipball/7bfcd619f5d9ddd2ef2676deb61330e79b0637d0",
+                "reference": "7bfcd619f5d9ddd2ef2676deb61330e79b0637d0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SmartCore\\Bundle\\RichEditorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Artem Ryzhkov",
+                    "email": "artem@smart-core.org",
+                    "homepage": "http://smart-core.org"
+                }
+            ],
+            "description": "Rich editor bundle.",
+            "keywords": [
+                "crawler",
+                "editor"
+            ],
+            "time": "2019-05-13T21:10:01+00:00"
+        },
+        {
             "name": "smart-core/seo-bundle",
             "version": "dev-master",
             "source": {
@@ -8417,6 +8458,7 @@
         "smart-core/felib-bundle": 20,
         "smart-core/html-bundle": 20,
         "smart-core/media-bundle": 20,
+        "smart-core/rich-editor-bundle": 20,
         "smart-core/seo-bundle": 20,
         "smart-core/simple-profiler-bundle": 20
     },

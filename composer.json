@@ -18,6 +18,7 @@
         "smart-core/felib-bundle": "dev-master",
         "smart-core/html-bundle": "dev-master",
         "smart-core/media-bundle": "dev-master",
+        "smart-core/rich-editor-bundle": "dev-master",
         "smart-core/seo-bundle": "dev-master",
         "smart-core/simple-profiler-bundle": "dev-master",
         "sonata-project/intl-bundle": "^2.6",
