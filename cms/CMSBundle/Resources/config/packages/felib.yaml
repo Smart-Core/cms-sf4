@@ -1,0 +1,2 @@
+felib:
+    cache_provider: smart_felib_cache_pool.filesystem
