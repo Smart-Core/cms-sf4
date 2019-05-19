@@ -4313,12 +4313,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/FelibBundle.git",
-                "reference": "9affae28697be94336fe6adf170b01e5397a01f9"
+                "reference": "539b341da93eea431a13d3b5cd9dcda9d3b5af24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/FelibBundle/zipball/9affae28697be94336fe6adf170b01e5397a01f9",
-                "reference": "9affae28697be94336fe6adf170b01e5397a01f9",
+                "url": "https://api.github.com/repos/Smart-Core/FelibBundle/zipball/539b341da93eea431a13d3b5cd9dcda9d3b5af24",
+                "reference": "539b341da93eea431a13d3b5cd9dcda9d3b5af24",
                 "shasum": ""
             },
             "require": {
@@ -4339,7 +4339,7 @@
             ],
             "description": "Font-End Library Managment Bundle",
             "homepage": "http://smart-core.org",
-            "time": "2019-05-18T22:20:40+00:00"
+            "time": "2019-05-18T22:40:32+00:00"
         },
         {
             "name": "smart-core/html-bundle",
