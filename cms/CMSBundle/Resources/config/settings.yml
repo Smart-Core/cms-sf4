@@ -24,3 +24,5 @@ is_collapse_system_menu:
     type: CheckboxType
     value: false
     personalize: true
+
+#test: test

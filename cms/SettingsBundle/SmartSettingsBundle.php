@@ -13,6 +13,6 @@ class SmartSettingsBundle extends Bundle
     {
         parent::build($container);
 
-        //$container->addCompilerPass(new SettingsPass(), PassConfig::TYPE_AFTER_REMOVING);
+        $container->addCompilerPass(new SettingsPass(), PassConfig::TYPE_AFTER_REMOVING);
     }
 }

@@ -10,28 +10,28 @@ files:
 
 # Modules
 module:
-    path: /module/
+    path: /modules/
     defaults:
         _controller: CMSBundle:AdminModule:enabled
 
 module_disabled:
-    path: /module/disabled/
+    path: /modules/disabled/
     defaults:
         _controller: CMSBundle:AdminModule:disabled
 
 module_all:
-    path: /module/all/
+    path: /modules/all/
     defaults:
         _controller: CMSBundle:AdminModule:index
 
 module_install_updatedb:
-    path: /module/install/updatedb
+    path: /modules/install/updatedb
     methods: 'POST'
     defaults:
         _controller: CMSBundle:AdminModule:moduleInstallUpdateDb
 
 module_install:
-    path: /module/install/{filename}
+    path: /modules/install/{filename}
     defaults:
         _controller: CMSBundle:AdminModule:install
         filename: ''

@@ -48,7 +48,9 @@ abstract class CMSKernel extends Kernel
     }
 
     /**
-     * Для Setting Bundle необходимо отслеживать момент сборки контейнера, чтобы синхронизировать настройки из конфигов с БД.
+     * Выполнение операций с БД сразу после пересборки контейнера.
+     *
+     * @todo убрать в события с лок-файлом.
      */
     protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class, $baseClass)
     {
@@ -61,8 +63,6 @@ abstract class CMSKernel extends Kernel
         if ($container->has('cache_warmer')) {
             $container->get('cache_warmer')->warmUp($container->getParameter('kernel.cache_dir'));
         }
-
-        $container->get('settings')->warmupDatabase();
 
         $container->get('cms.site')->init();
 

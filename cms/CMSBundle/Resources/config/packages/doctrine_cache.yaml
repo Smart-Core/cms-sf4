@@ -1,4 +1,3 @@
-# @todo вынести в CMSBundle
 doctrine_cache:
     providers:
         cms:
@@ -6,8 +5,8 @@ doctrine_cache:
             type: file_system
             file_system:
                 directory: "%kernel.cache_dir%/monolith/cms"
-        smart_settings:
-            namespace: "smart_settings_%env(APP_SECRET)%"
-            type: file_system # memcache
-            file_system:
-                directory: "%kernel.cache_dir%/monolith/settings"
+#        smart_settings:
+#            namespace: "smart_settings_%env(APP_SECRET)%"
+#            type: file_system # memcache
+#            file_system:
+#                directory: "%kernel.cache_dir%/monolith/settings"

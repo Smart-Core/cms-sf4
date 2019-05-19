@@ -4,6 +4,12 @@ services:
         public: true
         arguments: [ '@service_container', '@smart_core.settings.cache']
 
+    smart_core.settings.warmap.listener:
+        class: SmartCore\Bundle\SettingsBundle\Listener\WarmapDatabadeListener
+        arguments: [ '@smart_core.settings.manager', '%kernel.cache_dir%', '%kernel.debug%' ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+
     smart_core.settings.warmap.command:
         class: SmartCore\Bundle\SettingsBundle\Command\SettingWarmupDatabaseCommand
         calls:

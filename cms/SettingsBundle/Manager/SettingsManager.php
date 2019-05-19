@@ -24,6 +24,8 @@ class SettingsManager
 {
     use ContainerAwareTrait;
 
+    const LOCK_FILE = 'smart_core_settings_need_warmap_db.lock';
+
     /** @var \Doctrine\ORM\EntityManager $em */
     protected $em;
 
@@ -42,6 +44,9 @@ class SettingsManager
     /** @var array */
     protected $settingsConfigRuntimeCache;
 
+    /** @var array */
+    protected $bundles;
+
     /**
      * SettingsManager constructor.
      *
@@ -50,6 +55,7 @@ class SettingsManager
      */
     public function __construct(ContainerInterface $container, CacheProvider $cache)
     {
+        $this->bundles   = $container->getParameter('kernel.bundles');
         $this->cache     = $cache;
         $this->container = $container;
         $this->em        = $container->get('doctrine.orm.entity_manager');
@@ -466,7 +472,7 @@ class SettingsManager
     {
         $settingsConfig = [];
 
-        foreach ($this->container->getParameter('kernel.bundles') as $bundleName => $bundleClass) {
+        foreach ($this->bundles as $bundleName => $bundleClass) {
             /** @var \Symfony\Component\HttpKernel\Bundle\Bundle $bundle */
             $bundle = new $bundleClass();
 
@@ -582,7 +588,7 @@ class SettingsManager
 
         return $userId;
     }
-    
+
     /**
      * @throws \Exception
      */
@@ -593,7 +599,7 @@ class SettingsManager
             return;
         }
 
-        foreach ($this->container->getParameter('kernel.bundles') as $bundleName => $bundleClass) {
+        foreach ($this->bundles as $bundleName => $bundleClass) {
             $reflector = new \ReflectionClass($bundleClass);
             $settingsConfig = dirname($reflector->getFileName()).'/Resources/config/settings.yml';
 

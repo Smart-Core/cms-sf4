@@ -19,7 +19,7 @@ cms_admin:
 
 admin_settings:
     resource: '@SmartSettingsBundle/Resources/config/routing.yml'
-    prefix: /%admin_path%/config/
+    prefix: /%admin_path%/system/config/
 
 # @todo   Подлючение маршрутов модулей в админку.
 module_routes:
