@@ -9,6 +9,7 @@ use Monolith\CMSBundle\Container;
 use Monolith\CMSBundle\Entity\Domain;
 use Monolith\CMSBundle\Entity\Language;
 use Monolith\CMSBundle\Entity\Site;
+use Monolith\CMSBundle\Manager\ThemeManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -18,10 +19,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SiteFormType extends AbstractType
 {
+    /** @var ThemeManager */
+    protected $themeManager;
+
+    /**
+     * SiteFormType constructor.
+     *
+     * @param ThemeManager $themeManager
+     */
+    public function __construct(ThemeManager $themeManager)
+    {
+        $this->themeManager  = $themeManager;
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $themes = [];
-        foreach (Container::get('cms.theme')->all() as $item) {
+        foreach ($this->themeManager->all() as $item) {
             $themes[$item['title'].' ('.$item['dirname'].')'] = $item['dirname'];
         }
 

@@ -4,11 +4,15 @@ namespace Monolith\CMSBundle\Form\Tree;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Monolith\CMSBundle\Container;
+use Monolith\CMSBundle\Manager\ContextManager;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Monolith\CMSBundle\Entity\Folder;
 
 class FolderLoader implements EntityLoaderInterface
 {
+    /** @var ContextManager */
+    protected $context;
+
     /** @var \Doctrine\ORM\EntityRepository */
     private $repo;
 
@@ -29,6 +33,18 @@ class FolderLoader implements EntityLoaderInterface
     public function __construct(ObjectManager $em, $manager = null, $class = null)
     {
         $this->repo = $em->getRepository($class);
+    }
+
+    /**
+     * @param ContextManager $context
+     *
+     * @return $this
+     */
+    public function setContext($context): self
+    {
+        $this->context = $context;
+
+        return $this;
     }
 
     /**
@@ -74,7 +90,7 @@ class FolderLoader implements EntityLoaderInterface
         $criteria = ['parent_folder' => $parent_folder];
 
         if (null === $parent_folder) {
-            $criteria['id'] = Container::get('cms.context')->getSite()->getRootFolder();
+            $criteria['id'] = $this->context->getSite()->getRootFolder();
         }
 
         if ($this->only_active) {

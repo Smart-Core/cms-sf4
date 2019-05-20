@@ -121,13 +121,20 @@ services:
     cms.form.type.folder_tree:
         class: Monolith\CMSBundle\Form\Tree\FolderTreeType
         arguments: [ '@doctrine' ]
+        calls:
+            - [ setContext, [ '@cms.context' ] ]
         tags:
             - { name: form.type, alias: cms_folder_tree }
     cms.form.type.node:
         class: Monolith\CMSBundle\Form\Type\NodeFormType
-        arguments: [ '@cms.module', '@cms.theme']
+        arguments: [ '@cms.context', '@cms.module', '@cms.theme']
         tags:
             - { name: form.type, alias: cms_node }
+    cms.form.type.site:
+        class: Monolith\CMSBundle\Form\Type\SiteFormType
+        arguments: [ '@cms.theme']
+        tags:
+            - { name: form.type, alias: cms_site }
     cms.form.type.node_setup_controller:
         class: Monolith\CMSBundle\Form\Type\NodeSetupControllerFormType
         arguments: [ '@cms.theme', '@cms.node' ]

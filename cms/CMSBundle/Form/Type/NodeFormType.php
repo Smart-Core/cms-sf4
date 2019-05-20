@@ -7,6 +7,7 @@ namespace Monolith\CMSBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Monolith\CMSBundle\Container;
 use Monolith\CMSBundle\Entity\UserGroup;
+use Monolith\CMSBundle\Manager\ContextManager;
 use Monolith\CMSBundle\Manager\ModuleManager;
 use Monolith\CMSBundle\Manager\ThemeManager;
 use Smart\CoreBundle\Form\DataTransformer\HtmlTransformer;
@@ -27,13 +28,17 @@ class NodeFormType extends AbstractType
     /** @var ThemeManager */
     protected $themeManager;
 
+    /** @var ContextManager */
+    protected $context;
+
     /**
      * NodeFormType constructor.
      *
      * @param ModuleManager $moduleManager
      */
-    public function __construct(ModuleManager $moduleManager, ThemeManager $themeManager)
+    public function __construct(ContextManager $context, ModuleManager $moduleManager, ThemeManager $themeManager)
     {
+        $this->context       = $context;
         $this->moduleManager = $moduleManager;
         $this->themeManager  = $themeManager;
     }
@@ -65,7 +70,7 @@ class NodeFormType extends AbstractType
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'query_builder' => function (EntityRepository $er) {
-                    $site = Container::get('cms.context')->getSiteId();
+                    $site = $this->context->getSiteId();
 
                     return $er->createQueryBuilder('b')->where('b.site = :site')->orderBy('b.position', 'ASC')->setParameter('site', $site);
                 },

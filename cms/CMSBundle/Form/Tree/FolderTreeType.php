@@ -4,6 +4,7 @@ namespace Monolith\CMSBundle\Form\Tree;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Monolith\CMSBundle\Entity\Folder;
+use Monolith\CMSBundle\Manager\ContextManager;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\DoctrineChoiceLoader;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
@@ -13,6 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FolderTreeType extends DoctrineType
 {
+    /** @var ContextManager */
+    protected $context;
+
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -81,7 +85,22 @@ class FolderTreeType extends DoctrineType
 
     public function getLoader(ObjectManager $manager, $queryBuilder, $class): EntityLoaderInterface
     {
-        return new FolderLoader($manager, $queryBuilder, $class);
+        $loader = new FolderLoader($manager, $queryBuilder, $class);
+        $loader->setContext($this->context);
+
+        return $loader;
+    }
+
+    /**
+     * @param ContextManager $context
+     *
+     * @return $this
+     */
+    public function setContext($context): self
+    {
+        $this->context = $context;
+
+        return $this;
     }
 
     public function getBlockPrefix(): string

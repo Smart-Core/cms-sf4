@@ -4,21 +4,21 @@ namespace Monolith\CMSBundle\Module;
 
 use Doctrine\ORM\EntityManager;
 use Monolith\CMSBundle\Container;
+use Monolith\CMSBundle\Manager\ContextManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractNodePropertiesFormType extends AbstractType
 {
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     protected $em;
 
-    /**
-     * @var KernelInterface
-     */
+    /** @var KernelInterface */
     protected $kernel;
+
+    /** @var ContextManager */
+    protected $context;
 
     /**
      * @param EntityManager   $em
@@ -27,6 +27,7 @@ abstract class AbstractNodePropertiesFormType extends AbstractType
     //public function __construct(EntityManager $em, KernelInterface $kernel)
     public function __construct()
     {
+        $this->context  = Container::get('cms.context');
         $this->em       = Container::get('doctrine.orm.entity_manager');
         $this->kernel   = Container::get('kernel');
     }
@@ -48,7 +49,7 @@ abstract class AbstractNodePropertiesFormType extends AbstractType
         $criteria = [];
 
         if ($only_for_site) {
-            $site  = Container::get('cms.context')->getSite();
+            $site  = $this->context->getSite();
 
             $criteria = ['site' => $site];
         }
@@ -59,6 +60,42 @@ abstract class AbstractNodePropertiesFormType extends AbstractType
         }
 
         return $choices;
+    }
+
+    /**
+     * @param EntityManager $em
+     *
+     * @return $this
+     */
+    public function setEm($em): self
+    {
+        $this->em = $em;
+
+        return $this;
+    }
+
+    /**
+     * @param KernelInterface $kernel
+     *
+     * @return $this
+     */
+    public function setKernel($kernel): self
+    {
+        $this->kernel = $kernel;
+
+        return $this;
+    }
+
+    /**
+     * @param ContextManager $context
+     *
+     * @return $this
+     */
+    public function setContext($context): self
+    {
+        $this->context = $context;
+
+        return $this;
     }
 
     /**

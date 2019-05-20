@@ -10,6 +10,7 @@ use Monolith\CMSBundle\Entity\Region;
 use Monolith\CMSBundle\Entity\UserGroup;
 use Monolith\CMSBundle\Form\Type\NodeDefaultPropertiesFormType;
 use Monolith\CMSBundle\Form\Type\NodeSetupControllerFormType;
+use Monolith\CMSBundle\Module\AbstractNodePropertiesFormType;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Smart\CoreBundle\Controller\Controller;
@@ -566,6 +567,8 @@ class AdminStructureController extends Controller
 
         $nodeParams = $node->getParams();
         $form = $cmsNode->createForm($node);
+
+        /** @var AbstractNodePropertiesFormType $propertiesFormType */
         $propertiesFormType = $cmsNode->getPropertiesFormType($node);
 
         if ($propertiesFormType == NodeDefaultPropertiesFormType::class) {
