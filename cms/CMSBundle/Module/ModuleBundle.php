@@ -4,7 +4,7 @@ namespace Monolith\CMSBundle\Module;
 
 use Smart\CoreBundle\AppBundle\Bundle;
 
-abstract class ModuleBundle extends Bundle
+abstract class ModuleBundle extends Bundle implements ModuleBundleInterface
 {
     use ModuleBundleTrait;
 }

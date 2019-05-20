@@ -8,7 +8,7 @@
 
     <div class="box-body">
 
-        <h3>Основные шаблоны темы <small>/views/</small></h3>
+        <h3>Основные шаблоны темы <small>/templates/</small></h3>
         <ul>
             {% for file in views %}
                 <li><a href="{{ path('cms_admin.theme_file_edit', {'theme': theme.dirname, 'dir': 'views', 'relativePathname': file.relativePathname}) }}">{{ file.relativePathname }}</a></li>

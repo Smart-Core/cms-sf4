@@ -9,6 +9,7 @@ use Monolith\CMSBundle\Annotation\NodePropertiesForm;
 use Monolith\CMSBundle\Cache\CacheWrapper;
 use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\CMSAppKernel;
+use Monolith\CMSBundle\CMSKernel;
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Entity\Region;
@@ -54,7 +55,7 @@ class NodeManager
     protected $context;
 
     /**
-     * @var CMSAppKernel
+     * @var CMSKernel
      */
     protected $kernel;
 
@@ -226,7 +227,7 @@ class NodeManager
         $module_name = $node->getModule();
 
         try {
-            $moduleNamespace = $this->kernel->getModule($module_name)->getNamespace();
+            $moduleNamespace = $this->container->get('cms.module')->get($module_name)->getNamespace();
         } catch (\InvalidArgumentException $e) {
             // Случай, когда запрашивается не подключенный модуль.
         }

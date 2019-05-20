@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-namespace SmartCore\Bundle\SettingsBundle\Listener;
+namespace Monolith\CMSBundle\Listener;
 
-use SmartCore\Bundle\SettingsBundle\Manager\SettingsManager;
+use Monolith\CMSBundle\CMSBundle;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class WarmapDatabadeListener
+class WarmupDataListener
 {
     use ContainerAwareTrait;
-
-    /** @var  */
-    protected $settingsManager;
 
     /** @var bool */
     protected $debug;
@@ -23,17 +21,18 @@ class WarmapDatabadeListener
     protected $cacheDir;
 
     /**
-     * WarmapDatabadeListener constructor.
+     * WarmupDataListener constructor.
      *
-     * @param SettingsManager $settingsManager
-     * @param string          $cacheDir
-     * @param bool            $debug
+     * @param ContainerInterface $container
+     * @param string             $cacheDir
+     * @param bool               $debug
      */
-    public function __construct(SettingsManager $settingsManager, string $cacheDir, bool $debug)
+    public function __construct(ContainerInterface $container, string $cacheDir, bool $debug)
     {
+        $this->container = $container; // @todo remove
+
         $this->cacheDir = $cacheDir;
         $this->debug    = $debug;
-        $this->settingsManager = $settingsManager;
     }
 
     /**
@@ -44,10 +43,12 @@ class WarmapDatabadeListener
     public function onRequest(GetResponseEvent $event): void
     {
         if ($this->debug and HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
-            $lockFile = $this->cacheDir.'/'.SettingsManager::LOCK_FILE;
+            $lockFile = $this->cacheDir.'/'.CMSBundle::LOCK_FILE;
 
             if (file_exists($lockFile)) {
-                $this->settingsManager->warmupDatabase();
+                $this->container->get('cms.site')->init();
+                $this->container->get('cms.security')->warmupDatabase();
+                $this->container->get('cms.security')->checkDefaultUserGroups();
 
                 unlink($lockFile);
             }

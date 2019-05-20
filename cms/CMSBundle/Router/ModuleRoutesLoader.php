@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Router;
 
+use Monolith\CMSBundle\Manager\ModuleManager;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -41,7 +42,7 @@ class ModuleRoutesLoader extends Loader implements LoaderInterface
 
         $collection = new RouteCollection();
 
-        foreach ($this->container->getParameter('monolith_cms.modules_paths') as $moduleName => $modulePath) {
+        foreach (ModuleManager::getModulesPaths($this->container->getParameter('kernel.bundles_metadata')) as $moduleName => $modulePath) {
             $resource = $modulePath.'/Resources/config/routing.yml';
             if (file_exists($resource)) {
                 /** @var \Symfony\Component\Routing\RouteCollection $importedRoutes */

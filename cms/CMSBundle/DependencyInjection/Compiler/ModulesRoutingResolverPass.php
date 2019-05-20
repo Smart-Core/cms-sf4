@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\DependencyInjection\Compiler;
 
+use Monolith\CMSBundle\Manager\ModuleManager;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -18,7 +19,7 @@ class ModulesRoutingResolverPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         /** @var \Monolith\CMSBundle\Module\ModuleBundle $moduleBundle */
-        foreach ($container->getParameter('monolith_cms.modules_paths') as $moduleName => $modulePath) {
+        foreach (ModuleManager::getModulesPaths($container->getParameter('kernel.bundles_metadata')) as $moduleName => $modulePath) {
             // Обработка routing.yml
             $routingConfig = $modulePath.'/Resources/config/routing.yml';
             if (file_exists($routingConfig) and is_array(Yaml::parse(file_get_contents($routingConfig)))) {

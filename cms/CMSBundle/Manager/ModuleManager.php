@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Manager;
 
-use Monolith\CMSBundle\CMSAppKernel;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Filesystem\Exception\IOException;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Monolith\CMSBundle\CMSKernel;
+use Monolith\CMSBundle\Module\ModuleBundle;
+use Monolith\CMSBundle\Module\ModuleBundleInterface;
 
 class ModuleManager
 {
@@ -28,12 +23,17 @@ class ModuleManager
     /**
      * ModuleManager constructor.
      *
-     * @param CMSAppKernel $kernel
+     * @param CMSKernel $kernel
      */
-    public function __construct(KernelInterface $kernel)
+    public function __construct(CMSKernel $kernel)
     {
         $this->kernel  = $kernel;
-        $this->modules = $kernel->getModules();
+
+        foreach ($kernel->getBundles() as $name => $object) {
+            if ($object instanceof ModuleBundleInterface) {
+                $this->modules[$name] = $object;
+            }
+        }
     }
 
     /**
@@ -41,19 +41,19 @@ class ModuleManager
      *
      * @return \Monolith\CMSBundle\Module\ModuleBundle[]
      */
-    public function all()
+    public function all(): array
     {
         return $this->modules;
     }
 
     /**
-     * Получение информации о модуле.
+     * Получение бандла модуля.
      *
      * @param string $name
      *
      * @return \Monolith\CMSBundle\Module\ModuleBundle|null
      */
-    public function get($name)
+    public function get(string $name): ?ModuleBundle
     {
         return isset($this->modules[$name]) ? $this->modules[$name] : null;
     }
@@ -65,62 +65,31 @@ class ModuleManager
      *
      * @return bool
      */
-    public function has($name)
+    public function has($name): bool
     {
         return isset($this->modules[$name]) ? true : false;
     }
 
     /**
-     * Установка модуля.
+     * Получение списка модулей с путями на основе данных 'kernel.bundles_metadata'
      *
-     * @param string $filename
+     * @param array $bundles_metadata
      *
-     * @todo доделать.
+     * @return array
+     * @throws \ReflectionException
      */
-    public function install($filename)
+    static public function getModulesPaths(array $bundles_metadata): array
     {
-        $rootDir = $this->kernel->getRootDir();
-        $distDir = $rootDir.'/../dist';
+        $modulesPaths = [];
+        foreach ($bundles_metadata as $class => $meta) {
+            $reflection = new \ReflectionClass($meta['namespace'].'\\'.$class);
 
-        // 1) Распаковка архива.
-        $zip = new \ZipArchive();
-        $zip->open($distDir.'/'.$filename);
-        $zip->extractTo($rootDir.'/../src');
+            if (in_array(ModuleBundleInterface::class, $reflection->getInterfaceNames())) {
 
-        // 2) Подключение модуля.
-        $modulesList = $this->kernel->getModules();
-        $modulesList['Example'] = '\Monolith\ModuleExample\ExampleModule'; // @todo ['class'] and ['path']
-        ksort($modulesList);
-
-        $modulesIni = '';
-        foreach ($modulesList as $key => $value) {
-            $modulesIni .= "$key = $value\n";
-        }
-
-        file_put_contents($rootDir.'/usr/modules.ini', $modulesIni);
-
-        // 3) Очистка кэша.
-        $finderCache = new Finder();
-        $finderCache->ignoreDotFiles(false)
-            ->ignoreVCS(true)
-            ->depth('== 0')
-            ->in($this->kernel->getCacheDir().'/../');
-
-        $fs = new Filesystem();
-        /** @var \Symfony\Component\Finder\SplFileInfo $file*/
-        foreach ($finderCache as $file) {
-            try {
-                $fs->remove($file->getPath());
-            } catch (IOException $e) {
-                // do nothing
+                $modulesPaths[substr($class, 0, -12)] = $meta['path'];
             }
         }
 
-        // 4) Установка ресурсов (Resources/public).
-        $application = new Application($this->kernel); // Symfony\Bundle\FrameworkBundle\Console\Application
-        $application->setAutoExit(false);
-        $input = new ArrayInput(['command' => 'assets:install', 'target' => $rootDir.'/../web']);
-        $output = new BufferedOutput();
-        $retval = $application->run($input, $output);
+        return $modulesPaths;
     }
 }

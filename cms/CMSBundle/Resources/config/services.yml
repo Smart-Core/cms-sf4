@@ -153,11 +153,16 @@ services:
         arguments: [ '@form.factory', "%fos_user.profile.form.name%", Monolith\CMSBundle\Form\Type\UserFormType, "%fos_user.profile.form.validation_groups%" ]
 
     # Listeners
-    resolve_controller_name_subscriber:
+    cms.resolve_controller_name_subscriber:
         class: Monolith\CMSBundle\Listener\ResolveControllerNameSubscriber
         arguments: [ '@controller_name_converter', '@cms.node', '@kernel']
         tags:
             - { name: kernel.event_subscriber }
+    cms.warmap.listener:
+        class: Monolith\CMSBundle\Listener\WarmupDataListener
+        arguments: [ '@service_container', '%kernel.cache_dir%', '%kernel.debug%' ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onRequest }
     cms.site.switch.listener:
         class: Monolith\CMSBundle\Listener\SiteSwitchListener
         arguments: [ '@service_container' ]

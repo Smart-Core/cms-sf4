@@ -25,7 +25,7 @@ class FolderFormType extends AbstractType
     {
         $templates = ['' => ''];
 
-        $currentThemeDir = $this->container->get('kernel')->getBundle('CMSBundle')->getThemeDir().'/views';
+        $currentThemeDir = $this->container->get('kernel')->getBundle('CMSBundle')->getThemeDir().'/templates';
 
         if (file_exists($currentThemeDir)) {
             $finder = new Finder();

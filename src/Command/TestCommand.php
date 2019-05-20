@@ -24,7 +24,7 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        dump('OK');
+        dump('Test OK');
 
         /*
         $io = new SymfonyStyle($input, $output);

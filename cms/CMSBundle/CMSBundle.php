@@ -11,7 +11,7 @@ use Monolith\CMSBundle\DependencyInjection\Compiler\DeprecationsFixesCompilerPas
 use Monolith\CMSBundle\DependencyInjection\Compiler\FormPass;
 use Monolith\CMSBundle\DependencyInjection\Compiler\LiipThemeLocatorsPass;
 use Monolith\CMSBundle\DependencyInjection\Compiler\ModulesRoutingResolverPass;
-use Monolith\CMSBundle\DependencyInjection\Compiler\PermissionsPass;
+use Monolith\CMSBundle\DependencyInjection\Compiler\WarmupDataPass;
 use Monolith\CMSBundle\DependencyInjection\Compiler\TwigLoaderPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -19,6 +19,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class CMSBundle extends Bundle
 {
+    const LOCK_FILE = 'cms_need_warmap_db.lock';
+
     public function boot(): void
     {
         Container::setContainer($this->container);
@@ -36,16 +38,16 @@ class CMSBundle extends Bundle
         $container->addCompilerPass(new ModulesRoutingResolverPass());
         $container->addCompilerPass(new FormPass());
         $container->addCompilerPass(new DeprecationsFixesCompilerPass(), PassConfig::TYPE_AFTER_REMOVING);
+        $container->addCompilerPass(new WarmupDataPass());
     }
 
-    public function getThemeDir()
+    public function getThemeDir() // @todo убрать
     {
         if (empty($this->container->get('cms.context')->getSite())) {
             $currentTheme = 'default';
         } else {
             $currentTheme = $this->container->get('cms.context')->getSite()->getTheme();
         }
-
 
         return $this->container->getParameter('kernel.project_dir').'/themes/'.$currentTheme;
     }

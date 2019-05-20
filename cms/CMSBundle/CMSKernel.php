@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle;
 
-use Doctrine\DBAL\Exception\TableNotFoundException;
 use Monolith\CMSBundle\Module\ModuleBundle;
-use Symfony\Component\Config\ConfigCache;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 if (!defined('START_TIME')) {
@@ -20,21 +16,6 @@ if (!defined('START_MEMORY')) {
 
 abstract class CMSKernel extends Kernel
 {
-    /** @var ModuleBundle[] */
-    protected $modules = [];
-
-    /**
-     * Boots the current kernel.
-     *
-     * @api
-     */
-    public function boot(): void
-    {
-        parent::boot();
-
-        \Profiler::setKernel($this);
-    }
-
     /**
      * Initializes bundles.
      *
@@ -44,40 +25,14 @@ abstract class CMSKernel extends Kernel
     {
         parent::initializeBundles();
 
+        \Profiler::setKernel($this);
+
         $this->registerCmsModules($this->bundles);
     }
 
     /**
-     * Выполнение операций с БД сразу после пересборки контейнера.
+     * Добавление модулей в список бандлов.
      *
-     * @todo убрать в события с лок-файлом.
-     */
-    protected function dumpContainer(ConfigCache $cache, ContainerBuilder $container, $class, $baseClass)
-    {
-        parent::dumpContainer($cache, $container, $class, $baseClass);
-
-        /** @var ContainerInterface $container */
-        $container = require $cache->getPath();
-        $container->set('kernel', $this);
-
-        if ($container->has('cache_warmer')) {
-            $container->get('cache_warmer')->warmUp($container->getParameter('kernel.cache_dir'));
-        }
-
-        $container->get('cms.site')->init();
-
-        // @todo убрать в другое место, потому что зависит от сайта
-        $container->get('cms.region')->checkForDefault();
-
-        try {
-            $container->get('cms.security')->warmupDatabase();
-            $container->get('cms.security')->checkDefaultUserGroups();
-        } catch (TableNotFoundException $e) {
-            // @todo
-        }
-    }
-
-    /**
      * @param \Symfony\Component\HttpKernel\Bundle\BundleInterface[] $bundles
      *
      * @throws \ReflectionException
@@ -108,46 +63,5 @@ abstract class CMSKernel extends Kernel
                 }
             }
         }
-    }
-
-    /**
-     * Prepares the ContainerBuilder before it is compiled.
-     *
-     * @param ContainerBuilder $container A ContainerBuilder instance
-     */
-    protected function prepareContainer(ContainerBuilder $container): void
-    {
-        parent::prepareContainer($container);
-
-        $modulesPaths = [];
-        foreach ($this->modules as $module) {
-            $modulesPaths[$module->getShortName()] = $module->getPath();
-        }
-
-        $container->setParameter('monolith_cms.modules_paths', $modulesPaths);
-    }
-
-    /**
-     * Получить список подключенных модулей CMS.
-     *
-     * @return \Monolith\CMSBundle\Module\ModuleBundle[]
-     */
-    public function getModules(): array
-    {
-        return $this->modules;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return \Monolith\CMSBundle\Module\ModuleBundle|null
-     */
-    public function getModule(string $name): ?ModuleBundle
-    {
-        if (isset($this->modules[$name])) {
-            return $this->modules[$name];
-        }
-
-        return null;
     }
 }
