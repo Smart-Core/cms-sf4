@@ -101,7 +101,11 @@ class CmsCollector extends DataCollector
 
     public function getRouterData()
     {
-        return $this->data['router_data'];
+        if (isset($this->data['router_data'])) {
+            return $this->data['router_data'];
+        }
+
+        return [];
     }
 
     public function reset()
