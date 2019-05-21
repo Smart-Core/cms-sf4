@@ -6,6 +6,8 @@ parameters:
     user_class: App\Entity\User
     cms_prod_url: ~
     uploads_dir: uploads
+
+    cms.data_collector.class: Monolith\CMSBundle\DataCollector\CmsCollector
     liip_theme.filesystem_loader.class: Monolith\CMSBundle\Twig\Loader\FilesystemLoader
     sonata.intl.timezone_detector.chain.class: Monolith\CMSBundle\Timezone\SonataChainTimezoneDetector
     router.class: Monolith\CMSBundle\Router\NodeRouter

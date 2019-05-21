@@ -1,0 +1,169 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% import _self as helper %}
+
+{% block toolbar %}
+    {% set icon %}
+        {{ include('@Debug/Profiler/icon.svg') }}
+{#      <span class="sf-toolbar-value">1</span>#}
+        <span class="sf-toolbar-value">CMS</span>
+    {% endset %}
+
+    {% set text %}
+
+        <div class="sf-toolbar-info-piece">
+            <b>Folders</b>
+            <span class="sf-toolbar-status">
+                {{ collector.folders|length }}
+            </span>
+        </div>
+
+        <div class="sf-toolbar-info-piece">
+            <b>Nodes</b>
+            <span class="sf-toolbar-status sf-toolbar-status-">
+                {{ collector.nodes|length }}
+            </span>
+        </div>
+
+        <div class="sf-toolbar-info-piece">
+            <b>Node router</b>
+            {% if collector.routerData.node_routing %}
+                <span class="sf-toolbar-status sf-toolbar-status-green">Yes</span>
+            {% else %}
+                <span class="sf-toolbar-status sf-toolbar-status-green_">No</span>
+            {% endif %}
+        </div>
+
+        <div class="sf-toolbar-info-piece">
+            <b>Template</b>
+            <span class="sf-toolbar-status">{{ collector.routerData.template }}</span>
+        </div>
+
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': true }) }}
+{% endblock %}
+
+{% block menu %}
+    <span class="label {{ collector.dumpsCount == 0 ? 'disabled' }}">
+        <span class="icon">{{ include('@Debug/Profiler/icon.svg') }}</span>
+        <strong>CMS</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Folders</h2>
+
+{#    {{ dump(collector) }}#}
+
+    {{ helper.render_table_folders(collector.folders) }}
+
+    {% if collector.routerData.node_routing %}
+        <h2>Routed Node #{{ collector.routerData.node_routing.node_id }}</h2>
+
+{#        <p class="prewrap"><pre>Node ID: </pre></p>#}
+{#        <p class="prewrap"><pre>Controller: {{ collector.routerData.node_routing.controller['_controller'] }}</pre></p>#}
+        {{ dump(collector.routerData.node_routing.controller) }}
+
+    {% endif %}
+
+    <h2>Nodes</h2>
+
+    {{ helper.render_table_nodes(collector.nodes) }}
+
+    {#
+    {% for dump in collector.getDumps('html') %}
+        <div class="sf-dump sf-reset">
+            <span class="metadata">In
+                {% if dump.line %}
+                    {% set link = dump.file|file_link(dump.line) %}
+                    {% if link %}
+                        <a href="{{ link }}" title="{{ dump.file }}">{{ dump.name }}</a>
+                    {% else %}
+                        <abbr title="{{ dump.file }}">{{ dump.name }}</abbr>
+                    {% endif %}
+                {% else %}
+                    {{ dump.name }}
+                {% endif %}
+                line <a class="text-small sf-toggle" data-toggle-selector="#sf-trace-{{ loop.index0 }}">{{ dump.line }}</a>:
+            </span>
+
+            <div class="sf-dump-compact hidden" id="sf-trace-{{ loop.index0 }}">
+                <div class="trace">
+                    {{ dump.fileExcerpt ? dump.fileExcerpt|raw : dump.file|file_excerpt(dump.line) }}
+                </div>
+            </div>
+
+            {{ dump.data|raw }}
+        </div>
+    {% else %}
+        <div class="empty">
+            <p>No content was dumped.</p>
+        </div>
+    {% endfor %}
+    #}
+{% endblock %}
+
+{% macro render_table_folders(folders) %}
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Uri</th>
+            <th>Title</th>
+            <th>Template inheritable</th>
+            <th>Template self</th>
+            <th>Description</th>
+{#            <th>Metadata</th>#}
+{#            <th>Permissions</th>#}
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for folder in folders %}
+            <tr>
+                <td class="font-normal text-small nowrap">{{ folder.id }}</td>
+                <td class="prewrap">{{ folder.uri }}</td>
+                <td class="font-normal text-small text-bold nowrap">{{ folder.title }}</td>
+                <td class="prewrap">{{ folder.template_inheritable }}</td>
+                <td class="prewrap">{{ folder.template_self }}</td>
+                <td class="font-normal text-small">{{ folder.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
+{% macro render_table_nodes(nodes) %}
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Module</th>
+            <th>Controller</th>
+            <th>Params</th>
+            <th>Region</th>
+            <th>Template</th>
+            <th>Folder</th>
+            <th>Description</th>
+{#            <th>Metadata</th>#}
+{#            <th>Permissions</th>#}
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for node in nodes %}
+            <tr>
+                <td class="font-normal nowrap">{{ node.id }}</td>
+                <td class="font-normal nowrap">{{ node.module }}</td>
+                <td class="prewrap nowrap">{{ node.controller }}</td>
+                <td class="prewrap">{{ dump(node.params) }}</td>
+                <td class="font-normal">{{ node.region }}</td>
+                <td class="prewrap">{{ node.template }}</td>
+                <td class="font-normal text-small">{{ node.folder }}</td>
+                <td class="font-normal text-small">{{ node.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

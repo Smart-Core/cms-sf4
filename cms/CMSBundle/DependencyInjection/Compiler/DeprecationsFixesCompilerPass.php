@@ -18,6 +18,7 @@ class DeprecationsFixesCompilerPass implements CompilerPassInterface
         $container->getDefinition('liip_imagine.filter.configuration')->setPublic(true);
         $container->getDefinition('monolog.logger.request')->setPublic(true);
         $container->getDefinition('security.logout_url_generator')->setPublic(true);
+        $container->getDefinition('smart_media')->setPublic(true);
         $container->getDefinition('templating.helper.assets')->setPublic(true);
     }
 }

@@ -10,6 +10,8 @@ use Monolith\CMSBundle\Entity\Site;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class ContextManager
 {
@@ -20,6 +22,7 @@ class ContextManager
     protected $current_node_id      = null;
     protected $domain               = null;
     protected $site                 = null;
+    protected $stopwatch            = null;
     protected $template             = 'default';
     protected $userManager          = null;
 
@@ -31,8 +34,9 @@ class ContextManager
      *
      * @todo кешироание
      */
-    public function __construct(ContainerInterface $container, UserManagerInterface $userManager)
+    public function __construct(ContainerInterface $container, UserManagerInterface $userManager, Stopwatch $stopwatch = null)
     {
+        $this->stopwatch   = $stopwatch;
         $this->container   = $container;
         $this->userManager = $userManager;
 
@@ -212,6 +216,30 @@ class ContextManager
     }
 
     /**
+     * @param $name
+     */
+    public function stopwatchStart($name): void
+    {
+        if ($this->stopwatch) {
+            $this->stopwatch->start($name);
+        }
+    }
+
+    /**
+     * @param $name
+     *
+     * @return StopwatchEvent|null
+     */
+    public function stopwatchStop($name): ?StopwatchEvent
+    {
+        if ($this->stopwatch) {
+            return $this->stopwatch->stop($name);
+        }
+
+        return null;
+    }
+
+    /**
      * @param string $key
      * @param mixed  $value
      *
@@ -219,7 +247,7 @@ class ContextManager
      *
      * @deprecated
      */
-    public function ____set($key, $value)
+    public function z____set($key, $value)
     {
         $this->$key = $value;
 

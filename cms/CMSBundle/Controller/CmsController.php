@@ -16,8 +16,6 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Symfony\Component\VarDumper\Cloner\Data;
-use Symfony\Contracts\Cache\ItemInterface;
 use Twig\Error\LoaderError;
 
 class CmsController extends AbstractController
@@ -27,18 +25,24 @@ class CmsController extends AbstractController
      */
     public function index(Request $request, string $slug = '', array $options = null)
     {
-        $twig       = $this->get('twig');
         $cmsContext = $this->get('cms.context');
-        $site       = $this->get('cms.context')->getSite();
+        $twig       = $this->get('twig');
+        $profiler   = $this->get('profiler');
 
         // Кеширование роутера.
-        $cache_key = md5('site_id='.$site->getId().'cms_router='.$request->getBaseUrl().$slug);
+        $cache_key = md5('site_id='.$cmsContext->getSiteId().'cms_router='.$request->getBaseUrl().$slug);
+
+        $cmsContext->stopwatchStart('cms_router');
 
         if (null === $router_data = $this->get('cms.cache')->get($cache_key)) {
             $router_data = $this->get('cms.router')->match($request->getBaseUrl(), $slug, HttpKernelInterface::MASTER_REQUEST, $options);
 
             $this->get('cms.cache')->set($cache_key, $router_data, ['folder', 'node']);
         }
+
+        $profiler->get('cms')->setRouterData($router_data);
+
+        $cmsContext->stopwatchStop('cms_router');
 
         if ($router_data['status'] == 301 and $router_data['redirect_to']) {
             return new RedirectResponse($router_data['redirect_to'], $router_data['status']);
@@ -77,6 +81,8 @@ class CmsController extends AbstractController
         $router_data['http_method'] = $request->getMethod();
 
         $nodes = $this->get('cms.node')->buildList($router_data);
+
+        $profiler->get('cms')->setNodes($nodes);
 
         \Profiler::start('Build Modules Data');
         // Разложенные по областям, отрендеренные ноды
