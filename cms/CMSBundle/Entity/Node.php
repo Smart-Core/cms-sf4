@@ -608,6 +608,8 @@ class Node implements \Serializable // NodeInterface @todo
      * @return FrontControl
      *
      * @throws \Exception
+     *
+     * @deprecated вынести в cms.context
      */
     public function addFrontControl($name): FrontControl
     {

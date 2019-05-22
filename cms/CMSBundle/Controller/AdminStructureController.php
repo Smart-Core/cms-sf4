@@ -466,7 +466,12 @@ class AdminStructureController extends Controller
      */
     public function nodeCreateAction(Request $request, $folder_pid = 1)
     {
-        if (null === $folder = $this->get('cms.folder')->get($folder_pid)) {
+//        $moduleManager = $this->get('cms.module');
+//        $moduleManager->getControllers('TexterModuleBundle');
+
+        $folderManager = $this->get('cms.folder');
+
+        if (null === $folder = $folderManager->get($folder_pid)) {
             return $this->redirectToRoute('cms_admin.structure_folder_create');
         }
 
@@ -487,7 +492,7 @@ class AdminStructureController extends Controller
         }
 
         $form = $cmsNode->createForm($node);
-        $form->remove('controller');
+//        $form->remove('controller');
 
         if ($request->isMethod('POST')) {
             if ($request->request->has('create')) {
@@ -500,9 +505,10 @@ class AdminStructureController extends Controller
 
                     // Если у модуля есть роутинги, тогда нода подключается к папке как роутер.
                     $folder = $createdNode->getFolder();
+                    // @todo убрать проверку на роутеры контроллера в менеджер.
                     if ($this->container->has('cms.router_module.'.$createdNode->getModule()) and !$folder->getRouterNodeId()) {
                         $folder->setRouterNodeId($createdNode->getId());
-                        $this->get('cms.folder')->update($folder);
+                        $folderManager->update($folder);
                     }
 
                     $this->get('cms.cache')->invalidateTag('node');
@@ -534,7 +540,7 @@ class AdminStructureController extends Controller
 
         return $this->render('@CMS/Admin/Structure/node_create.html.twig', [
             'form'       => $form->createView(),
-            'folderPath' => $this->get('cms.folder')->getUri($folder_pid),
+            'folderPath' => $folderManager->getUri($folder_pid),
         ]);
     }
 

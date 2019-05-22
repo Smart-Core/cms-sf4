@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\CMSBundle\Module;
 
 use Smart\CoreBundle\AppBundle\Bundle;

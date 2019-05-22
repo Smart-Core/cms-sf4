@@ -9,11 +9,20 @@ use Monolith\CMSBundle\Entity\Node;
 
 trait ModuleBundleTrait
 {
-    // @todo Заменить на иконку модуля.
+    /**
+     * @deprecated подумать где конфигурировать админское меню модуля.
+     */
     protected $adminMenuBeforeCode = '<i class="fa fa-angle-right"></i>';
 
     /** @var bool */
     protected $is_enabled;
+
+    /**
+     * Удобочитаемый заголовок модуля для вывода в пользовательских интерфейсах.
+     *
+     * @var string
+     */
+    protected $title;
 
     /**
      * @return bool
@@ -96,16 +105,24 @@ trait ModuleBundleTrait
 
     /**
      * Получить короткое имя (без суффикса ModuleBundle).
-     * Сейчас используется:
-     *  1) в админке для получения списка модулей
      *
      * @return string
-     *
-     * @deprecated
      */
     final public function getShortName(): string
     {
         return substr($this->getName(), 0, -12);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        if (empty($this->title)) {
+            return $this->getShortName();
+        }
+
+        return $this->title;
     }
 
     /**
@@ -118,18 +135,6 @@ trait ModuleBundleTrait
     final public function hasAdmin(): bool
     {
         return $this->container->has('cms.router_module.'.strtolower($this->getShortName()).'.admin') ? true : false;
-    }
-
-    /**
-     * Получить обязательные параметры.
-     *
-     * @return array
-     *
-     * @deprecated - должно быть в контроллере
-     */
-    public function getRequiredParams(): array
-    {
-        return [];
     }
 
     /**

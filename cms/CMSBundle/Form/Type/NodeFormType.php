@@ -45,13 +45,6 @@ class NodeFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $modules = [];
-        foreach ($this->moduleManager->all() as $module_name => $module) {
-            if ($module->isEnabled()) {
-                $modules[$module->getShortName()] = $module_name;
-            }
-        }
-
         $moduleThemes = [];
         foreach ($this->themeManager->getModuleThemes($options['data']->getModule()) as $theme) {
             $moduleThemes[$theme] = $theme;
@@ -59,7 +52,7 @@ class NodeFormType extends AbstractType
 
         $builder
             ->add('module', ChoiceType::class, [
-                'choices' => $modules,
+                'choices' => $this->moduleManager->getAllModulesControllersForForm(),
                 'data' => 'TexterModuleBundle', // @todo !!! настройку модуля по умолчанию.
                 'choice_translation_domain' => false,
             ])

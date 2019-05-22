@@ -12,6 +12,8 @@ class TexterModuleBundle extends ModuleBundle
 {
     protected $adminMenuBeforeCode = '<i class="fa fa-text-height"></i>';
 
+    protected $title = 'Текстовые блоки (Texter)';
+
     /**
      * Действие при создании ноды.
      *

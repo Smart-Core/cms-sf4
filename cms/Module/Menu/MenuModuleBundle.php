@@ -51,16 +51,4 @@ class MenuModuleBundle extends ModuleBundle
 
         $container->addCompilerPass(new FormPass());
     }
-
-    /**
-     * @return array
-     *
-     * @deprecated - должно быть в контроллере
-     */
-    public function getRequiredParams(): array
-    {
-        return [
-            'menu_id',
-        ];
-    }
 }

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Controller;
 
+use Monolith\CMSBundle\Form\Type\NodeDefaultPropertiesFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AbstractNodeController extends AbstractController
 {
     protected $node;
 
-    protected $nodePropertiesFormClass; // \Monolith\CMSBundle\Form\Type\NodeDefaultPropertiesFormType::class
+    protected $nodePropertiesFormTypeClass = NodeDefaultPropertiesFormType::class;
 
     /**
      * @return mixed

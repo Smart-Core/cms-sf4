@@ -22,15 +22,10 @@ class MyNodeController extends AbstractNodeController
     // Подумать над вариантом инжектить ноду в контроллер или всёже лучше в экшен?
     protected $_node;
 
-    // Параметра подключения модуля прописываются прямо в свойствах класса
-    protected $my_param1 = null;
-    protected $my_param2 = 123;
-    protected $my_param3 = [];
-
-    public function getDefaultProperties()
-    {
-        
-    }
+    // Параметра подключения модуля прописываются прямо в публичных свойствах класса
+    public $my_param1 = null;
+    public $my_param2 = 123;
+    public $my_param3 = [];
     
     /**
      * Метод контроллера по умолчанию
