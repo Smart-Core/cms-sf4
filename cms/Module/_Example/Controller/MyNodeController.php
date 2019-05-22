@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Monolith\CMSBundle\Annotation\CMS;
+use Monolith\CMSBundle\Annotation\CMS\Route;
 use Monolith\CMSBundle\Controller\AbstractNodeController;
 use Monolith\CMSBundle\Entity\Node;
 
@@ -34,11 +36,11 @@ class MyNodeController extends AbstractNodeController
      * Метод контроллера по умолчанию
      *
      * Ниже приведены аналогичные варианты, но если больше одной аннотации, то выбрасывать исключение.
-     * @CmsRoute()
-     * @CmsRoute("/", method="GET", name="some_index")
-     * @CmsRouteDefault() // Может быть не указано имя маршрута - это нормально, тогда просто собрать автоматом из связки "модуль_контроллер_метод", например "Example_SomeDefaultNode_letsDoIt"
-     * @CmsRouteDefault
-     * @CmsRouteGet
+     * @CMS\Route()
+     * @CMS\Route("/", method="GET", name="some_index")
+     * @CMS\RouteDefault() // Может быть не указано имя маршрута - это нормально, тогда просто собрать автоматом из связки "модуль_контроллер_метод", например "Example_SomeDefaultNode_letsDoIt"
+     * @CMS\RouteDefault
+     * @CMS\RouteGet
      */
     public function letsDoIt(Node $node) {}
 

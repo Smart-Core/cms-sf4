@@ -118,7 +118,7 @@ class CmsRouter
             ];
 
             if ($parent_folder === null) {
-                $criteria['id'] = $site->getRootFolder() ? $site->getRootFolder()->getId() : false;
+                $criteria['id'] = $site and $site->getRootFolder() ? $site->getRootFolder()->getId() : false;
 
                 unset($criteria['uri_part']);
             }
