@@ -10,7 +10,7 @@ use Smart\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Security("is_granted('ROLE_ADMIN_MODULE') or has_role('ROLE_SUPER_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN_MODULE') or is_granted('ROLE_SUPER_ADMIN')")
  */
 class AdminModuleController extends Controller
 {

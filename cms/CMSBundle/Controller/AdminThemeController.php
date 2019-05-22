@@ -16,7 +16,7 @@ use Twig\Error\SyntaxError;
 use Twig\Source;
 
 /**
- * @Security("is_granted('ROLE_ADMIN_SYSTEM') or has_role('ROLE_SUPER_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN_SYSTEM') or is_granted('ROLE_SUPER_ADMIN')")
  */
 class AdminThemeController extends Controller
 {

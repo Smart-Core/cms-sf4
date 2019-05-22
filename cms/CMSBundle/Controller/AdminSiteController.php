@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
- * @Security("is_granted('ROLE_ADMIN_LANGUAGE') or has_role('ROLE_SUPER_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN_LANGUAGE') or is_granted('ROLE_SUPER_ADMIN')")
  */
 class AdminSiteController extends Controller
 {

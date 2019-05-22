@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @Security("is_granted('ROLE_ADMIN_USER') or has_role('ROLE_SUPER_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN_USER') or is_granted('ROLE_SUPER_ADMIN')")
  */
 class AdminUserController extends Controller
 {
@@ -145,7 +145,7 @@ class AdminUserController extends Controller
     /**
      * @return Response
      *
-     * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or has_role('ROLE_SUPER_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or is_granted('ROLE_SUPER_ADMIN')")
      *
      * @todo вынести в контроллер AdminSecurity
      */
@@ -167,7 +167,7 @@ class AdminUserController extends Controller
      *
      * @return Response
      *
-     * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or has_role('ROLE_SUPER_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or is_granted('ROLE_SUPER_ADMIN')")
      *
      * @todo вынести в контроллер AdminSecurity
      */
@@ -213,7 +213,7 @@ class AdminUserController extends Controller
      *
      * @return Response
      *
-     * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or has_role('ROLE_SUPER_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or is_granted('ROLE_SUPER_ADMIN')")
      *
      * @todo вынести в контроллер AdminSecurity
      */
