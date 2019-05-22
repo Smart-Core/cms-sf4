@@ -1,6 +1,14 @@
-#easy_admin:
-#    entities:
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
+easy_admin:
+    site_name: 'ACME <em style="font-size: 80%;">Megacorp.</em>'
+    user:
+        display_name: false
+        display_avatar: false
+    design:
+        # ...
+        templates:
+            layout: '@CMS/easy_admin/default/layout.html.twig'
+        assets:
+            favicon: '/favicon.ico'
+    entities:
+        # List the entity class name you want to manage
+        - App\Entity\Example
