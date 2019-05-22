@@ -108,7 +108,7 @@ class CmsCacheProvider
      */
     public function invalidateTag(string $tag): bool
     {
-        return $this->pool->invalidateTag($tag);
+        return $this->pool->invalidateTags([$tag]);
     }
 
     /**
