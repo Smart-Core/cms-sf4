@@ -27,7 +27,6 @@ return [
     SmartCore\Bundle\RichEditorBundle\SmartRichEditorBundle::class => ['all' => true],
     SmartCore\Bundle\SettingsBundle\SmartSettingsBundle::class => ['all' => true],
     SmartCore\Bundle\SeoBundle\SmartSeoBundle::class => ['all' => true],
-//    Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],
     Sonata\IntlBundle\SonataIntlBundle::class => ['all' => true],
     SmartCore\Bundle\SimpleProfilerBundle\SmartSimpleProfilerBundle::class => ['all' => true],
     Liip\ThemeBundle\LiipThemeBundle::class => ['all' => true],
@@ -37,4 +36,5 @@ return [
     FM\ElfinderBundle\FMElfinderBundle::class => ['all' => true],
     Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle::class => ['all' => true],
     Misd\PhoneNumberBundle\MisdPhoneNumberBundle::class => ['all' => true],
+    EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
 ];

@@ -5,6 +5,7 @@
     "require": {
         "php": "^7.2.0",
         "cache/cache-bundle": "^1.1",
+        "easycorp/easyadmin-bundle": "^2.1",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "helios-ag/fm-elfinder-bundle": "~8",
         "helios-ag/fm-elfinder-php-connector": "*",
