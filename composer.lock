@@ -2140,16 +2140,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.7",
+            "version": "2.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e"
+                "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/709f21f92707308cdf8f9bcfa1af4cb26586521e",
-                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c26463ff9241f27907112fbcd0c86fa670cfef98",
+                "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98",
                 "shasum": ""
             },
             "require": {
@@ -2193,7 +2193,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2018-12-04T22:38:24+00:00"
+            "time": "2019-05-16T22:02:54+00:00"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -2928,16 +2928,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.51",
+            "version": "1.0.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "755ba7bf3fb9031e6581d091db84d78275874396"
+                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/755ba7bf3fb9031e6581d091db84d78275874396",
-                "reference": "755ba7bf3fb9031e6581d091db84d78275874396",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c5a5097156387970e6f0ccfcdf03f752856f3391",
+                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391",
                 "shasum": ""
             },
             "require": {
@@ -3008,7 +3008,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-03-30T13:22:34+00:00"
+            "time": "2019-05-20T20:21:14+00:00"
         },
         {
             "name": "liip/imagine-bundle",
@@ -4313,12 +4313,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/FelibBundle.git",
-                "reference": "539b341da93eea431a13d3b5cd9dcda9d3b5af24"
+                "reference": "b63feba4edaa4f59e14517cc3be8823cb5259833"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/FelibBundle/zipball/539b341da93eea431a13d3b5cd9dcda9d3b5af24",
-                "reference": "539b341da93eea431a13d3b5cd9dcda9d3b5af24",
+                "url": "https://api.github.com/repos/Smart-Core/FelibBundle/zipball/b63feba4edaa4f59e14517cc3be8823cb5259833",
+                "reference": "b63feba4edaa4f59e14517cc3be8823cb5259833",
                 "shasum": ""
             },
             "require": {
@@ -4339,7 +4339,7 @@
             ],
             "description": "Font-End Library Managment Bundle",
             "homepage": "http://smart-core.org",
-            "time": "2019-05-18T22:40:32+00:00"
+            "time": "2019-05-19T18:32:03+00:00"
         },
         {
             "name": "smart-core/html-bundle",
@@ -4503,12 +4503,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/SimpleProfilerBundle.git",
-                "reference": "fd1e51f64cf74c225c214ccd18dc8f07f010dd70"
+                "reference": "4c2e40e5a13a2328958953755d59c0982a331470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/SimpleProfilerBundle/zipball/fd1e51f64cf74c225c214ccd18dc8f07f010dd70",
-                "reference": "fd1e51f64cf74c225c214ccd18dc8f07f010dd70",
+                "url": "https://api.github.com/repos/Smart-Core/SimpleProfilerBundle/zipball/4c2e40e5a13a2328958953755d59c0982a331470",
+                "reference": "4c2e40e5a13a2328958953755d59c0982a331470",
                 "shasum": ""
             },
             "require": {
@@ -4534,7 +4534,7 @@
             "keywords": [
                 "profiler"
             ],
-            "time": "2019-05-18T20:11:14+00:00"
+            "time": "2019-05-21T15:59:01+00:00"
         },
         {
             "name": "sonata-project/intl-bundle",
