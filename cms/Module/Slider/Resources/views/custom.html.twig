@@ -1,9 +1,0 @@
-
-<ol>
-    {% for img in slider.slides %}
-        {% if img.enabled %}
-            {#<img src="{{ imgPath ~ img.filename }}" alt="{{ img.title }}" title="{{ img.title }}">#}
-            <li>{{ imgPath ~ img.filename }}<br>(title: "{{ img.title }}")</li>
-        {% endif %}
-    {% endfor %}
-</ol>

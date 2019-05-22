@@ -1,9 +1,0 @@
-
-services:
-    monolith_module.slider:
-        class: Monolith\Module\Slider\Service\SliderService
-        public: true
-        arguments: [ '@doctrine.orm.entity_manager' ]
-        calls:
-            - [ setContainer, [ '@service_container' ] ]
-            - [ initImagesDirectory ]

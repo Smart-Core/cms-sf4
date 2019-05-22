@@ -1,9 +1,0 @@
-{
-    "name": "monolith-software/module-google",
-    "description": "Google services.",
-    "autoload": {
-        "psr-4": {
-            "Monolith\\Module\\Google\\": ""
-        }
-    }
-}

@@ -1,4 +1,0 @@
-#google_module.admin:
-#    path: /
-#    defaults:
-#        _controller: GoogleModuleBundle:AdminGoogleModule:index

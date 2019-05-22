@@ -1,4 +1,0 @@
-#google_module.index:
-#    path: /
-#    defaults:
-#        _controller: GoogleModuleBundle:GoogleModule:index
