@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Monolith\Module\Unicat\Generator;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Generator is the base class for all generators.
@@ -43,7 +45,7 @@ class Generator
      */
     protected function getTwigEnvironment()
     {
-        return new \Twig_Environment(new \Twig_Loader_Filesystem($this->skeletonDirs), array(
+        return new Environment(new FilesystemLoader($this->skeletonDirs), array(
             'debug' => true,
             'cache' => false,
             'strict_variables' => true,
