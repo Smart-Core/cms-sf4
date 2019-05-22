@@ -17,6 +17,8 @@ class MenuModuleBundle extends ModuleBundle
      * Получить виджеты для рабочего стола.
      *
      * @return array
+     *
+     * @deprecated - должно быть в контроллере
      */
     public function getDashboard(): array
     {
@@ -52,6 +54,8 @@ class MenuModuleBundle extends ModuleBundle
 
     /**
      * @return array
+     *
+     * @deprecated - должно быть в контроллере
      */
     public function getRequiredParams(): array
     {

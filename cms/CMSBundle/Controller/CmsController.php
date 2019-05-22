@@ -27,7 +27,9 @@ class CmsController extends AbstractController
     {
         $cmsContext = $this->get('cms.context');
         $twig       = $this->get('twig');
-        $profiler   = $this->get('profiler');
+//        $profiler   = $this->get('profiler');
+
+//        $profiler->disable();
 
         // Кеширование роутера.
         $cache_key = md5('site_id='.$cmsContext->getSiteId().'cms_router='.$request->getBaseUrl().$slug);
@@ -40,7 +42,7 @@ class CmsController extends AbstractController
             $this->get('cms.cache')->set($cache_key, $router_data, ['folder', 'node']);
         }
 
-        $profiler->get('cms')->setRouterData($router_data);
+//        $profiler->get('cms')->setRouterData($router_data);
 
         $cmsContext->stopwatchStop('cms_router');
 
@@ -82,7 +84,7 @@ class CmsController extends AbstractController
 
         $nodes = $this->get('cms.node')->buildList($router_data);
 
-        $profiler->get('cms')->setNodes($nodes);
+//        $profiler->get('cms')->setNodes($nodes);
 
         \Profiler::start('Build Modules Data');
         // Разложенные по областям, отрендеренные ноды

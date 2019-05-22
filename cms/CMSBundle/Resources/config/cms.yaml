@@ -1,2 +1,31 @@
 cms:
-
+    admin_dashboard: ~ # Отображать все виджеты модулей
+#    admin_dashboard:
+        templade: 'path_to_templade.html.twig' # Переопределение шаблона
+    # Конфигурирование главного меню админки
+    admin_menu:
+        items:
+            dashboard: # Произвольное название пункта или группы меню.
+                type: item # Пункт меню
+                label: 'Рабочий стол'
+                controller: AdminController::dashboard
+                params: { val1: 1, val2: 2 }
+                path: # Ссылка на указанный путь
+                    name: 'admin_inex_example'
+                    params: { val1: 1, val2: 2 }
+                url: 'http://ya.ru'
+            modules_all:
+                type: modules # Все модули
+            modules_exclude:
+                type: modules
+                exclude: ['Texter', 'Menu'] # Исключая указанные
+            modules_include:
+                type: modules
+                include: ['Yandex', 'Google'] # Включая только указанные
+            modules_remains:
+                type: modules_remain # Модули оставшиеся после включения пунктов, настоятельно рекомендуется включать этот пункт.
+            entity:
+                type: entity # Управление произвольными сущностями, как в EasyAdminBundle
+                class: App\Entity\Customer
+            system:
+                type: system # Системное меню

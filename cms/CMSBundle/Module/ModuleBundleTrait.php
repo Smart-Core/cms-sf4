@@ -66,6 +66,8 @@ trait ModuleBundleTrait
      * Получить виджеты для рабочего стола.
      *
      * @return array
+     *
+     * @deprecated
      */
     public function getDashboard()
     {
@@ -83,9 +85,9 @@ trait ModuleBundleTrait
     }
 
     /**
-     * @todo Получение списка доступных виджетов у модуля.
-     *
      * @return array
+     *
+     * @deprecated - должно быть в контроллере
      */
     public function getWidgets()
     {
@@ -96,9 +98,10 @@ trait ModuleBundleTrait
      * Получить короткое имя (без суффикса ModuleBundle).
      * Сейчас используется:
      *  1) в админке для получения списка модулей
-     *  2) для создания monolith_cms.modules_paths для подхвата роутингов модулей.
      *
      * @return string
+     *
+     * @deprecated
      */
     final public function getShortName(): string
     {
@@ -109,6 +112,8 @@ trait ModuleBundleTrait
      * Есть ли у модуля административный раздел.
      *
      * @return bool
+     *
+     * @deprecated - определять по наличию админских контроллеров
      */
     final public function hasAdmin(): bool
     {
@@ -120,7 +125,7 @@ trait ModuleBundleTrait
      *
      * @return array
      *
-     * @deprecated
+     * @deprecated - должно быть в контроллере
      */
     public function getRequiredParams(): array
     {
