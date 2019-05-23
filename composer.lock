@@ -4432,12 +4432,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/HtmlBundle.git",
-                "reference": "e4d3f06b0014ac0f230a491e16130842bd27f30a"
+                "reference": "fa3e33d8b33e9d145a6c44992c93c1e271d7f08c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/HtmlBundle/zipball/e4d3f06b0014ac0f230a491e16130842bd27f30a",
-                "reference": "e4d3f06b0014ac0f230a491e16130842bd27f30a",
+                "url": "https://api.github.com/repos/Smart-Core/HtmlBundle/zipball/fa3e33d8b33e9d145a6c44992c93c1e271d7f08c",
+                "reference": "fa3e33d8b33e9d145a6c44992c93c1e271d7f08c",
                 "shasum": ""
             },
             "require": {
@@ -4456,7 +4456,7 @@
                 "bundle",
                 "html"
             ],
-            "time": "2019-05-18T11:24:00+00:00"
+            "time": "2019-05-23T18:54:49+00:00"
         },
         {
             "name": "smart-core/media-bundle",
@@ -4464,12 +4464,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/MediaBundle.git",
-                "reference": "f9058354fba7ac58bbce868acc68857a0c0dd1b2"
+                "reference": "35fa495596907e5b1bb17635c080ee3ed599a7b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/MediaBundle/zipball/f9058354fba7ac58bbce868acc68857a0c0dd1b2",
-                "reference": "f9058354fba7ac58bbce868acc68857a0c0dd1b2",
+                "url": "https://api.github.com/repos/Smart-Core/MediaBundle/zipball/35fa495596907e5b1bb17635c080ee3ed599a7b3",
+                "reference": "35fa495596907e5b1bb17635c080ee3ed599a7b3",
                 "shasum": ""
             },
             "require": {
@@ -4498,7 +4498,7 @@
                 "bundle",
                 "media"
             ],
-            "time": "2019-05-18T12:28:23+00:00"
+            "time": "2019-05-22T18:01:48+00:00"
         },
         {
             "name": "smart-core/rich-editor-bundle",
