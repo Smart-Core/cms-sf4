@@ -41,6 +41,16 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
     }
 
     /**
+     * @return array
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => ['onKernelRequest', 24],
+        ];
+    }
+
+    /**
      * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event): void
@@ -67,28 +77,41 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
                 return;
             }
 
-            $controllerName = isset($parts[1]) ? $parts[1] : null;
-            $actionName = isset($parts[2]) ? $parts[2] : 'index';
+            $controller = $node->getController();
 
-            if (!empty($node->getControllerParams())) {
-                foreach ($node->getControllerTemp($controllerName, $actionName) as $key => $value) {
-                    $event->getRequest()->attributes->set($key, $value);
-                }
-            } else {
-                $controllerName = $node->getModule().':'.$node->getController();
-
-                // Запрет на отключенные модули, вызываемые через ноды.
-                $bundle = $this->getBundleFromController($this->parser->parse($controllerName));
-                if ($bundle instanceof ModuleBundle and !$bundle->isEnabled()) {
-                    $event->setResponse(new Response('Module '.$bundle->getShortName().' is disabled.', 403));
-
-                    return;
-                }
-
-                $event->getRequest()->attributes->set('_controller', $controllerName);
+            if (class_exists($controller)) {
+                $event->getRequest()->attributes->set('_controller', $controller.'::index');
 
                 foreach ($node->getParams() as $param => $val) {
                     $event->getRequest()->attributes->set($param, $val);
+                }
+            } else {
+                /**
+                 * @deprecated Старый код, когда контроллер хранилсяв формате: MyBundle:Edit:index
+                 */
+                $controllerName = isset($parts[1]) ? $parts[1] : null;
+                $actionName = isset($parts[2]) ? $parts[2] : 'index';
+
+                if (!empty($node->getControllerParams())) {
+                    foreach ($node->getControllerTemp($controllerName, $actionName) as $key => $value) {
+                        $event->getRequest()->attributes->set($key, $value);
+                    }
+                } else {
+                    $controllerName = $node->getModule().':'.$node->getController();
+
+                    // Запрет на отключенные модули, вызываемые через ноды.
+                    $bundle = $this->getBundleFromController($this->parser->parse($controllerName));
+                    if ($bundle instanceof ModuleBundle and !$bundle->isEnabled()) {
+                        $event->setResponse(new Response('Module '.$bundle->getShortName().' is disabled.', 403));
+
+                        return;
+                    }
+
+                    $event->getRequest()->attributes->set('_controller', $controllerName);
+
+                    foreach ($node->getParams() as $param => $val) {
+                        $event->getRequest()->attributes->set($param, $val);
+                    }
                 }
             }
 
@@ -123,15 +146,5 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
         }
 
         throw new \InvalidArgumentException(sprintf('Unable to find a bundle that defines controller "%s".', $controller));
-    }
-    
-    /**
-     * @return array
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => ['onKernelRequest', 24],
-        ];
     }
 }

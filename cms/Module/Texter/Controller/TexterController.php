@@ -22,7 +22,7 @@ class TexterController extends AbstractNodeController
      * @return Response
      * @throws \Exception
      */
-    public function indexAction(Node $node): Response
+    public function index(Node $node): Response
     {
         if ($item = $this->get('monolith_module.texter')->get($this->text_item_id, $node->getId())) {
             $node->addFrontControl('edit') // @todo убрать в cms.context

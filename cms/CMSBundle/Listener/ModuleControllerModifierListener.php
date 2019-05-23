@@ -83,6 +83,11 @@ class ModuleControllerModifierListener
             /** @var $node \Monolith\CMSBundle\Entity\Node */
             $node = $request->attributes->get('node');
 
+            $controllerObj = $controller[0];
+            foreach ($node->getParams() as $param => $val) {
+                $controllerObj->$param = $val;
+            }
+
             //if (is_numeric($node)) {
             //    $node = $this->engineNodeManager->get($node);
             //}
@@ -117,7 +122,6 @@ class ModuleControllerModifierListener
 
             $routeParams = $node->getControllerParams();
             $routeParams['_folderPath'] = $folderPath;
-
             $request->attributes->set('_route_params', $routeParams);
 
             /*

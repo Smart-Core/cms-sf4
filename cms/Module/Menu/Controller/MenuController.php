@@ -3,37 +3,35 @@
 namespace Monolith\Module\Menu\Controller;
 
 use Monolith\CMSBundle\Annotation\NodePropertiesForm;
+use Monolith\CMSBundle\Controller\AbstractNodeController;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Module\CacheTrait;
 use Monolith\Module\Menu\Entity\Menu;
-use Smart\CoreBundle\Controller\Controller;
+use Monolith\Module\Menu\Form\Type\NodePropertiesFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class MenuController extends Controller
+class MenuController extends AbstractNodeController
 {
     use CacheTrait;
+
+    public $menu_id = 0;
+    public $css_class = 'nav-menu';
+    public $current_class = 'active';
+    public $depth = 0;
+    public $selected_inheritance = false;
+
+    protected $nodePropertiesFormTypeClass = NodePropertiesFormType::class;
 
     /**
      * @param Request $request
      * @param Node    $node
-     * @param null    $menu_id
-     * @param null    $css_class
-     * @param string  $current_class
-     * @param int     $depth
-     * @param bool    $selected_inheritance
      *
      * @return Response
      *
-     * @NodePropertiesForm("NodePropertiesFormType")
+     * NodePropertiesForm("NodePropertiesFormType")
      */
-    public function indexAction(Request $request, Node $node,
-        $menu_id = null,
-        $css_class = null,
-        $current_class = 'active',
-        $depth = 0,
-        $selected_inheritance = false
-    ): Response
+    public function index(Request $request, Node $node): Response
     {
         $cmsSecurity = $this->container->get('cms.security');
 
@@ -51,17 +49,17 @@ class MenuController extends Controller
 
         if (null === $menu) {
             // Хак для Menu\RequestVoter
-            $request->attributes->set('__selected_inheritance', $selected_inheritance);
+            $request->attributes->set('__selected_inheritance', $this->selected_inheritance);
             $request->attributes->set('__current_folder_path', $current_folder_path);
 
             /** @var \Doctrine\ORM\EntityManager $em */
             $em = $this->get('doctrine.orm.entity_manager');
 
             $menu = $this->renderView('@MenuModule/menu.html.twig', [
-                'css_class'     => $css_class,
-                'current_class' => $current_class,
-                'depth'         => $depth,
-                'menu'          => $em->find(Menu::class, $menu_id),
+                'css_class'     => $this->css_class,
+                'current_class' => $this->current_class,
+                'depth'         => $this->depth,
+                'menu'          => $em->find(Menu::class, $this->menu_id),
             ]);
 
             //$menu = $this->get('html.tidy')->prettifyFragment($menu);
@@ -77,7 +75,7 @@ class MenuController extends Controller
         $node->addFrontControl('edit')
             ->setTitle('Редактировать меню')
             ->setUri($this->generateUrl('monolith_module.menu.admin_menu', [
-                'id' => $menu_id,
+                'id' => $this->menu_id,
             ]));
 
         return new Response($menu);
