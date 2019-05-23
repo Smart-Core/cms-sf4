@@ -37,8 +37,6 @@ class CmsController extends AbstractController
      */
     public function index(
         Request $request,
-        string $slug = '',
-        array $options = null,
         Breadcrumbs $breadcrumbs,
         CmsCacheProvider $cache,
         CmsRouter $cmsRouter,
@@ -48,7 +46,9 @@ class CmsController extends AbstractController
         SecurityManager $cmsSecurity,
         ToolbarManager $cmsToolbar,
         Html $html,
-        KernelInterface $kernel
+        KernelInterface $kernel,
+        string $slug = '',
+        array $options = null
     ): Response {
 //        $profiler   = $this->get('profiler');
 
