@@ -4,15 +4,27 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\Entity\Node;
+use Monolith\CMSBundle\Manager\ContextManager;
+use Monolith\CMSBundle\Manager\FolderManager;
+use Monolith\CMSBundle\Manager\NodeManager;
+use Monolith\CMSBundle\Manager\SecurityManager;
+use Monolith\CMSBundle\Manager\ToolbarManager;
+use Monolith\CMSBundle\Router\CmsRouter;
+use Monolith\CMSBundle\Tools\Breadcrumbs;
+use SmartCore\Bundle\HtmlBundle\Html;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -23,10 +35,21 @@ class CmsController extends AbstractController
     /**
      * @Route("/{slug<.+>}", name="cms_index", methods={"GET"})
      */
-    public function index(Request $request, string $slug = '', array $options = null)
-    {
-        $cmsContext = $this->get('cms.context');
-        $twig       = $this->get('twig');
+    public function index(
+        Request $request,
+        string $slug = '',
+        array $options = null,
+        Breadcrumbs $breadcrumbs,
+        CmsCacheProvider $cache,
+        CmsRouter $cmsRouter,
+        ContextManager $cmsContext,
+        FolderManager $cmsFolder,
+        NodeManager $cmsNode,
+        SecurityManager $cmsSecurity,
+        ToolbarManager $cmsToolbar,
+        Html $html,
+        KernelInterface $kernel
+    ): Response {
 //        $profiler   = $this->get('profiler');
 
 //        $profiler->disable();
@@ -36,10 +59,10 @@ class CmsController extends AbstractController
 
         $cmsContext->stopwatchStart('cms_router');
 
-        if (null === $router_data = $this->get('cms.cache')->get($cache_key)) {
-            $router_data = $this->get('cms.router')->match($request->getBaseUrl(), $slug, HttpKernelInterface::MASTER_REQUEST, $options);
+        if (null === $router_data = $cache->get($cache_key)) {
+            $router_data = $cmsRouter->match($request->getBaseUrl(), $slug, HttpKernelInterface::MASTER_REQUEST, $options);
 
-            $this->get('cms.cache')->set($cache_key, $router_data, ['folder', 'node']);
+            $cache->set($cache_key, $router_data, ['folder', 'node']);
         }
 
 //        $profiler->get('cms')->setRouterData($router_data);
@@ -51,14 +74,14 @@ class CmsController extends AbstractController
         }
 
         if (empty($router_data['folders'])) { // Случай пустой инсталляции, когда еще ни одна папка не создана.
-            $this->get('cms.toolbar')->prepare();
+            $cmsToolbar->prepare();
 
-            return $twig->render('@CMS/welcome.html.twig');
+            return $this->render('@CMS/welcome.html.twig');
         }
 
         $cmsContext->setTemplate($router_data['template']);
 
-        if (!$this->get('cms.security')->checkForFoldersRouterData($router_data['folders'], 'read')) {
+        if (!$cmsSecurity->checkForFoldersRouterData($router_data['folders'], 'read')) {
             $router_data['status'] = 403;
         }
 
@@ -70,10 +93,10 @@ class CmsController extends AbstractController
             throw new AccessDeniedHttpException('Access Denied.');
         }
 
-        $this->get('html')->setMetas($router_data['meta']);
+        $html->setMetas($router_data['meta']);
 
         foreach ($router_data['folders'] as $folderId => $folderData) { // @todo учёт локали
-            $this->get('cms.breadcrumbs')->add($this->get('cms.folder')->getUri($folderId), $folderData['title'], $folderData['description']);
+            $breadcrumbs->add($cmsFolder->getUri($folderId), $folderData['title'], $folderData['description']);
         }
 
         $cmsContext->setCurrentFolderId($router_data['current_folder_id']);
@@ -82,30 +105,30 @@ class CmsController extends AbstractController
         // Список нод кешируется только при GET запросах.
         $router_data['http_method'] = $request->getMethod();
 
-        $nodes = $this->get('cms.node')->buildList($router_data);
+        $nodes = $cmsNode->buildList($router_data);
 
 //        $profiler->get('cms')->setNodes($nodes);
 
         \Profiler::start('Build Modules Data');
         // Разложенные по областям, отрендеренные ноды
-        $nodesResponses = $this->get('cms.node')->buildModulesData($request, $nodes);
+        $nodesResponses = $cmsNode->buildModulesData($request, $nodes);
         \Profiler::end('Build Modules Data');
 
         if ($nodesResponses instanceof Response) {
             return $nodesResponses;
         }
 
-        $this->get('cms.toolbar')->prepare($this->get('cms.node')->getFrontControls());
+        $cmsToolbar->prepare($cmsNode->getFrontControls());
 
         try {
-            return $twig->render($cmsContext->getTemplate().'.html.twig', $nodesResponses);
+            return $this->render($cmsContext->getTemplate().'.html.twig', $nodesResponses);
         } catch (LoaderError $e) {
-            if ($this->get('kernel')->isDebug()) {
-                return $twig->render('@CMS/error.html.twig', ['errors' => [$e->getMessage()]]);
+            if ($kernel->isDebug()) {
+                return $this->render('@CMS/error.html.twig', ['errors' => [$e->getMessage()]]);
             }
         }
 
-        return $twig->render('@CMS/welcome.html.twig');
+        return $this->render('@CMS/welcome.html.twig');
     }
 
     /**
@@ -120,7 +143,7 @@ class CmsController extends AbstractController
      *
      * @todo продумать! здесь же происходит "магия" с /admin/login/check
      */
-    public function post(Request $request, $slug): Response
+    public function post(Request $request, $slug, NodeManager $cmsNode): Response
     {
         // Получение $node_id
         $data = $request->request->all();
@@ -143,7 +166,7 @@ class CmsController extends AbstractController
             $request->request->set($key, $value);
         }
 
-        $node = $this->get('cms.node')->get((int) $node_id);
+        $node = $cmsNode->get((int) $node_id);
 
         if (!$node instanceof Node or !$node->isActive()) {
             throw new AccessDeniedHttpException('Node is not active.');
@@ -171,18 +194,25 @@ class CmsController extends AbstractController
      *
      * @return Response
      */
-    public function apiAction(Request $request, $node_id, $slug = null)
-    {
+    public function apiAction(
+        Request $request,
+        $node_id,
+        $slug = null,
+        NodeManager $cmsNode,
+        CmsRouter $cmsRouter,
+        RequestStack $requestStack,
+        HttpKernelInterface $httpKernel
+    ) {
         // @todo сделать проверку, доступна ли нода в папке т.к. папка может быть выключенной или пользователь не имеет к ней прав.
 
-        $node = $this->get('cms.node')->get((int) $node_id);
+        $node = $cmsNode->get((int) $node_id);
 
         if (null === $node) {
             return $this->apiNotFoundAction();
         }
 
         try {
-            $controller = $this->get('cms.router')->matchModuleApi($node->getModule(), '/'.$slug, $request);
+            $controller = $cmsRouter->matchModuleApi($node->getModule(), '/'.$slug, $request);
         } catch (MethodNotAllowedException $e) {
             return new JsonResponse([
                 'status'  => 'error',
@@ -197,7 +227,7 @@ class CmsController extends AbstractController
 
         $controller['node'] = $node;
 
-        $subRequest = $this->get('request_stack')->getCurrentRequest()->duplicate(
+        $subRequest = $requestStack->getCurrentRequest()->duplicate(
             $request->query->all(),
             $request->request->all(),
             $controller,
@@ -206,7 +236,7 @@ class CmsController extends AbstractController
             $request->server->all()
         );
 
-        return $this->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        return $httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
     }
 
     /**
@@ -226,21 +256,22 @@ class CmsController extends AbstractController
      *
      * @return RedirectResponse
      */
-    public function switchSelectedSiteAction(Request $request): RedirectResponse
+    public function switchSelectedSiteAction(
+        Request $request,
+        ContextManager $cmsContext,
+        EntityManager $em
+    ): RedirectResponse
     {
         $site_id = $request->request->get('site', 0);
         $route   = $request->request->get('route', 'cms_admin.index');
 
-        $switcher = $this->get('cms.context')->getSiteSwitcher();
+        $switcher = $cmsContext->getSiteSwitcher();
 
         try {
             $url = $this->generateUrl($route);
         } catch (RouteNotFoundException $e) {
             $url = $this->generateUrl('cms_admin.index');
         }
-
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->get('doctrine.orm.entity_manager');
 
         $site = $em->getRepository('CMSBundle:Site')->find((int) $site_id);
 
