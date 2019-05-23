@@ -10,6 +10,7 @@ use Monolith\CMSBundle\Cache\CacheWrapper;
 use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\CMSAppKernel;
 use Monolith\CMSBundle\CMSKernel;
+use Monolith\CMSBundle\Controller\AbstractNodeController;
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Entity\Region;
@@ -78,17 +79,6 @@ class NodeManager
     protected $front_controls = [];
 
     /**
-     * Является ли нода только что созданной?
-     *
-     * Применяется для вызова метода createNode() модуля после создания ноды.
-     *
-     * @var bool
-     *
-     * @todo пересмотреть логику, может быть в сущности запоминать этот флаг?
-     */
-    protected $is_just_created = false;
-
-    /**
      * @var CmsCacheProvider
      */
     protected $cache;
@@ -118,7 +108,7 @@ class NodeManager
     /**
      * @return Node
      */
-    public function create(): Node
+    public function factory(): Node
     {
         $this->is_just_created = true;
 
@@ -193,21 +183,45 @@ class NodeManager
     }
 
     /**
+     * @return Node
+     */
+    public function create(Node $node): Node
+    {
+        $contollerClassName = $node->getController();
+        /** @var AbstractNodeController $contoller */
+        $contoller = new $contollerClassName();
+        $contoller->setContainer($this->container);
+
+        $modulerManager = $this->container->get('cms.module');
+
+        foreach ($modulerManager->getNodeControllers($node->getModule()) as $c) {
+            if ($c['controller'] == $contollerClassName) {
+                $node->setParams($c['params']);
+
+                break;
+            }
+        }
+
+        // Свежесозданная нода выполняет свои действия, а также устанавливает параметры по умолчанию.
+        $contoller->createNode($node);
+
+        $this->em->persist($node);
+        $this->em->flush($node);
+
+        return $node;
+    }
+
+    /**
      * @param Node $node
      */
     public function update(Node $node): void
     {
-        /** @var \Monolith\CMSBundle\Module\ModuleBundle $module */
-        $module = $this->kernel->getBundle($node->getModule());
+        $contollerClassName = $node->getController();
+        /** @var AbstractNodeController $contoller */
+        $contoller = new $contollerClassName();
+        $contoller->setContainer($this->container);
 
-        // Свежесозданная нода выполняет свои действия, а также устанавливает параметры по умолчанию.
-        if ($this->is_just_created) {
-            $module->createNode($node);
-
-            $this->is_just_created = false;
-        } else {
-            $module->updateNode($node);
-        }
+        $contoller->updateNode($node);
 
         $this->em->persist($node);
         $this->em->flush($node);

@@ -30,7 +30,7 @@ class ModuleManager
      */
     public function __construct(CMSKernel $kernel)
     {
-        $this->kernel  = $kernel;
+        $this->kernel = $kernel;
 
         foreach ($kernel->getBundles() as $name => $object) {
             if ($object instanceof ModuleBundleInterface) {
@@ -40,7 +40,7 @@ class ModuleManager
     }
 
     /**
-     * Получение списка всех модулей.
+     * Получение бандлов всех модулей.
      *
      * @return \Monolith\CMSBundle\Module\ModuleBundle[]
      */
@@ -62,15 +62,15 @@ class ModuleManager
     }
 
     /**
-     * Получение списка всех контроллеров
+     * Получение списка контроллеров модуля, который можно подключить в ноду.
      *
      * @param string $name
      *
      * @return array
      */
-    public function getControllers(string $name): array
+    public function getNodeControllers(string $moduleName): array
     {
-        $module = $this->get($name);
+        $module = $this->get($moduleName);
 
         $namespace = $module->getNamespace();
         $path = $module->getPath();
@@ -92,6 +92,7 @@ class ModuleManager
 
             $parentClass = $reflected->getParentClass();
 
+            // @todo добавить проверку на трейт
             if ($parentClass and $parentClass->getName() == AbstractNodeController::class) {
                 $controllers[$controller] = [
                     'controller' => $namespace.'\\Controller\\'.$controller,
@@ -112,18 +113,56 @@ class ModuleManager
     }
 
     /**
+     * Получение списка модулей, которые можно подключить в ноду.
+     *
      * @return array
      */
-    public function getAllModulesControllersForForm(): array
+    public function allNodeModulesControllers(): array
     {
         $modules = [];
         foreach ($this->modules as $module_name => $module) {
             if ($module->isEnabled()) {
-                $modules[$module->getTitle()] = $module_name;
+                $modules[$module_name] = $this->getNodeControllers($module_name);
             }
         }
 
         return $modules;
+    }
+
+    /**
+     * Получение списка модулей для селекта формы.
+     *
+     * @return array
+     */
+    public function allNodeModulesForForm(): array
+    {
+        $data = [];
+        foreach ($this->allNodeModulesControllers() as $name => $controllers) {
+            if (!empty($controllers)) {
+                $data[$this->modules[$name]->getTitle()] = $name;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Получение списка для селекта формы.
+     *
+     * @return array
+     */
+    public function allNodeModulesControllersForForm(): array
+    {
+        $data = [];
+        foreach ($this->allNodeModulesControllers() as $name => $controllers) {
+            if (!empty($controllers)) {
+                foreach ($controllers as $name => $controller) {
+                    $data[$controller['controller']] = $controller['controller'];
+                }
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -153,7 +192,6 @@ class ModuleManager
             $reflection = new \ReflectionClass($meta['namespace'].'\\'.$class);
 
             if (in_array(ModuleBundleInterface::class, $reflection->getInterfaceNames())) {
-
                 $modulesPaths[substr($class, 0, -12)] = $meta['path'];
             }
         }

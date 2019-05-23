@@ -466,8 +466,10 @@ class AdminStructureController extends Controller
      */
     public function nodeCreateAction(Request $request, $folder_pid = 1)
     {
-//        $moduleManager = $this->get('cms.module');
-//        $moduleManager->getControllers('TexterModuleBundle');
+        $moduleManager = $this->get('cms.module');
+        $modules_controllers = $moduleManager->allNodeModulesControllers();
+
+//        dump($modules_controllers);
 
         $folderManager = $this->get('cms.folder');
 
@@ -475,8 +477,8 @@ class AdminStructureController extends Controller
             return $this->redirectToRoute('cms_admin.structure_folder_create');
         }
 
-        $cmsNode = $this->get('cms.node');
-        $node = $cmsNode->create();
+        $nodeManager = $this->get('cms.node');
+        $node = $nodeManager->factory();
         $node->setUser($this->getUser())
             ->setFolder($folder);
 
@@ -491,28 +493,29 @@ class AdminStructureController extends Controller
             $node->addGroupGrantedWrite($userGroup);
         }
 
-        $form = $cmsNode->createForm($node);
+        $form = $nodeManager->createForm($node);
 //        $form->remove('controller');
 
         if ($request->isMethod('POST')) {
             if ($request->request->has('create')) {
                 $form->handleRequest($request);
                 if ($form->isValid()) {
-                    /** @var $createdNode \Monolith\CMSBundle\Entity\Node */
-                    $createdNode = $form->getData();
+                    /** @var $node \Monolith\CMSBundle\Entity\Node */
+                    $node = $form->getData();
 
-                    $cmsNode->update($createdNode);
+                    $nodeManager->create($node);
 
                     // Если у модуля есть роутинги, тогда нода подключается к папке как роутер.
-                    $folder = $createdNode->getFolder();
+                    $folder = $node->getFolder();
                     // @todo убрать проверку на роутеры контроллера в менеджер.
-                    if ($this->container->has('cms.router_module.'.$createdNode->getModule()) and !$folder->getRouterNodeId()) {
-                        $folder->setRouterNodeId($createdNode->getId());
+                    if ($this->container->has('cms.router_module.'.$node->getModule()) and !$folder->getRouterNodeId()) {
+                        $folder->setRouterNodeId($node->getId());
                         $folderManager->update($folder);
                     }
 
                     $this->get('cms.cache')->invalidateTag('node');
 
+                    /*
                     if (!$request->query->has('_overlay')) {
                         $this->addFlash('success', 'Нода создана.');
                     }
@@ -520,27 +523,27 @@ class AdminStructureController extends Controller
                     if ($request->query->has('_overlay')) {
                         return $this->forward('CMSBundle:AdminStructure:nodeEdit', [
                             'request' => $request,
-                            'node'    => $createdNode
+                            'node'    => $node
                         ]);
                     }
 
                     if ('front' === $request->query->get('redirect_to')) {
                         return $this->redirectToRoute('cms_admin.structure_node_setup_controller', [
-                            'id' => $createdNode->getId(),
+                            'id' => $node->getId(),
                             'redirect_to' => 'front',
                         ]);
                     }
+                    */
 
-                    return $this->redirectToRoute('cms_admin.structure_node_properties', ['id' => $createdNode->getId()]);
+                    return $this->redirectToRoute('cms_admin.structure_node_properties', ['id' => $node->getId()]);
                 }
-            } elseif ($request->request->has('delete')) {
-                die('@todo');
             }
         }
 
         return $this->render('@CMS/Admin/Structure/node_create.html.twig', [
             'form'       => $form->createView(),
             'folderPath' => $folderManager->getUri($folder_pid),
+            'modules_node_controllers' => $modules_controllers,
         ]);
     }
 
@@ -554,7 +557,7 @@ class AdminStructureController extends Controller
      */
     public function nodeEditAction(Request $request, Node $node)
     {
-        $cmsNode = $this->get('cms.node');
+        $nodeManager = $this->get('cms.node');
 
         if (empty($node)) {
             return $this->redirectToRoute('cms_admin.structure');
@@ -572,13 +575,13 @@ class AdminStructureController extends Controller
         }
 
         $nodeParams = $node->getParams();
-        $form = $cmsNode->createForm($node);
+        $form = $nodeManager->createForm($node);
 
         /** @var AbstractNodePropertiesFormType $propertiesFormType */
-        $propertiesFormType = $cmsNode->getPropertiesFormType($node);
+        $propertiesFormType = $nodeManager->getPropertiesFormType($node);
 
         if ($propertiesFormType == NodeDefaultPropertiesFormType::class) {
-            $method = $cmsNode->getReflectionMethod($node, $node->getController());
+            $method = $nodeManager->getReflectionMethod($node, $node->getController());
 
             $parameters = [];
             foreach ($method->getParameters() as $parameter) {
@@ -636,7 +639,7 @@ class AdminStructureController extends Controller
                     }
 
                     $updatedNode->setParams($form_properties_data);
-                    $cmsNode->update($updatedNode);
+                    $nodeManager->update($updatedNode);
 
                     $this->get('cms.cache')->invalidateTag('node');
 

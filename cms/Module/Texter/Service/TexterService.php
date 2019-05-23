@@ -50,4 +50,23 @@ class TexterService
 
         return $item;
     }
+
+    public function factory(): TextItem
+    {
+        return new TextItem();
+    }
+
+    public function create(TextItem $item): TextItem
+    {
+        $this->em->persist($item);
+        $this->em->flush($item);
+
+        return $item;
+    }
+
+    public function update($item)
+    {
+        $this->em->persist($item);
+        $this->em->flush($item);
+    }
 }

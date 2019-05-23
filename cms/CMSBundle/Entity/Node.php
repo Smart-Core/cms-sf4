@@ -467,11 +467,24 @@ class Node implements \Serializable // NodeInterface @todo
     }
 
     /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return Node
+     */
+    public function setParam(string $key, $value): self
+    {
+        $this->params[$key] = $value;
+
+        return $this;
+    }
+
+    /**
      * @param array $params
      *
      * @return $this
      */
-    public function setParams(array $params): Node
+    public function setParams(array $params): self
     {
         $this->params = $params;
 

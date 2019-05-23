@@ -52,12 +52,14 @@ class NodeFormType extends AbstractType
 
         $builder
             ->add('module', ChoiceType::class, [
-                'choices' => $this->moduleManager->getAllModulesControllersForForm(),
+                'choices' => $this->moduleManager->allNodeModulesForForm(),
                 'data' => 'TexterModuleBundle', // @todo !!! настройку модуля по умолчанию.
                 'choice_translation_domain' => false,
             ])
-            ->add('controller', null, [
-                'attr' => ['readonly' => true]
+            ->add('controller', ChoiceType::class, [
+                //'attr' => ['readonly' => true],
+                'choices' => $this->moduleManager->allNodeModulesControllersForForm(),
+                'choice_translation_domain' => false,
             ])
             ->add('folder', FolderTreeType::class)
             ->add('region', EntityType::class, [

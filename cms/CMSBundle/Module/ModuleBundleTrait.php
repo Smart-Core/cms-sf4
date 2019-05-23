@@ -45,33 +45,6 @@ trait ModuleBundleTrait
     }
 
     /**
-     * Действие при создании ноды.
-     *
-     * @param Node $node
-     */
-    public function createNode(Node $node)
-    {
-    }
-
-    /**
-     * Действие при удалении ноды.
-     *
-     * @param Node $node
-     */
-    public function deleteNode(Node $node)
-    {
-    }
-
-    /**
-     * Действие при обновлении ноды.
-     *
-     * @param Node $node
-     */
-    public function updateNode(Node $node)
-    {
-    }
-
-    /**
      * Получить виджеты для рабочего стола.
      *
      * @return array

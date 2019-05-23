@@ -4,11 +4,21 @@
 
 {% block body_js %}
     {{ parent() }}
+    <script>var cms_modules_node_controllers = '{{ modules_node_controllers|json_encode }}';</script>
+
     <script>
         $('#nodeTab a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
             $(this.hash + ' input[autofocus="autofocus"]').focus();
+        });
+
+        $('#monolith_cms_node_module').onclick(function() {
+            /**
+             * @todo при выборе модуля в селекте #monolith_cms_node_module, надо в #monolith_cms_node_controller
+             * подставлять options из массива cms_modules_node_controllers
+             */
+            alert( this.value );
         });
     </script>
 {% endblock body_js %}

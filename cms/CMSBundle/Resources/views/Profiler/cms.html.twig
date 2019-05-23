@@ -54,8 +54,6 @@
 {% block panel %}
     <h2>Folders</h2>
 
-{#    {{ dump(collector) }}#}
-
     {{ helper.render_table_folders(collector.folders) }}
 
     {% if collector.routerData.node_routing %}
