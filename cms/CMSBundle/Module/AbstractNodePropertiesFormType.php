@@ -101,7 +101,7 @@ abstract class AbstractNodePropertiesFormType extends AbstractType
     /**
      * @return string
      */
-    public static function getTemplate()
+    public static function getTemplate(): string
     {
         return '@CMS/Admin/Structure/node_properties_form.html.twig';
     }

@@ -9,6 +9,7 @@ use Monolith\CMSBundle\Module\ModuleBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser;
 use Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerNameSubscriber as BaseResolveControllerNameSubscriber;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -131,11 +132,11 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
     }
 
     /**
-     * @param $controller
+     * @param string $controller
      *
      * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface
      */
-    protected function getBundleFromController($controller)
+    protected function getBundleFromController(string $controller): BundleInterface
     {
         if (0 === preg_match('#^(.*?\\\\Controller\\\\(.+)Controller)::(.+)Action$#', $controller, $match)) {
             if (0 === preg_match('#^(.*?\\\\Controller\\\\(.+)Controller)::(.+)$#', $controller, $match)) {

@@ -27,7 +27,7 @@ class CmsRouter
      *
      * @return string
      */
-    public function getPath($obj = null)
+    public function getPath($obj = null): string
     {
         return $this->container->get('cms.folder')->getUri($obj);
     }
@@ -66,7 +66,7 @@ class CmsRouter
      *
      * @api
      */
-    public function match($baseUrl, $slug = null, $type = HttpKernelInterface::MASTER_REQUEST, array $options = null)
+    public function match($baseUrl, $slug = null, $type = HttpKernelInterface::MASTER_REQUEST, array $options = null): array
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em   = $this->container->get('doctrine.orm.entity_manager');
@@ -228,7 +228,7 @@ class CmsRouter
      *
      * @throw ResourceNotFoundException
      */
-    public function matchModule($controller, $path, Request $request = null)
+    public function matchModule($controller, $path, Request $request = null): ?array
     {
         if (false === strpos($path, '/')) {
             $path = '/'.$path;
@@ -246,7 +246,7 @@ class CmsRouter
             return $matcher->match($path);
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -255,7 +255,7 @@ class CmsRouter
      *
      * @return array|null
      */
-    public function matchModuleAdmin($module, $path)
+    public function matchModuleAdmin($module, $path): ?array
     {
         return $this->container->get('cms.router_module.'.$module.'.admin')->match($path);
     }
@@ -267,7 +267,7 @@ class CmsRouter
      *
      * @return array|null
      */
-    public function matchModuleApi($module, $path, Request $request = null)
+    public function matchModuleApi($module, $path, Request $request = null): ?array
     {
         $shortName = substr(strtolower($module), 0, -12);
 
@@ -283,7 +283,7 @@ class CmsRouter
             return $matcher->match($path);
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -291,7 +291,7 @@ class CmsRouter
      *
      * @return RedirectResponse
      */
-    public function redirect($obj = null)
+    public function redirect($obj = null): RedirectResponse
     {
         return new RedirectResponse($this->getPath($obj));
     }

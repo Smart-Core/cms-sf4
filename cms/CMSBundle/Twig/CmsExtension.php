@@ -56,7 +56,7 @@ class CmsExtension extends AbstractExtension
     /**
      * @return Site[]
      */
-    public function cmsSiteSwitcher()
+    public function cmsSiteSwitcher(): array
     {
         return $this->container->get('cms.context')->getSiteSwitcher();
     }

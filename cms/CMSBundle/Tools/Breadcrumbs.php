@@ -31,9 +31,11 @@ class Breadcrumbs implements \Iterator, \Countable
         return $this->_position;
     }
 
-    public function next()
+    public function next(): self
     {
         ++$this->_position;
+
+        return $this;
     }
 
     public function valid(): bool
@@ -41,7 +43,7 @@ class Breadcrumbs implements \Iterator, \Countable
         return isset($this->_breadcrumbs[$this->_position]);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->_breadcrumbs);
     }
@@ -49,9 +51,9 @@ class Breadcrumbs implements \Iterator, \Countable
     /**
      * Получить последний пункт.
      *
-     * @return arra|null
+     * @return array|null
      */
-    public function getLast()
+    public function getLast(): ?array
     {
         return isset($this->_breadcrumbs[$this->count() - 1])
             ? $this->_breadcrumbs[$this->count() - 1]

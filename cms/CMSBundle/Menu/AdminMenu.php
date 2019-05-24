@@ -51,7 +51,7 @@ class AdminMenu implements ContainerAwareInterface
      *
      * @return ItemInterface
      */
-    protected function system(ItemInterface $mainMenu)
+    protected function system(ItemInterface $mainMenu): ItemInterface
     {
         $security = $this->container->get('cms.security');
 

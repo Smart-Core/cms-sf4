@@ -61,7 +61,7 @@ trait ModuleBundleTrait
      *
      * @return array
      */
-    public function getNotifications()
+    public function getNotifications(): array
     {
         return [];
     }
@@ -116,7 +116,7 @@ trait ModuleBundleTrait
      *
      * @return MenuItem
      */
-    public function buildAdminMenu(MenuItem $menu, array $extras = [])
+    public function buildAdminMenu(MenuItem $menu, array $extras = []): MenuItem
     {
         if ($this->hasAdmin()) {
             if (!isset($extras['beforeCode'])) {

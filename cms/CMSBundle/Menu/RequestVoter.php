@@ -33,7 +33,7 @@ class RequestVoter implements VoterInterface
      *
      * @return bool
      */
-    public function matchItem(ItemInterface $item)
+    public function matchItem(ItemInterface $item): bool
     {
         $request = $this->requestStack->getCurrentRequest();
 

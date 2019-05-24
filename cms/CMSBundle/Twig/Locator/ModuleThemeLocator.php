@@ -48,7 +48,7 @@ class ModuleThemeLocator extends FileLocator
         return parent::getPathsForBundleResource($parameters);
     }
 
-    protected function getPathsForAppResource($parameters)
+    protected function getPathsForAppResource($parameters): array
     {
         $parameters['%theme_dir%']    = $this->kernel->getBundle('CMSBundle')->getThemeDir();
 

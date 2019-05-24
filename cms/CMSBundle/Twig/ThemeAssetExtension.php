@@ -25,7 +25,7 @@ class ThemeAssetExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('theme_asset', array($this, 'getThemeAssetUrl')),
@@ -43,7 +43,7 @@ class ThemeAssetExtension extends AbstractExtension
      *
      * @return string The public path of the asset
      */
-    public function getThemeAssetUrl($path, $packageName = null)
+    public function getThemeAssetUrl($path, $packageName = null): string
     {
         $currentTheme = $this->container->get('cms.context')->getSite()->getTheme();
 
@@ -57,7 +57,7 @@ class ThemeAssetExtension extends AbstractExtension
      *
      * @return string The extension name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'monolith_theme_asset';
     }

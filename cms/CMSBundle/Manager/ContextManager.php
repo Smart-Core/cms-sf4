@@ -238,19 +238,4 @@ class ContextManager
 
         return null;
     }
-
-    /**
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return $this
-     *
-     * @deprecated
-     */
-    public function z____set($key, $value)
-    {
-        $this->$key = $value;
-
-        return $this;
-    }
 }

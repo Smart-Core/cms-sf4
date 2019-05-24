@@ -23,9 +23,7 @@ class FolderManager
     /** @var FolderRepository|\Doctrine\ORM\EntityRepository  */
     protected $repository;
 
-    /**
-     * @var CmsCacheProvider
-     */
+    /** @var CmsCacheProvider|object */
     protected $cache;
 
     /**
@@ -69,7 +67,7 @@ class FolderManager
      *
      * @return Folder[]
      */
-    public function findByParent(Folder $parent_folder = null)
+    public function findByParent(Folder $parent_folder = null): array
     {
         return $this->repository->findByParent($parent_folder);
     }
@@ -278,7 +276,7 @@ class FolderManager
      *
      * @return null|Folder
      */
-    public function get($id)
+    public function get($id): ?Folder
     {
         return $this->repository->find($id);
     }
@@ -288,7 +286,7 @@ class FolderManager
      *
      * @todo проверку зависимостей от нод и папок.
      */
-    public function remove(Folder $entity)
+    public function remove(Folder $entity): void
     {
         $this->em->remove($entity);
         $this->em->flush();
@@ -299,7 +297,7 @@ class FolderManager
      *
      * @return $this
      */
-    public function update(Folder $folder)
+    public function update(Folder $folder): self
     {
         $this->em->persist($folder);
         $this->em->flush($folder);

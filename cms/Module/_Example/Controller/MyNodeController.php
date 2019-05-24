@@ -12,8 +12,6 @@ use Monolith\CMSBundle\Entity\Node;
  *
  * Отвечает по маршрутам вида: http://site.com/some/node/path/, притом нода в этом маршруте
  * может быть подключена веше, например http://site.com/some/
- *
- * @todo придумать как указывать параметры подключения, которые сейчас @NodePropertiesForm
  */
 class MyNodeController extends AbstractNodeController
 {

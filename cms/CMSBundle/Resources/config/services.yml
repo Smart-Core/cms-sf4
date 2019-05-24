@@ -143,7 +143,7 @@ services:
     cms.site:
         class: Monolith\CMSBundle\Manager\SiteManager
         public: true
-        arguments: [ '@service_container' ]
+        arguments: [ '@doctrine.orm.default_entity_manager' ]
     Monolith\CMSBundle\Manager\SiteManager:
         alias: cms.site
 

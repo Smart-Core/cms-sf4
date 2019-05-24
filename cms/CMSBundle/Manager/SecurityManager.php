@@ -119,7 +119,7 @@ class SecurityManager
     public function warmupDatabase(): void
     {
         $validator = new SchemaValidator($this->em);
-        if (false === $validator->schemaInSyncWithMetadata()) {
+        if ($this->em->getConnection()->getDatabasePlatform()->getName() != 'sqlite' and false === $validator->schemaInSyncWithMetadata()) {
             return;
         }
 

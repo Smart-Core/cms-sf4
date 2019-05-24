@@ -25,7 +25,15 @@ class SyslogManager
         $this->container = $container;
     }
 
-    public function add($entity, string $action)
+    /**
+     * @param        $entity
+     * @param string $action
+     *
+     * @return SyslogManager
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function add($entity, string $action): self
     {
         if ($entity instanceof Folder) {
             $bundle = 'CMS';
@@ -37,7 +45,7 @@ class SyslogManager
             $bundle = 'CMS';
             $class  = 'Region';
         } else {
-            return;
+            return $this;
         }
 
         if (!$this->container->has('security.token_storage')) {
@@ -121,6 +129,8 @@ class SyslogManager
                 $em->flush($syslog);
             }
         }
+
+        return $this;
     }
 
     /**
@@ -206,7 +216,7 @@ class SyslogManager
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function updateSyslogEntity(Syslog $syslog)
+    public function updateSyslogEntity(Syslog $syslog): void
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->container->get('doctrine.orm.entity_manager');

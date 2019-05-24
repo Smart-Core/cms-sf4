@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Monolith\Module\User\Controller;
 
-use Monolith\CMSBundle\Annotation\NodePropertiesForm;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Module\NodeTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,8 +17,6 @@ class UserController extends Controller
      * @param Node $node
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @NodePropertiesForm("NodePropertiesFormType")
      */
     public function indexAction(Node $node)
     {

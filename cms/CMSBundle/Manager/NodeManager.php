@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Monolith\CMSBundle\Annotation\NodePropertiesForm;
-use Monolith\CMSBundle\Cache\CacheWrapper;
 use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\CMSAppKernel;
 use Monolith\CMSBundle\CMSKernel;
@@ -16,7 +14,6 @@ use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Entity\Region;
 use Monolith\CMSBundle\Form\Type\NodeDefaultPropertiesFormType;
 use Monolith\CMSBundle\Form\Type\NodeFormType;
-use Monolith\CMSBundle\Module\AbstractNodePropertiesFormType;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Monolith\CMSBundle\Twig\RegionRenderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
@@ -234,7 +231,7 @@ class NodeManager
      *
      * @return string
      */
-    public function getPropertiesFormType(Node $node)
+    public function getPropertiesFormType(Node $node): string
     {
         $cmsNode = $this->container->get('cms.node');
 
@@ -264,34 +261,6 @@ class NodeManager
             return $form_class_name;
         }
 
-        /**
-         $form_class_name = '\\'.$moduleNamespace.'\Form\Type\NodePropertiesFormType';
-        $method = $cmsNode->getReflectionMethod($node, $node->getController());
-        if ($method) {
-            $annotation = $this->container->get('annotations.reader')->getMethodAnnotation($method, NodePropertiesForm::class);
-
-            if (empty($annotation)) {
-                // Формирование формы на основе параметров метода.
-                $form_class_name = '';
-            } else {
-                $form_class_name2 = '\\'.$moduleNamespace.'\Form\Type\\'.$annotation->class;
-
-                if (class_exists($annotation->class)) {
-                    $form_class_name = $annotation->class;
-                } elseif (class_exists($form_class_name2)) {
-                    $form_class_name = $form_class_name2;
-                }
-            }
-        }
-
-
-        if (class_exists($form_class_name)) {
-            //return new $form_class_name($this->em, $this->kernel);
-            return $form_class_name;
-        }
-         */
-
-        // @todo может быть гибче настраивать форму параметров по умолчанию?.
         return NodeDefaultPropertiesFormType::class;
     }
 

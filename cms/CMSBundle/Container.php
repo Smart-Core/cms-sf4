@@ -6,6 +6,9 @@ namespace Monolith\CMSBundle;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @deprecated
+ */
 class Container
 {
     /**

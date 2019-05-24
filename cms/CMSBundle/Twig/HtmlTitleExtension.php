@@ -41,7 +41,7 @@ class HtmlTitleExtension extends AbstractExtension
      *
      * @return array An array of functions
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('cms_html_title', [$this, 'renderTitle']),
@@ -53,7 +53,7 @@ class HtmlTitleExtension extends AbstractExtension
      *
      * @return string
      */
-    public function renderTitle(array $options = [])
+    public function renderTitle(array $options = []): string
     {
         $options = $options + $this->options;
 
@@ -75,7 +75,7 @@ class HtmlTitleExtension extends AbstractExtension
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'monolith_cms_html_title_twig_extension';
     }

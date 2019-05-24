@@ -4,26 +4,28 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Manager;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Monolith\CMSBundle\Entity\Domain;
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\Language;
 use Monolith\CMSBundle\Entity\Site;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 class SiteManager
 {
     use ContainerAwareTrait;
 
+    protected $em;
+
     /**
      * SyslogManager constructor.
      *
-     * @param ContainerInterface $container
+     * @param EntityManagerInterface $em
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->container = $container;
+        $this->em = $em;
     }
 
     /**
@@ -40,16 +42,13 @@ class SiteManager
     {
         //$output->write('Create Default Site Data:');
 
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->container->get('doctrine.orm.entity_manager');
-
-        $site = $em->getRepository('CMSBundle:Site')->findOneBy([]);
+        $site = $this->em->getRepository('CMSBundle:Site')->findOneBy([]);
 
         if ($site instanceof Site) {
             return;
         }
 
-        $user = $em->getRepository('App:User')->findOneBy([], ['id' => 'ASC']);
+        $user = $this->em->getRepository('App:User')->findOneBy([], ['id' => 'ASC']);
 
         //$output->write(' Language');
 

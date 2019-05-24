@@ -31,7 +31,7 @@ class FrontControl
      *
      * @return $this
      */
-    public function setDescription(?string $description): FrontControl
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -43,7 +43,7 @@ class FrontControl
      *
      * @return $this
      */
-    public function setIsDefault(bool $isDefault): FrontControl
+    public function setIsDefault(bool $isDefault): self
     {
         $this->isDefault = $isDefault;
 
@@ -55,7 +55,7 @@ class FrontControl
      *
      * @return $this
      */
-    public function setTitle(string $title): FrontControl
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -67,7 +67,7 @@ class FrontControl
      *
      * @return $this
      */
-    public function setUri(string $uri): FrontControl
+    public function setUri(string $uri): self
     {
         $this->uri = $uri;
 

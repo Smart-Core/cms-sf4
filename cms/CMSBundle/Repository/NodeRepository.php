@@ -46,7 +46,7 @@ class NodeRepository extends EntityRepository
      *
      * @return int|mixed
      */
-    public function countInRegion($region)
+    public function countInRegion($region): int
     {
         $query = $this->_em->createQuery('
             SELECT COUNT(n.id)
@@ -56,7 +56,7 @@ class NodeRepository extends EntityRepository
             AND n.region = r
         ')->setParameter('region', $region);
 
-        return $query->getSingleScalarResult();
+        return (int) $query->getSingleScalarResult();
     }
 
     /**
