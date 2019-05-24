@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseControll
 
 /**
  * Inspired by KnpRadBundle
+ *
+ * @deprecated
  */
 class Controller extends BaseController
 {

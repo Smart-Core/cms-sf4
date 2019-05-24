@@ -84,7 +84,7 @@ class Menu
      *
      * @return $this
      */
-    public function setName(string $name): Menu
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -104,7 +104,7 @@ class Menu
      *
      * @return $this
      */
-    public function setProperties($properties): Menu
+    public function setProperties($properties): self
     {
         $this->properties = $properties;
 
@@ -124,7 +124,7 @@ class Menu
      *
      * @return $this
      */
-    public function setItems($items): Menu
+    public function setItems($items): self
     {
         $this->items = $items;
 
@@ -152,7 +152,7 @@ class Menu
      *
      * @return $this
      */
-    public function setSite(Site $site): Menu
+    public function setSite(Site $site): self
     {
         $this->site = $site;
 

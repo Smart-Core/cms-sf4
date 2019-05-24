@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Menu;
 
 use Knp\Menu\FactoryInterface;
@@ -53,7 +55,7 @@ class MenuBuilder implements ContainerAwareInterface
      *
      * @return ItemInterface
      */
-    public function full(FactoryInterface $factory, array $options)
+    public function full(FactoryInterface $factory, array $options): ItemInterface
     {
         $this->processConfig($options);
 
@@ -77,7 +79,7 @@ class MenuBuilder implements ContainerAwareInterface
      *
      * @param array $options
      */
-    protected function processConfig(array $options)
+    protected function processConfig(array $options): void
     {
         $this->em = $this->container->get('doctrine.orm.entity_manager');
 
@@ -99,7 +101,7 @@ class MenuBuilder implements ContainerAwareInterface
      * @param ItemInterface $menu
      * @param MenuItem|null $parent_item
      */
-    protected function addChild(ItemInterface $menu, MenuItem $parent_item = null)
+    protected function addChild(ItemInterface $menu, MenuItem $parent_item = null): void
     {
         $items = (null == $parent_item)
             ? $this->em->getRepository(MenuItem::class)->findByParent($this->menu, null)

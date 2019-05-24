@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Monolith\Module\Breadcrumbs\Controller;
 
-use Monolith\CMSBundle\Annotation\NodePropertiesForm;
 use Monolith\CMSBundle\Controller\AbstractNodeController;
-use Monolith\CMSBundle\Entity\Node;
-use Monolith\Module\Breadcrumbs\Form\Type\NodePropertiesFormType;
+use Monolith\CMSBundle\Tools\Breadcrumbs;
 use Symfony\Component\HttpFoundation\Response;
 
 class BreadcrumbsController extends AbstractNodeController
@@ -21,24 +19,17 @@ class BreadcrumbsController extends AbstractNodeController
     /** @var string */
     public $css_class = 'nav-breadcrumbs';
 
-    protected $nodePropertiesFormTypeClass = NodePropertiesFormType::class;
-
     /**
-     * @param Node   $node
-     * @param string $delimiter
-     * @param bool   $hide_if_only_home      Скрыть "хлебные крошки", если выбрана корневая папка.
-     * @param null   $css_class
+     * @param Breadcrumbs $breadcrumbs
      *
      * @return Response
-     *
-     * @NodePropertiesForm("NodePropertiesFormType") @todo remove
      */
-    public function indexAction(Node $node): Response
+    public function index(Breadcrumbs $breadcrumbs): Response
     {
         return $this->render('@BreadcrumbsModule/breadcrumbs.html.php', [
             'css_class' => $this->css_class,
             'delimiter' => $this->delimiter,
-            'items'     => $this->get('cms.breadcrumbs'),
+            'items'     => $breadcrumbs,
             'hide_if_only_home' => $this->hide_if_only_home,
         ]);
     }

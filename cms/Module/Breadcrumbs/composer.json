@@ -5,7 +5,7 @@
     "description": "Breadcrumbs",
     "keywords": ["breadcrumbs"],
     "version": "v0.2",
-    "time": "2017-11-29",
+    "time": "2019-05-25",
     "license": "MIT",
     "autoload": {
         "psr-4": {

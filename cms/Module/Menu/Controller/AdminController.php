@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Controller;
 
 use Monolith\CMSBundle\Module\CacheTrait;

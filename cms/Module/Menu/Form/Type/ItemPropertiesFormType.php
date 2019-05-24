@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Form\Type;
 
 use FM\ElfinderBundle\Form\Type\ElFinderType;
@@ -54,7 +56,7 @@ class ItemPropertiesFormType extends AbstractType
         }
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'monolith_module_menu_item_properties';
     }

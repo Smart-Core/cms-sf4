@@ -184,7 +184,7 @@ class CmsRouter
 
                             $data['node_routing'] = [
                                 'node_id'    => $router_node_id,
-                                'controller' => $node->getParams() + $this->matchModule($node->getModule(), $node_slug),
+                                'controller' => $node->getParams() + $this->matchModule($node->getController(), $node_slug),
                             ];
 
                             if (isset($options['nodes'][$router_node_id])) {
@@ -228,17 +228,15 @@ class CmsRouter
      *
      * @throw ResourceNotFoundException
      */
-    public function matchModule($module, $path, Request $request = null)
+    public function matchModule($controller, $path, Request $request = null)
     {
         if (false === strpos($path, '/')) {
             $path = '/'.$path;
         }
 
-        $shortName = substr(strtolower($module), 0, -12);
-
-        if ($this->container->has('cms.router_module.'.$shortName)) {
+        if ($this->container->has('cms.router_module.'.$controller)) {
             /** @var \Symfony\Component\Routing\Matcher\UrlMatcher $matcher */
-            $matcher = $this->container->get('cms.router_module.'.$shortName);
+            $matcher = $this->container->get('cms.router_module.'.$controller);
             if ($request) {
                 $context = new RequestContext();
                 $context->fromRequest(Request::createFromGlobals());

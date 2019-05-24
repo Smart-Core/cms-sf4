@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Texter\Form\Type;
 
 use Monolith\CMSBundle\Module\AbstractNodePropertiesFormType;
@@ -13,11 +15,11 @@ class NodePropertiesFormType extends AbstractNodePropertiesFormType
     {
         $builder
             ->add('text_item_id', IntegerType::class, ['attr' => ['autofocus' => 'autofocus']])
-            ->add('editor', CheckboxType::class,      ['required' => false])
+            ->add('editor',CheckboxType::class,       ['required' => false])
         ;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'monolith_module_texter_node_properties';
     }

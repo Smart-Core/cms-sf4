@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Controller;
 
-use Monolith\CMSBundle\Annotation\NodePropertiesForm;
+use Doctrine\ORM\EntityManagerInterface;
 use Monolith\CMSBundle\Controller\AbstractNodeController;
-use Monolith\CMSBundle\Entity\Node;
+use Monolith\CMSBundle\Manager\ContextManager;
 use Monolith\CMSBundle\Module\CacheTrait;
 use Monolith\Module\Menu\Entity\Menu;
-use Monolith\Module\Menu\Form\Type\NodePropertiesFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,17 +22,15 @@ class MenuController extends AbstractNodeController
     public $depth = 0;
     public $selected_inheritance = false;
 
-    protected $nodePropertiesFormTypeClass = NodePropertiesFormType::class;
-
     /**
-     * @param Request $request
-     * @param Node    $node
+     * @param Request                $request
+     * @param ContextManager         $cmsContext
+     * @param EntityManagerInterface $em
      *
      * @return Response
-     *
-     * NodePropertiesForm("NodePropertiesFormType")
+     * @throws \Exception
      */
-    public function index(Request $request, Node $node): Response
+    public function index(Request $request, ContextManager $cmsContext, EntityManagerInterface $em): Response
     {
         $cmsSecurity = $this->container->get('cms.security');
 
@@ -41,19 +40,14 @@ class MenuController extends AbstractNodeController
             $userGroups = serialize($cmsSecurity->getUserGroups());
         }
 
-        $current_folder_path = $this->get('cms.context')->getCurrentFolderPath();
+        $cache_key = md5('monolith_module.menu'.$cmsContext->getCurrentFolderPath().',node_id='.$this->node->getId().',groups='.$userGroups);
 
-        $cache_key = md5('monolith_module.menu'.$current_folder_path.',node_id='.$node->getId().',groups='.$userGroups);
-
-        $menu = $node->isCached() ? $this->getCacheService()->get($cache_key) : null;
+        $menu = $this->node->isCached() ? $this->getCacheService()->get($cache_key) : null;
 
         if (null === $menu) {
             // Хак для Menu\RequestVoter
             $request->attributes->set('__selected_inheritance', $this->selected_inheritance);
-            $request->attributes->set('__current_folder_path', $current_folder_path);
-
-            /** @var \Doctrine\ORM\EntityManager $em */
-            $em = $this->get('doctrine.orm.entity_manager');
+            $request->attributes->set('__cms_current_folder_path', $cmsContext->getCurrentFolderPath());
 
             $menu = $this->renderView('@MenuModule/menu.html.twig', [
                 'css_class'     => $this->css_class,
@@ -64,15 +58,15 @@ class MenuController extends AbstractNodeController
 
             //$menu = $this->get('html.tidy')->prettifyFragment($menu);
 
-            if ($node->isCached()) {
-                $this->getCacheService()->set($cache_key, $menu, ['monolith_module.menu', 'folder', 'node_'.$node->getId()]);
+            if ($this->node->isCached()) {
+                $this->getCacheService()->set($cache_key, $menu, ['monolith_module.menu', 'folder', 'node_'.$this->node->getId()]);
             }
 
             $request->attributes->remove('__selected_inheritance');
-            $request->attributes->remove('__current_folder_path');
+            $request->attributes->remove('__cms_current_folder_path');
         }
 
-        $node->addFrontControl('edit')
+        $this->node->addFrontControl('edit')
             ->setTitle('Редактировать меню')
             ->setUri($this->generateUrl('monolith_module.menu.admin_menu', [
                 'id' => $this->menu_id,

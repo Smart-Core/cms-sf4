@@ -81,10 +81,19 @@ services:
         tags:
             - { name: routing.loader }
 
-    cms.routes.modules.loader:
-        class: Monolith\CMSBundle\Router\ModuleRoutesLoader
+#    cms.routes.modules.loader:
+#        class: Monolith\CMSBundle\Router\ModuleRoutesLoader
+#        calls:
+#            - [ setContainer, [ '@service_container' ] ]
+#            - [ setResolver,  [ '@routing.resolver' ] ]
+#        tags:
+#            - { name: routing.loader }
+
+    cms.routes.modules.loader.annotation:
+        class: Monolith\CMSBundle\Router\ModuleRoutesAnnotaionLoader
+        arguments: [ '@annotations.reader' ]
         calls:
-            - [ setContainer, [ '@service_container' ] ]
+            - [ setKernel, [ '@kernel' ] ]
             - [ setResolver,  [ '@routing.resolver' ] ]
         tags:
             - { name: routing.loader }

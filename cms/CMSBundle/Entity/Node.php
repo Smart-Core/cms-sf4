@@ -177,9 +177,11 @@ class Node implements \Serializable // NodeInterface @todo
     protected $folder_id = null;
 
     /**
+     * @todo Продумать где подменять controller и action у нод.
+     *
      * @var array
      */
-    protected $controller_temp = [];
+    protected $params_override = [];
 
     /**
      * Is Edit-In-Place enable.
@@ -247,7 +249,7 @@ class Node implements \Serializable // NodeInterface @todo
             $this->created_at,
             $this->deleted_at,
             $this->controller,
-            $this->controller_temp,
+            $this->params_override,
         ]);
     }
 
@@ -279,7 +281,7 @@ class Node implements \Serializable // NodeInterface @todo
             $this->created_at,
             $this->deleted_at,
             $this->controller,
-            $this->controller_temp
+            $this->params_override
             ) = unserialize($serialized);
         //) = igbinary_unserialize($serialized);
     }
@@ -799,58 +801,22 @@ class Node implements \Serializable // NodeInterface @todo
     }
 
     /**
-     * @todo Продумать где подменять controller и action у нод.
-     *
      * @return array
-     *
-     * @deprecated
      */
-    public function getControllerTemp($controllerName = null, $actionName = 'index'): array
+    public function getParamsOverride(): array
     {
-        if (null !== $controllerName or 'index' !== $actionName) {
-            $className = empty($controllerName) ? substr($this->module, 0, -12) : $controllerName;
-
-            return [
-                '_controller' => $this->module.':'.$className.':'.$actionName,
-            ];
-        }
-
-        if (empty($this->controller_temp)) {
-            $className = (null === $controllerName) ? substr($this->module, 0, -12) : $controllerName;
-            $this->controller_temp['_controller'] = $this->module.':'.$className.':'.$actionName;
-        }
-
-        return $this->controller_temp;
+        return $this->params_override;
     }
 
     /**
-     * @param array $controller_temp
+     * @param array $params_override
      *
      * @return $this
-     *
-     * @deprecated
      */
-    public function setControllerTemp($controller_temp)
+    public function setParamsOverride($params_override): self
     {
-        $this->controller_temp = $controller_temp;
+        $this->params_override = $params_override;
 
         return $this;
-    }
-
-    /**
-     * @return array
-     *
-     * @deprecated
-     */
-    public function getControllerParams(): array
-    {
-        $params = [];
-        foreach ($this->controller_temp as $key => $val) {
-            if ($key !== '_controller' and $key !== '_route') {
-                $params[$key] = $val;
-            }
-        }
-
-        return $params;
     }
 }

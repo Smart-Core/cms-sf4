@@ -508,7 +508,7 @@ class AdminStructureController extends Controller
                     // Если у модуля есть роутинги, тогда нода подключается к папке как роутер.
                     $folder = $node->getFolder();
                     // @todo убрать проверку на роутеры контроллера в менеджер.
-                    if ($this->container->has('cms.router_module.'.$node->getModule()) and !$folder->getRouterNodeId()) {
+                    if ($this->container->has('cms.router_module.'.$node->getController()) and !$folder->getRouterNodeId()) {
                         $folder->setRouterNodeId($node->getId());
                         $folderManager->update($folder);
                     }
@@ -581,10 +581,22 @@ class AdminStructureController extends Controller
         $propertiesFormType = $nodeManager->getPropertiesFormType($node);
 
         if ($propertiesFormType == NodeDefaultPropertiesFormType::class) {
-            $method = $nodeManager->getReflectionMethod($node, $node->getController());
+            //$method = $nodeManager->getReflectionMethod($node, $node->getController());
 
+            $cmsModule = $this->get('cms.module');
+
+            $params = [];
+            foreach ($cmsModule->getNodeControllersByName($node->getModule()) as $name => $data) {
+                if ($node->getController() == $data['class']) {
+                    $params = $data['params'];
+
+                    break;
+                }
+            }
+            dump($params);
             $parameters = [];
-            foreach ($method->getParameters() as $parameter) {
+            /**
+            foreach ($params as $parameter) {
                 $class = $parameter->getClass();
                 if ($class instanceof \ReflectionClass and
                     ($class->name == 'Monolith\CMSBundle\Entity\Node' or
@@ -598,6 +610,15 @@ class AdminStructureController extends Controller
                     'type'     => $parameter->getType() ? $parameter->getType()->getName() : 'text',
                     'default'  => $parameter->isDefaultValueAvailable() ? $parameter->getDefaultValue() : null,
                     'nullable' => $parameter->getType() and $parameter->getType()->allowsNull() ? true : false,
+                ];
+            }
+            */
+
+            foreach ($params as $key => $val) {
+                $parameters[$key] = [
+                    'type'     => is_bool($val) ? 'bool' : 'text',
+                    'default'  => $val,
+                    'nullable' => false,
                 ];
             }
 
@@ -890,7 +911,7 @@ class AdminStructureController extends Controller
 
         // Если у модуля есть роутинги, тогда нода подключается к папке как роутер.
         $folder = $node->getFolder();
-        if ($this->container->has('cms.router_module.'.$node->getModule()) and !$folder->getRouterNodeId()) {
+        if ($this->container->has('cms.router_module.'.$node->getController()) and !$folder->getRouterNodeId()) {
             $folder->setRouterNodeId($node->getId());
         }
 

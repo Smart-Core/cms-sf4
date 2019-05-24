@@ -9,8 +9,10 @@ use Monolith\CMSBundle\Form\Type\NodeDefaultPropertiesFormType;
 
 trait AbstractNodeControllerTrait
 {
+    /** @var Node */
     protected $node;
 
+    /** @var string */
     protected $nodePropertiesFormTypeClass = NodeDefaultPropertiesFormType::class;
 
     /**
@@ -39,6 +41,11 @@ trait AbstractNodeControllerTrait
     public function getNodePropertiesFormTypeClass(): string
     {
         return $this->nodePropertiesFormTypeClass;
+    }
+
+    public function isDefaultNodePropertiesFormTypeClass(): bool
+    {
+        return $this->nodePropertiesFormTypeClass == NodeDefaultPropertiesFormType::class ? true : false;
     }
 
     /**

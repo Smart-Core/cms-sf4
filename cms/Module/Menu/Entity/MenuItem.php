@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
 use Monolith\CMSBundle\Entity\Folder;
@@ -107,7 +110,7 @@ class MenuItem
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $title = $this->getTitle();
         if (empty($title)) {
@@ -122,7 +125,7 @@ class MenuItem
      *
      * @return $this
      */
-    public function setFolder(Folder $folder = null)
+    public function setFolder(Folder $folder = null): self
     {
         $this->folder = $folder;
 
@@ -132,7 +135,7 @@ class MenuItem
     /**
      * @return Folder|null
      */
-    public function getFolder()
+    public function getFolder(): ?Folder
     {
         return $this->folder;
     }
@@ -142,7 +145,7 @@ class MenuItem
      *
      * @return $this
      */
-    public function setFormTitle($form_title)
+    public function setFormTitle($form_title): self
     {
         $this->form_title = $form_title;
 
@@ -152,7 +155,7 @@ class MenuItem
     /**
      * @return string
      */
-    public function getFormTitle()
+    public function getFormTitle(): string
     {
         return $this->form_title;
     }
@@ -160,7 +163,7 @@ class MenuItem
     /**
      * @return Menu
      */
-    public function getMenu()
+    public function getMenu(): ?Menu
     {
         return $this->menu;
     }
@@ -170,7 +173,7 @@ class MenuItem
      *
      * @return $this
      */
-    public function setMenu(Menu $menu)
+    public function setMenu(Menu $menu): self
     {
         $this->menu = $menu;
 
@@ -180,7 +183,7 @@ class MenuItem
     /**
      * @return MenuItem[]|ArrayCollection
      */
-    public function getChildren()
+    public function getChildren(): Collection
     {
         return $this->children;
     }
@@ -190,7 +193,7 @@ class MenuItem
      *
      * @return $this
      */
-    public function setProperties(array $properties = null)
+    public function setProperties(array $properties = null): self
     {
         $this->properties = $properties;
 
@@ -200,7 +203,7 @@ class MenuItem
     /**
      * @return array|null
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return empty($this->properties) ? [] : $this->properties;
     }
@@ -210,7 +213,7 @@ class MenuItem
      *
      * @return $this
      */
-    public function setUrl($url = null)
+    public function setUrl($url = null): self
     {
         $this->url = $url;
 
@@ -220,7 +223,7 @@ class MenuItem
     /**
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -230,7 +233,7 @@ class MenuItem
      *
      * @return $this
      */
-    public function setOpenInNewWindow($open_in_new_window)
+    public function setOpenInNewWindow($open_in_new_window): self
     {
         $this->open_in_new_window = $open_in_new_window;
 
@@ -240,7 +243,7 @@ class MenuItem
     /**
      * @return bool
      */
-    public function getOpenInNewWindow()
+    public function getOpenInNewWindow(): bool
     {
         return $this->open_in_new_window;
     }
@@ -250,7 +253,7 @@ class MenuItem
      *
      * @return $this
      */
-    public function setParentItem($parent_item)
+    public function setParentItem($parent_item): self
     {
         if (empty($parent_item) or $parent_item->getId() == $this->getId()) {
             $this->parent_item = null;
@@ -264,7 +267,7 @@ class MenuItem
     /**
      * @return MenuItem|null
      */
-    public function getParentItem()
+    public function getParentItem(): ?self
     {
         return $this->parent_item;
     }
@@ -275,7 +278,7 @@ class MenuItem
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function checkRelations()
+    public function checkRelations(): void
     {
         $parent = $this->getParentItem();
 
@@ -304,7 +307,7 @@ class MenuItem
     /**
      * @ORM\PreUpdate()
      */
-    public function onUpdated()
+    public function onUpdated(): void
     {
         $this->updated_at = new \DateTime();
     }

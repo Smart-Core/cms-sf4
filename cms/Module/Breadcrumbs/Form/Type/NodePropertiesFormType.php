@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Breadcrumbs\Form\Type;
 
 use Smart\CoreBundle\Form\DataTransformer\HtmlTransformer;

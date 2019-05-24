@@ -100,7 +100,7 @@ class FilesystemLoader extends BaseFilesystemLoader
             $existAppPathKey = false;
 
             foreach ($this->paths[$namespace] as $key => $path2) {
-                if (strpos($path2, 'app/Resources/')) {
+                if (strpos($path2, 'app/Resources/')) { // @todo @deprecated
                     $existAppPathKey = $key;
                 }
             }

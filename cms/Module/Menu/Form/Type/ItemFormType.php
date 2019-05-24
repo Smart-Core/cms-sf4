@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Form\Type;
 
 use Monolith\CMSBundle\Form\Tree\FolderTreeType;
@@ -64,7 +66,7 @@ class ItemFormType extends AbstractType
         ]);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'monolith_module_menu_item';
     }

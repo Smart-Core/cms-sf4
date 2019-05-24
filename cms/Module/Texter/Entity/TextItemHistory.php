@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Texter\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -58,7 +60,6 @@ class TextItemHistory
     {
         if ($item) {
             $this->editor   = $item->getEditor();
-            $this->item_id  = $item->getId();
             $this->locale   = $item->getLocale();
             $this->meta     = $item->getMeta();
             $this->text     = $item->getText();
@@ -73,7 +74,7 @@ class TextItemHistory
      *
      * @return string
      */
-    public function getAnnounce()
+    public function getAnnounce(): string
     {
         $a = strip_tags($this->text);
 
@@ -87,7 +88,7 @@ class TextItemHistory
      *
      * @return $this
      */
-    public function setEditor($editor)
+    public function setEditor($editor): self
     {
         $this->editor = $editor;
 
@@ -97,29 +98,9 @@ class TextItemHistory
     /**
      * @return int
      */
-    public function getEditor()
+    public function getEditor(): int
     {
         return $this->editor;
-    }
-
-    /**
-     * @param int $item_id
-     *
-     * @return $this
-     */
-    public function setItemId($item_id)
-    {
-        $this->item_id = $item_id;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getItemId()
-    {
-        return $this->item_id;
     }
 
     /**
@@ -127,7 +108,7 @@ class TextItemHistory
      *
      * @return $this
      */
-    public function setLocale($locale)
+    public function setLocale($locale): self
     {
         $this->locale = $locale;
 
@@ -137,7 +118,7 @@ class TextItemHistory
     /**
      * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
@@ -147,7 +128,7 @@ class TextItemHistory
      *
      * @return $this
      */
-    public function setMeta($meta)
+    public function setMeta(array $meta): self
     {
         $this->meta = $meta;
 
@@ -157,7 +138,7 @@ class TextItemHistory
     /**
      * @return array
      */
-    public function getMeta()
+    public function getMeta(): array
     {
         return $this->meta;
     }
@@ -165,7 +146,7 @@ class TextItemHistory
     /**
      * @return TextItem
      */
-    public function getItem()
+    public function getItem(): TextItem
     {
         return $this->item;
     }
@@ -175,7 +156,7 @@ class TextItemHistory
      *
      * @return $this
      */
-    public function setItem(TextItem $item)
+    public function setItem(TextItem $item): self
     {
         $this->item = $item;
 

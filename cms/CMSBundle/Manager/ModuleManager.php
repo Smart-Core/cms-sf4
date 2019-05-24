@@ -68,10 +68,18 @@ class ModuleManager
      *
      * @return array
      */
-    public function getNodeControllers(string $moduleName): array
+    public function getNodeControllersByName(string $moduleName): array
     {
-        $module = $this->get($moduleName);
+        return self::getNodeControllers($this->get($moduleName));
+    }
 
+    /**
+     * @param ModuleBundleInterface $module
+     *
+     * @return array
+     */
+    static public function getNodeControllers(ModuleBundleInterface $module): array
+    {
         $namespace = $module->getNamespace();
         $path = $module->getPath();
 
@@ -95,7 +103,7 @@ class ModuleManager
             // @todo добавить проверку на трейт
             if ($parentClass and $parentClass->getName() == AbstractNodeController::class) {
                 $controllers[$controller] = [
-                    'controller' => $namespace.'\\Controller\\'.$controller,
+                    'class' => $namespace.'\\Controller\\'.$controller,
                     'params' => [],
                 ];
 
@@ -122,7 +130,7 @@ class ModuleManager
         $modules = [];
         foreach ($this->modules as $module_name => $module) {
             if ($module->isEnabled()) {
-                $modules[$module_name] = $this->getNodeControllers($module_name);
+                $modules[$module_name] = self::getNodeControllers($module);
             }
         }
 
@@ -156,8 +164,8 @@ class ModuleManager
         $data = [];
         foreach ($this->allNodeModulesControllers() as $name => $controllers) {
             if (!empty($controllers)) {
-                foreach ($controllers as $name => $controller) {
-                    $data[$controller['controller']] = $controller['controller'];
+                foreach ($controllers as $__name => $controller) {
+                    $data[$controller['class']] = $controller['class'];
                 }
             }
         }

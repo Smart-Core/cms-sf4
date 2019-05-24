@@ -1,23 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Texter\Controller;
 
 use Monolith\CMSBundle\Module\CacheTrait;
 use Monolith\Module\Texter\Entity\TextItem;
 use Monolith\Module\Texter\Entity\TextItemHistory;
+use Smart\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class AdminController extends AbstractController
+class AdminController extends Controller
 {
     use CacheTrait;
 
     /**
      * @param  Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         if (!empty($this->node)) {
             if (empty($item = $this->getDoctrine()->getRepository(TextItem::class)->find($this->text_item_id))) {
@@ -56,9 +60,9 @@ class AdminController extends AbstractController
      * @param  Request  $request
      * @param  TextItem $item
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response|JsonResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response|JsonResponse
      */
-    public function itemAction(Request $request, TextItem $item)
+    public function itemAction(Request $request, TextItem $item): Response
     {
         $folderPath = null;
         foreach ($this->get('cms.node')->findByModule('TexterModuleBundle') as $node) {
@@ -141,7 +145,7 @@ class AdminController extends AbstractController
      *
      * @todo пагинацию.
      */
-    public function historyAction(TextItem $item)
+    public function historyAction(TextItem $item): Response
     {
         $em = $this->get('doctrine.orm.entity_manager');
 
@@ -161,7 +165,7 @@ class AdminController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function historyViewAction(TextItemHistory $itemHistory)
+    public function historyViewAction(TextItemHistory $itemHistory): Response
     {
         return $this->render('@TexterModule/Admin/history_view.html.twig', [
             'item_history' => $itemHistory,
@@ -173,7 +177,7 @@ class AdminController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function rollbackAction($id)
+    public function rollbackAction($id): Response
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');

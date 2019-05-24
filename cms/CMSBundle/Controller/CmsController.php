@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Manager\ContextManager;
 use Monolith\CMSBundle\Manager\FolderManager;
+use Monolith\CMSBundle\Manager\ModuleManager;
 use Monolith\CMSBundle\Manager\NodeManager;
 use Monolith\CMSBundle\Manager\SecurityManager;
 use Monolith\CMSBundle\Manager\ToolbarManager;
+use Monolith\CMSBundle\Module\ModuleBundleInterface;
 use Monolith\CMSBundle\Router\CmsRouter;
 use Monolith\CMSBundle\Tools\Breadcrumbs;
 use SmartCore\Bundle\HtmlBundle\Html;
@@ -36,7 +38,6 @@ class CmsController extends AbstractController
      * @Route("/{slug<.+>}", name="cms_index", methods={"GET"})
      */
     public function index(
-        Request $request,
         Breadcrumbs $breadcrumbs,
         CmsCacheProvider $cache,
         CmsRouter $cmsRouter,
@@ -46,13 +47,19 @@ class CmsController extends AbstractController
         SecurityManager $cmsSecurity,
         ToolbarManager $cmsToolbar,
         Html $html,
+
         KernelInterface $kernel,
+        Request $request,
         string $slug = '',
         array $options = null
-    ): Response {
-//        $profiler   = $this->get('profiler');
+    ): Response
+    {
 
+        // ==================================================================================================
+
+//        $profiler   = $this->get('profiler');
 //        $profiler->disable();
+
 
         // Кеширование роутера.
         $cache_key = md5('site_id='.$cmsContext->getSiteId().'cms_router='.$request->getBaseUrl().$slug);
@@ -259,7 +266,7 @@ class CmsController extends AbstractController
     public function switchSelectedSiteAction(
         Request $request,
         ContextManager $cmsContext,
-        EntityManager $em
+        EntityManagerInterface $em
     ): RedirectResponse
     {
         $site_id = $request->request->get('site', 0);

@@ -1,4 +1,8 @@
 services:
+    Monolith\Module\Menu\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+
     menumodule.form.type.item_tree:
         class: Monolith\Module\Menu\Form\Tree\ItemTreeType
         arguments: [ '@doctrine' ]

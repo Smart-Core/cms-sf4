@@ -22,17 +22,17 @@ class TexterController extends AbstractNodeController
      * @return Response
      * @throws \Exception
      */
-    public function index(Node $node): Response
+    public function index(): Response
     {
-        if ($item = $this->get('monolith_module.texter')->get($this->text_item_id, $node->getId())) {
-            $node->addFrontControl('edit') // @todo убрать в cms.context
+        if ($item = $this->get('monolith_module.texter')->get($this->text_item_id, $this->node->getId())) {
+            $this->node->addFrontControl('edit') // @todo убрать в cms.context
                 ->setTitle('Редактировать текст')
                 ->setUri($this->generateUrl('monolith_module.texter.admin.edit', ['id' => $this->text_item_id]));
 
             return new Response($item->getText());
         }
 
-        return new Response("Texter not found. Node: {$node->getId()}<br />\n");
+        return new Response("Texter not found. Node: {$this->node->getId()}<br />\n");
     }
 
     /**

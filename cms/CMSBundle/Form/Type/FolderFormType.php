@@ -40,11 +40,11 @@ class FolderFormType extends AbstractType
 
         $routedNodes = ['' => ''];
         foreach ($this->container->get('cms.node')->findInFolder($options['data']) as $node) {
-            if (!$this->container->has('cms.router_module.'.substr(strtolower($node->getModule()), 0, -12))) {
+            if (!$this->container->has('cms.router_module.'.$node->getController())) {
                 continue;
             }
 
-            $nodeTitle = $node->getModule().' (node: '.$node->getId().')';
+            $nodeTitle = $node->getModuleShortName().' (node: '.$node->getId().')';
 
             if ($node->getDescription()) {
                 $nodeTitle .= ' ('.$node->getDescription().')';

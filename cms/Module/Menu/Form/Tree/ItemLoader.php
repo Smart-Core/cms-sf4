@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Form\Tree;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -37,7 +39,7 @@ class ItemLoader implements EntityLoaderInterface
      *
      * @return $this
      */
-    public function setMenu(Menu $menu)
+    public function setMenu(Menu $menu): self
     {
         $this->menu = $menu;
 
@@ -49,7 +51,7 @@ class ItemLoader implements EntityLoaderInterface
      *
      * @return array The entities.
      */
-    public function getEntities()
+    public function getEntities(): array
     {
         $this->result = [];
         $this->level = 0;
@@ -62,7 +64,7 @@ class ItemLoader implements EntityLoaderInterface
     /**
      * @param MenuItem|null $parent
      */
-    protected function addChild($parent = null)
+    protected function addChild($parent = null): void
     {
         $level = $this->level;
         $ident = '';
@@ -99,7 +101,7 @@ class ItemLoader implements EntityLoaderInterface
      *
      * @return array The entities.
      */
-    public function getEntitiesByIds($identifier, array $values)
+    public function getEntitiesByIds($identifier, array $values): array
     {
         return $this->repo->findBy(
             [$identifier => $values]

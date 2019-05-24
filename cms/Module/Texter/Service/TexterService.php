@@ -1,30 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Texter\Service;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\Module\Texter\Entity\TextItem;
 
 class TexterService
 {
-    /**
-     * @var CmsCacheProvider
-     */
+    /** @var CmsCacheProvider */
     protected $cache;
 
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManagerInterface */
     protected $em;
 
     /**
      * TexterService constructor.
      *
-     * @param CmsCacheProvider  $cache
-     * @param EntityManager $em
+     * @param CmsCacheProvider       $cache
+     * @param EntityManagerInterface $em
      */
-    public function __construct(CmsCacheProvider $cache, EntityManager $em)
+    public function __construct(CmsCacheProvider $cache, EntityManagerInterface $em)
     {
         $this->cache = $cache;
         $this->em    = $em;
@@ -32,7 +30,7 @@ class TexterService
 
     /**
      * @param int $item_id
-     * @param int|null $node_id - укаывается для кеширования.
+     * @param int|null $node_id - используется для кеширования.
      *
      * @return TextItem
      */
@@ -64,7 +62,7 @@ class TexterService
         return $item;
     }
 
-    public function update($item)
+    public function update($item): void
     {
         $this->em->persist($item);
         $this->em->flush($item);

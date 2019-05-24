@@ -12,6 +12,8 @@ use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Загрузчик маршрутов модулей.
+ *
+ * @deprecated теперь ноды разруливаются через аннотации.
  */
 class ModuleRoutesLoader extends Loader implements LoaderInterface
 {
@@ -42,7 +44,7 @@ class ModuleRoutesLoader extends Loader implements LoaderInterface
 
         $collection = new RouteCollection();
 
-        foreach (ModuleManager::getModulesPaths($this->container->getParameter('kernel.bundles_metadata')) as $moduleName => $modulePath) {
+        foreach (ModuleManager::getModulesPaths($this->container->getParameter('kernel.bundles_metadata')) as $__moduleName => $modulePath) {
             $resource = $modulePath.'/Resources/config/routing.yml';
             if (file_exists($resource)) {
                 /** @var \Symfony\Component\Routing\RouteCollection $importedRoutes */

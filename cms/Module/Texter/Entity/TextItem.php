@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Monolith\Module\Texter\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
 
 /**
@@ -110,7 +112,7 @@ class TextItem
      *
      * @return $this
      */
-    public function setLocale($locale)
+    public function setLocale($locale): self
     {
         $this->locale = $locale;
 
@@ -120,7 +122,7 @@ class TextItem
     /**
      * @return string
      */
-    public function getLocale()
+    public function getLocale(): self
     {
         return $this->locale;
     }
@@ -128,7 +130,7 @@ class TextItem
     /**
      * @return array
      */
-    public function getMeta()
+    public function getMeta(): array
     {
         return empty($this->meta) ? [] : $this->meta;
     }
@@ -138,7 +140,7 @@ class TextItem
      *
      * @return $this
      */
-    public function setMeta(array $meta)
+    public function setMeta(array $meta): self
     {
         if (is_array($meta)) {
             foreach ($meta as $key => $value) {
@@ -156,9 +158,9 @@ class TextItem
     }
 
     /**
-     * @return TextItemHistory[]|ArrayCollection
+     * @return TextItemHistory[]|ArrayCollection|PersistentCollection
      */
-    public function getHistory()
+    public function getHistory(): Collection
     {
         return $this->history;
     }
@@ -168,7 +170,7 @@ class TextItem
      *
      * @return $this
      */
-    public function setHistory($history)
+    public function setHistory($history): self
     {
         $this->history = $history;
 

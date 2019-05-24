@@ -194,8 +194,8 @@ class NodeManager
 
         $modulerManager = $this->container->get('cms.module');
 
-        foreach ($modulerManager->getNodeControllers($node->getModule()) as $c) {
-            if ($c['controller'] == $contollerClassName) {
+        foreach ($modulerManager->getNodeControllersByName($node->getModule()) as $c) {
+            if ($c['class'] == $contollerClassName) {
                 $node->setParams($c['params']);
 
                 break;
@@ -246,8 +246,26 @@ class NodeManager
             // Случай, когда запрашивается не подключенный модуль.
         }
 
+        $controllerClass = $node->getController();
+        /** @var AbstractNodeController $controllerObject */
+        $controllerObject = new $controllerClass;
+
+        if (!$controllerObject->isDefaultNodePropertiesFormTypeClass()) {
+            $form_class_name = $controllerObject->getNodePropertiesFormTypeClass();
+
+            if (class_exists($form_class_name)) {
+                return $form_class_name;
+            }
+        }
+
         $form_class_name = '\\'.$moduleNamespace.'\Form\Type\NodePropertiesFormType';
 
+        if (class_exists($form_class_name)) {
+            return $form_class_name;
+        }
+
+        /**
+         $form_class_name = '\\'.$moduleNamespace.'\Form\Type\NodePropertiesFormType';
         $method = $cmsNode->getReflectionMethod($node, $node->getController());
         if ($method) {
             $annotation = $this->container->get('annotations.reader')->getMethodAnnotation($method, NodePropertiesForm::class);
@@ -266,10 +284,12 @@ class NodeManager
             }
         }
 
+
         if (class_exists($form_class_name)) {
             //return new $form_class_name($this->em, $this->kernel);
             return $form_class_name;
         }
+         */
 
         // @todo может быть гибче настраивать форму параметров по умолчанию?.
         return NodeDefaultPropertiesFormType::class;
@@ -331,7 +351,7 @@ class NodeManager
         ];
 
         foreach ($router_data['folders'] as $folderId => $_dummy) {
-            $folder = $this->em->find(Folder::class, $folderId);
+            $folder = $this->container->get('cms.folder')->get($folderId);
 
             if (empty($folder)) {
                 throw new \Exception('Папка не найдена! Не штатная ситуация.'); // @todo
@@ -419,7 +439,7 @@ class NodeManager
             if (isset($router_data['node_routing']['controller'])
                 and $router_data['node_routing']['node_id'] == $node->getId()
             ) {
-                $node->setControllerTemp($router_data['node_routing']['controller']);
+                $node->setParamsOverride($router_data['node_routing']['controller']);
                 $node->setPriority(255);
             }
 
@@ -477,6 +497,7 @@ class NodeManager
                     $moduleResponse = new Response('Module controller "'.$node->getModule().'" is unavailable.');
                 } elseif ($this->container->get('cms.module')->has($node->getModule())) {
                     $moduleResponse = $this->forward((string) $node->getId(), [
+                        '_node' => $node,
                         '_route' => 'cms_frontend_run',
                         '_route_params' => $node->getParams() + $request->attributes->get('_route_params'),
                     ], $request->query->all());

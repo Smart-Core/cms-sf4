@@ -1,6 +1,6 @@
 <?php
 
-//declare(strict_types=1); // @todo Type error: strlen() expects parameter 1 to be string, null given (line 54)
+declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Menu;
 
@@ -43,15 +43,17 @@ class RequestVoter implements VoterInterface
             $parent = $parent->getParent();
         }
 
+        $length = empty($item->getUri()) ? 0 : strlen($item->getUri());
+
         if ($item->getUri() === $request->getRequestUri() or
-            $item->getUri() === $request->attributes->get('__current_folder_path', false)
+            $item->getUri() === $request->attributes->get('__cms_current_folder_path', false)
         ) {
             // URL's completely match
             return true;
         } elseif (
             $item->getUri() !== $request->getBaseUrl().'/' and
-            $item->getUri() !== $request->getBaseUrl().'/admin/' and
-            $item->getUri() === substr($request->getRequestUri(), 0, strlen($item->getUri())) and
+            $item->getUri() !== $request->getBaseUrl().'/'.$this->adminPath.'/' and
+            $item->getUri() === substr($request->getRequestUri(), 0, $length) and
             $request->attributes->get('__selected_inheritance', true) and
             $parent->getExtra('select_intehitance', true)
         ) {

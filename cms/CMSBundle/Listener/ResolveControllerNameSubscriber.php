@@ -77,18 +77,28 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
                 return;
             }
 
+            $event->getRequest()->attributes->set('_node', $node);
+
             $controller = $node->getController();
 
             if (class_exists($controller)) {
-                $event->getRequest()->attributes->set('_controller', $controller.'::index');
+                $event->getRequest()->attributes->set('_controller', $node->getController().'::index'); // @todo сделать поддержку __invoke
 
                 foreach ($node->getParams() as $param => $val) {
                     $event->getRequest()->attributes->set($param, $val);
                 }
+
+                foreach ($node->getParamsOverride() as $param => $value) {
+                    $event->getRequest()->attributes->set($param, $value);
+                }
             } else {
+                throw new \Exception('Controller class does not exist: '.$controller);
+
+
                 /**
-                 * @deprecated Старый код, когда контроллер хранилсяв формате: MyBundle:Edit:index
+                 * @deprecated !!! Старый код, когда контроллер хранился в формате: MyBundle:Edit:index
                  */
+                /*
                 $controllerName = isset($parts[1]) ? $parts[1] : null;
                 $actionName = isset($parts[2]) ? $parts[2] : 'index';
 
@@ -113,9 +123,8 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
                         $event->getRequest()->attributes->set($param, $val);
                     }
                 }
+                */
             }
-
-            $event->getRequest()->attributes->set('node', $node);
         }
 
         parent::onKernelRequest($event);

@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monolith\Module\Menu\Form\Tree;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Monolith\Module\Menu\Entity\MenuItem;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\DoctrineChoiceLoader;
+use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
 use Symfony\Component\Form\ChoiceList\Factory\CachingFactoryDecorator;
 use Symfony\Component\OptionsResolver\Options;
@@ -59,12 +62,12 @@ class ItemTreeType extends DoctrineType
         ]);
     }
 
-    public function getLoader(ObjectManager $manager, $queryBuilder, $class)
+    public function getLoader(ObjectManager $manager, $queryBuilder, $class): EntityLoaderInterface
     {
         return new ItemLoader($manager, $queryBuilder, $class);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'monolith_module_menu_item_tree';
     }
