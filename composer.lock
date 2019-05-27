@@ -4254,12 +4254,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/RichEditorBundle.git",
-                "reference": "7bfcd619f5d9ddd2ef2676deb61330e79b0637d0"
+                "reference": "991264fb33bd5b338f6193c0cb64ccbbc39e6fce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/RichEditorBundle/zipball/7bfcd619f5d9ddd2ef2676deb61330e79b0637d0",
-                "reference": "7bfcd619f5d9ddd2ef2676deb61330e79b0637d0",
+                "url": "https://api.github.com/repos/Smart-Core/RichEditorBundle/zipball/991264fb33bd5b338f6193c0cb64ccbbc39e6fce",
+                "reference": "991264fb33bd5b338f6193c0cb64ccbbc39e6fce",
                 "shasum": ""
             },
             "require": {
@@ -4287,7 +4287,7 @@
                 "crawler",
                 "editor"
             ],
-            "time": "2019-05-13T21:10:01+00:00"
+            "time": "2019-05-27T22:40:08+00:00"
         },
         {
             "name": "smart-core/seo-bundle",
