@@ -1,7 +1,7 @@
 security:
     always_authenticate_before_granting: true
     encoders:
-        FOS\UserBundle\Model\UserInterface:
+        Symfony\Component\Security\Core\User\UserInterface:
             algorithm: 'argon2i'
             cost:      30
 

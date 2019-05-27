@@ -5,7 +5,7 @@ namespace SmartCore\Bundle\SettingsBundle\Manager;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\SchemaValidator;
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use SmartCore\Bundle\SettingsBundle\Cache\CacheProvider;
 use SmartCore\Bundle\SettingsBundle\Cache\DummyCacheProvider;
 use SmartCore\Bundle\SettingsBundle\Entity\Setting;

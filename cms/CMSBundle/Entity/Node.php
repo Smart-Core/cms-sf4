@@ -37,7 +37,7 @@ class Node implements \Serializable // NodeInterface @todo
     use ColumnTrait\DeletedAt;
     use ColumnTrait\Description;
     use ColumnTrait\Position;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var int

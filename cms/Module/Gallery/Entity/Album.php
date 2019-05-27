@@ -23,7 +23,7 @@ class Album
     use ColumnTrait\Position;
     use ColumnTrait\Title;
     use ColumnTrait\UpdatedAt;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var int

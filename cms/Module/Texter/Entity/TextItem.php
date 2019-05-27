@@ -24,7 +24,7 @@ class TextItem
     use ColumnTrait\CreatedAt;
     use ColumnTrait\UpdatedAt;
     use ColumnTrait\Text;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var string

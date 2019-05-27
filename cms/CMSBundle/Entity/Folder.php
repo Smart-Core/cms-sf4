@@ -34,7 +34,7 @@ class Folder
     use ColumnTrait\DeletedAt;
     use ColumnTrait\Description;
     use ColumnTrait\Position;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var Folder

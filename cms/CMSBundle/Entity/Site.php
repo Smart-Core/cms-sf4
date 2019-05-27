@@ -23,7 +23,7 @@ class Site
     use ColumnTrait\Position;
     use ColumnTrait\CreatedAt;
     use ColumnTrait\UpdatedAt;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var string|null

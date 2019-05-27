@@ -24,7 +24,7 @@ class MenuItem
     use ColumnTrait\Description;
     use ColumnTrait\Position;
     use ColumnTrait\Title;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var MenuItem

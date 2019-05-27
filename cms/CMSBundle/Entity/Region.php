@@ -30,7 +30,7 @@ class Region
     use ColumnTrait\CreatedAt;
     use ColumnTrait\Description;
     use ColumnTrait\Position;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var string

@@ -7,12 +7,13 @@ namespace Monolith\CMSBundle\Model;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * ORM\Entity
  * ORM\Table(name="users")
  */
-class UserModel extends BaseUser
+class UserModel extends BaseUser implements UserInterface
 {
     use ColumnTrait\CreatedAt;
 

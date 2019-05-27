@@ -26,7 +26,7 @@ class Module
     use ColumnTrait\Id;
     use ColumnTrait\IsActive;
     use ColumnTrait\CreatedAt;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var string

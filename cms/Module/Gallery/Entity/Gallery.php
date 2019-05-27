@@ -24,7 +24,7 @@ class Gallery
     use ColumnTrait\Id;
     use ColumnTrait\CreatedAt;
     use ColumnTrait\Title;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var integer

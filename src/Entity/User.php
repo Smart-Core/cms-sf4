@@ -7,13 +7,12 @@ namespace App\Entity;
 use Monolith\CMSBundle\Model\UserModel;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class User extends UserModel implements UserInterface
+class User extends UserModel
 {
     use ColumnTrait\Phone;
 
@@ -35,7 +34,7 @@ class User extends UserModel implements UserInterface
             $this->id,
             $this->email,
             $this->emailCanonical,
-            //            $this->roles
+            //$this->roles
         ]);
     }
 
@@ -50,7 +49,7 @@ class User extends UserModel implements UserInterface
             $this->id,
             $this->email,
             $this->emailCanonical
-            //            $this->roles
+            //$this->roles
             ) = unserialize($serialized);
     }
 

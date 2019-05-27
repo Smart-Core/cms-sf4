@@ -21,7 +21,7 @@ class TextItemHistory
     use ColumnTrait\DeletedAt;
     use ColumnTrait\CreatedAt;
     use ColumnTrait\Text;
-    use ColumnTrait\FosUser;
+    use ColumnTrait\User;
 
     /**
      * @var string

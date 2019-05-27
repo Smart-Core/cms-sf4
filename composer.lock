@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4a07b38915de32acc848170f7c4d4da",
+    "content-hash": "044b9a21bfae83c1b8df63767d031034",
     "packages": [
         {
             "name": "cache/adapter-bundle",
@@ -4207,48 +4207,6 @@
             "time": "2019-05-23T21:27:36+00:00"
         },
         {
-            "name": "smart-core/media-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Smart-Core/MediaBundle.git",
-                "reference": "77222710b2d6a7f21c9aaea075865299abbd49d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/MediaBundle/zipball/77222710b2d6a7f21c9aaea075865299abbd49d1",
-                "reference": "77222710b2d6a7f21c9aaea075865299abbd49d1",
-                "shasum": ""
-            },
-            "require": {
-                "liip/imagine-bundle": "*",
-                "php": ">=5.4.1"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "SmartCore\\Bundle\\MediaBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Artem Ryzhkov",
-                    "email": "artem@smart-core.org",
-                    "homepage": "http://smart-core.org"
-                }
-            ],
-            "description": "Symfony Media Cloud Storage Bundle.",
-            "keywords": [
-                "bundle",
-                "media"
-            ],
-            "time": "2019-05-27T22:34:53+00:00"
-        },
-        {
             "name": "smart-core/rich-editor-bundle",
             "version": "dev-master",
             "source": {
@@ -8424,7 +8382,6 @@
         "smart-core/db-dumper-bundle": 20,
         "smart-core/felib-bundle": 20,
         "smart-core/html-bundle": 20,
-        "smart-core/media-bundle": 20,
         "smart-core/rich-editor-bundle": 20,
         "smart-core/seo-bundle": 20,
         "smart-core/simple-profiler-bundle": 20

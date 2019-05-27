@@ -18,7 +18,6 @@
         "smart-core/db-dumper-bundle": "dev-master",
         "smart-core/felib-bundle": "dev-master",
         "smart-core/html-bundle": "dev-master",
-        "smart-core/media-bundle": "dev-master",
         "smart-core/rich-editor-bundle": "dev-master",
         "smart-core/seo-bundle": "dev-master",
         "smart-core/simple-profiler-bundle": "dev-master",
@@ -58,6 +57,7 @@
             "Doctrine\\ORM\\": "cms/CMSBundle/Doctrine/ORM",
             "Monolith\\": "cms/",
             "Smart\\": "cms/Smart/",
+            "SmartCore\\Bundle\\MediaBundle\\": "cms/MediaBundle/",
             "SmartCore\\Bundle\\SettingsBundle\\": "cms/SettingsBundle/",
             "SmartCore\\Bundle\\SmartSimpleProfilerBundle\\": "cms/SimpleProfilerBundle/"
         }
