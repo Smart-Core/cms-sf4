@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "268168637b1f301ec9b65e41618a1b2c",
+    "content-hash": "f4a07b38915de32acc848170f7c4d4da",
     "packages": [
         {
             "name": "cache/adapter-bundle",
@@ -2706,16 +2706,16 @@
         },
         {
             "name": "knplabs/knp-menu-bundle",
-            "version": "v2.2.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "6bea43eb84fc67c43ab2b43709194efffa8a8ac0"
+                "reference": "1cb5ebae9e1892347eda155dc25e0bea57137b9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/6bea43eb84fc67c43ab2b43709194efffa8a8ac0",
-                "reference": "6bea43eb84fc67c43ab2b43709194efffa8a8ac0",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/1cb5ebae9e1892347eda155dc25e0bea57137b9e",
+                "reference": "1cb5ebae9e1892347eda155dc25e0bea57137b9e",
                 "shasum": ""
             },
             "require": {
@@ -2761,7 +2761,7 @@
             "keywords": [
                 "menu"
             ],
-            "time": "2017-12-24T16:32:39+00:00"
+            "time": "2019-03-26T11:02:15+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -4212,12 +4212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Smart-Core/MediaBundle.git",
-                "reference": "b53b67185f40e88283bc095bba5d57798db70a06"
+                "reference": "77222710b2d6a7f21c9aaea075865299abbd49d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/MediaBundle/zipball/b53b67185f40e88283bc095bba5d57798db70a06",
-                "reference": "b53b67185f40e88283bc095bba5d57798db70a06",
+                "url": "https://api.github.com/repos/Smart-Core/MediaBundle/zipball/77222710b2d6a7f21c9aaea075865299abbd49d1",
+                "reference": "77222710b2d6a7f21c9aaea075865299abbd49d1",
                 "shasum": ""
             },
             "require": {
@@ -4246,7 +4246,7 @@
                 "bundle",
                 "media"
             ],
-            "time": "2019-05-27T20:46:58+00:00"
+            "time": "2019-05-27T22:34:53+00:00"
         },
         {
             "name": "smart-core/rich-editor-bundle",
@@ -8420,6 +8420,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
+        "knplabs/knp-menu-bundle": 20,
         "smart-core/db-dumper-bundle": 20,
         "smart-core/felib-bundle": 20,
         "smart-core/html-bundle": 20,

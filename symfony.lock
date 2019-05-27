@@ -17,18 +17,6 @@
     "cache/array-adapter": {
         "version": "1.0.1"
     },
-    "cache/cache-bundle": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "817d06a0a3bea320ef72beb249285c7988ee9566"
-        },
-        "files": [
-            "./config/packages/cache.yaml"
-        ]
-    },
     "cache/filesystem-adapter": {
         "version": "1.0.0"
     },
@@ -38,13 +26,7 @@
     "cache/namespaced-cache": {
         "version": "1.0.0"
     },
-    "cache/session-handler": {
-        "version": "1.0.0"
-    },
     "cache/tag-interop": {
-        "version": "1.0.0"
-    },
-    "cache/taggable-cache": {
         "version": "1.0.0"
     },
     "components/elfinder": {
@@ -254,9 +236,6 @@
     },
     "nikic/php-parser": {
         "version": "v4.2.1"
-    },
-    "nyholm/nsa": {
-        "version": "1.1.0"
     },
     "ocramius/package-versions": {
         "version": "1.4.0"
@@ -680,9 +659,6 @@
     },
     "twig/twig": {
         "version": "v2.10.0"
-    },
-    "webmozart/assert": {
-        "version": "1.4.0"
     },
     "webonyx/graphql-php": {
         "version": "v0.13.4"

@@ -8,7 +8,7 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "helios-ag/fm-elfinder-bundle": "~8",
         "helios-ag/fm-elfinder-php-connector": "*",
-        "knplabs/knp-menu-bundle": "^2.2",
+        "knplabs/knp-menu-bundle": "dev-master",
         "liip/imagine-bundle": "^2.1",
         "liip/theme-bundle": "^1.6",
         "misd/phone-number-bundle": "^1.3",
