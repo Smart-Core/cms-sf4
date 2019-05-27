@@ -134,13 +134,16 @@ class AdminStructureController extends Controller
      */
     public function folderCreateAction(Request $request, Folder $parent = null): Response
     {
-        $site = $this->get('cms.context')->getSite();
+        $cmsFolder = $this->get('cms.folder');
+        $site      = $this->get('cms.context')->getSite();
 
         if (empty($parent)) {
             $parent = $site->getRootFolder();
-        }
 
-        $cmsFolder = $this->get('cms.folder');
+            if ($parent instanceof Folder) {
+                $parent = $cmsFolder->get($parent->getId());
+            }
+        }
 
         $folder = $cmsFolder->create();
         $folder->setUser($this->getUser());

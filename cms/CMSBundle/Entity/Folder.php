@@ -215,7 +215,7 @@ class Folder
     /**
      * @return Folder[]|ArrayCollection
      */
-    public function getChildren(): Collection
+    public function getChildren(): ?Collection
     {
         return $this->children;
     }
@@ -223,7 +223,7 @@ class Folder
     /**
      * @return Node[]|ArrayCollection
      */
-    public function getNodes(): Collection
+    public function getNodes(): ?Collection
     {
         return $this->nodes;
     }
@@ -233,7 +233,7 @@ class Folder
      *
      * @return $this
      */
-    public function setTitle(string $title): Folder
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -253,7 +253,7 @@ class Folder
      *
      * @return $this
      */
-    public function setIsFile(bool $is_file): Folder
+    public function setIsFile(bool $is_file): self
     {
         $this->is_file = $is_file;
 
@@ -281,7 +281,7 @@ class Folder
      *
      * @return $this
      */
-    public function setUriPart($uri_part): Folder
+    public function setUriPart($uri_part): self
     {
         $this->uri_part = $uri_part;
 
@@ -301,7 +301,7 @@ class Folder
      *
      * @return $this
      */
-    public function setMeta(array $meta): Folder
+    public function setMeta(array $meta): self
     {
         foreach ($meta as $name => $value) {
             if (empty($value)) {
@@ -337,7 +337,7 @@ class Folder
     /**
      * @return Folder|null
      */
-    public function getParentFolder(): ?Folder
+    public function getParentFolder(): ?self
     {
         return $this->parent_folder;
     }
@@ -347,7 +347,7 @@ class Folder
      *
      * @return $this
      */
-    public function setFormTitle(string $form_title): Folder
+    public function setFormTitle(string $form_title): self
     {
         $this->form_title = $form_title;
 
@@ -367,7 +367,7 @@ class Folder
      *
      * @return $this
      */
-    public function setRouterNodeId($router_node_id): Folder
+    public function setRouterNodeId($router_node_id): self
     {
         $this->router_node_id = empty($router_node_id) ? null : $router_node_id;
 
@@ -387,7 +387,7 @@ class Folder
      *
      * @return $this
      */
-    public function setTemplateInheritable(?string $template_inheritable): Folder
+    public function setTemplateInheritable(?string $template_inheritable): self
     {
         $this->template_inheritable = $template_inheritable;
 
@@ -407,7 +407,7 @@ class Folder
      *
      * @return $this
      */
-    public function setTemplateSelf(?string $template_self): Folder
+    public function setTemplateSelf(?string $template_self): self
     {
         $this->template_self = $template_self;
 
@@ -425,7 +425,7 @@ class Folder
     /**
      * @return Region[]|ArrayCollection
      */
-    public function getRegions(): Collection
+    public function getRegions(): ?Collection
     {
         return $this->regions;
     }
@@ -435,7 +435,7 @@ class Folder
      *
      * @return $this
      */
-    public function setRegions($regions): Folder
+    public function setRegions($regions): self
     {
         $this->regions = $regions;
 
@@ -447,7 +447,7 @@ class Folder
      *
      * @return Folder
      */
-    public function addGroupGrantedRead(UserGroup $userGroup): Folder
+    public function addGroupGrantedRead(UserGroup $userGroup): self
     {
         if (!$this->groups_granted_read->contains($userGroup)) {
             $this->groups_granted_read->add($userGroup);
@@ -459,7 +459,7 @@ class Folder
     /**
      * @return Folder
      */
-    public function clearGroupGrantedRead(): Folder
+    public function clearGroupGrantedRead(): self
     {
         $this->groups_granted_read->clear();
 

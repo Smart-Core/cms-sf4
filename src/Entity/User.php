@@ -7,12 +7,13 @@ namespace App\Entity;
 use Monolith\CMSBundle\Model\UserModel;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class User extends UserModel
+class User extends UserModel implements UserInterface
 {
     use ColumnTrait\Phone;
 

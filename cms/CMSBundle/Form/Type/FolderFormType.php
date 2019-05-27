@@ -7,22 +7,37 @@ namespace Monolith\CMSBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\UserGroup;
+use Monolith\CMSBundle\Form\EventListener\FolderCreateSubscriber;
 use Monolith\CMSBundle\Form\Tree\FolderTreeType;
+use Monolith\CMSBundle\Manager\NodeManager;
 use SmartCore\Bundle\SeoBundle\Form\Type\MetaFormType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FolderFormType extends AbstractType
 {
     use ContainerAwareTrait;
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    /** @var NodeManager */
+    protected $cmsNode;
+
+    /** @var EventDispatcherInterface */
+    protected $eventDispatcher;
+
+    /** @var KernelInterface */
+    protected $kernel;
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $this->eventDispatcher = $this->container->get('event_dispatcher');
+
         $templates = ['' => ''];
 
         $currentThemeDir = $this->container->get('kernel')->getBundle('CMSBundle')->getThemeDir().'/templates';
@@ -40,7 +55,7 @@ class FolderFormType extends AbstractType
 
         $routedNodes = ['' => ''];
         foreach ($this->container->get('cms.node')->findInFolder($options['data']) as $node) {
-            if (!$this->container->has('cms.router_module.'.$node->getController())) {
+            if (!$this->container->has('cms.router_module.'.$node->getController())) { // @todo перенести проверку наличия роутов у ноды в NodeManager.
                 continue;
             }
 
@@ -52,6 +67,10 @@ class FolderFormType extends AbstractType
 
             $routedNodes[$nodeTitle] = $node->getId();
         }
+
+//        $event = new FolderCreateFormEvent($builder);
+
+//        $this->eventDispatcher->dispatch('cms.foder_create_form.before', $event);
 
         $builder
             ->add('title', null, ['attr' => ['autofocus' => 'autofocus']])
@@ -105,7 +124,6 @@ class FolderFormType extends AbstractType
             ])
 
             //->add('lockout_nodes', 'text')
-            //->addEventSubscriber(new FolderSubscriber())
         ;
 
         if (count($templates) == 1) {
@@ -116,16 +134,24 @@ class FolderFormType extends AbstractType
         if (count($routedNodes) == 1) {
             $builder->remove('router_node_id');
         }
+
+        $folder = $options['data'];
+
+        if ($folder->getId() === null) {
+            $builder->addEventSubscriber(new FolderCreateSubscriber($this->container));
+        }
+
+        //$this->eventDispatcher->dispatch('cms.foder_create_form.after', $event);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Folder::class,
         ]);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'monolith_cms_folder';
     }

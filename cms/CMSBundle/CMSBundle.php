@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle;
 
-use Monolith\CMSBundle\Container;
 use Monolith\CMSBundle\DependencyInjection\Compiler\ChangeRouterClassPass;
 use Monolith\CMSBundle\DependencyInjection\Compiler\DefaultRegionCreatorPass;
 use Monolith\CMSBundle\DependencyInjection\Compiler\DeprecationsFixesCompilerPass;

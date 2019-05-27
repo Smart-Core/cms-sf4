@@ -28,12 +28,13 @@ monolith_module.user.resetting.send-email:
 monolith_module.user.resetting.check-email:
     path: /resetting/check-email
     defaults:
-        _controller: FOSUserBundle:Resetting:checkEmail
+        _controller: FOS\UserBundle\Controller\ResettingController::checkEmailAction
 
 monolith_module.user.resetting.reset:
     path: /resetting/reset/{token}
     defaults:
-        _controller: FOSUserBundle:Resetting:reset
+        #_controller: FOSUserBundle:Resetting:reset
+        _controller: FOS\UserBundle\Controller\ResettingController::resetAction
 
 # Registration
 monolith_module.user.registration:

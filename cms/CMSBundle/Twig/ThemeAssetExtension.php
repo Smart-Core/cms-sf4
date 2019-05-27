@@ -61,5 +61,4 @@ class ThemeAssetExtension extends AbstractExtension
     {
         return 'monolith_theme_asset';
     }
-
 }

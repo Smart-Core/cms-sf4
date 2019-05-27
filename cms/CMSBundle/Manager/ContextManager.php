@@ -6,6 +6,7 @@ namespace Monolith\CMSBundle\Manager;
 
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\Entity\Site;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,31 +21,38 @@ class ContextManager
     protected $current_folder_id    = 1;
     protected $current_folder_path  = '/';
     protected $current_node_id      = null;
-    protected $domain               = null;
+    //protected $domain               = null;
     protected $site                 = null;
     protected $stopwatch            = null;
     protected $template             = 'default';
+
+    /** @var UserManagerInterface|null */
     protected $userManager          = null;
+
+    /** @var CmsCacheProvider */
+    protected $cache;
 
     /**
      * ContextManager constructor.
      *
-     * @param ContainerInterface $container
+     * @param ContainerInterface   $container
      * @param UserManagerInterface $userManager
-     *
-     * @todo кешироание
+     * @param Stopwatch|null       $stopwatch
      */
     public function __construct(ContainerInterface $container, UserManagerInterface $userManager, Stopwatch $stopwatch = null)
     {
         $this->stopwatch   = $stopwatch;
         $this->container   = $container;
         $this->userManager = $userManager;
+        $this->cache       = $container->get('cms.cache');
 
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->container->get('doctrine.orm.entity_manager');
         $siteRepository = $em->getRepository('CMSBundle:Site');
 
         $request = $container->get('request_stack')->getMasterRequest();
+
+        $hostname = null;
 
         if ($request instanceof Request) {
             $hostname = $request->server->get('HTTP_HOST');
@@ -56,25 +64,31 @@ class ContextManager
 
             $hostname = $func($hostname, 0, INTL_IDNA_VARIANT_UTS46);
 
-            $this->domain = $em->getRepository('CMSBundle:Domain')->findOneBy(['name' => $hostname, 'is_enabled' => true]);
-
-            if ($this->domain) {
-                if ($this->domain->getParent()) { // Alias
-                    $this->site = $siteRepository->findOneBy(['domain' => $this->domain->getParent()]);
-                } else {
-                    $this->site = $siteRepository->findOneBy(['domain' => $this->domain]);
-                }
-            }
-
             $this->setCurrentFolderPath($request->getBasePath().'/');
         }
 
-        if (empty($this->site)) {
-            try {
-                $this->site = $siteRepository->findOneBy([], ['id' => 'ASC']);
-            } catch (TableNotFoundException $e) {
-                //echo "!!! Table 'cms_sites' Not Found.";
+        $cache_key = md5('context-site-by-hostname='.$hostname);
+
+        if (null === $this->site = $this->cache->get($cache_key)) {
+            $domain = $em->getRepository('CMSBundle:Domain')->findOneBy(['name' => $hostname, 'is_enabled' => true]);
+
+            if ($domain) {
+                if ($domain->getParent()) { // Alias
+                    $this->site = $siteRepository->findOneBy(['domain' => $domain->getParent()]);
+                } else {
+                    $this->site = $siteRepository->findOneBy(['domain' => $domain]);
+                }
             }
+
+            if (empty($this->site)) {
+                try {
+                    $this->site = $siteRepository->findOneBy([], ['id' => 'ASC']);
+                } catch (TableNotFoundException $e) {
+                    //echo "!!! Table 'cms_sites' Not Found.";
+                }
+            }
+
+            $this->cache->set($cache_key, $this->site, ['site', 'domain']);
         }
     }
 

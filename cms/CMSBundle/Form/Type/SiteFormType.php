@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Monolith\CMSBundle\Container;
 use Monolith\CMSBundle\Entity\Domain;
 use Monolith\CMSBundle\Entity\Language;
 use Monolith\CMSBundle\Entity\Site;

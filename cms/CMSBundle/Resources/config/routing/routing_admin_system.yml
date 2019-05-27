@@ -1,56 +1,56 @@
 system:
     path: /
     defaults:
-        _controller: CMSBundle:Admin:notFound
+        _controller: Monolith\CMSBundle\Controller\AdminController::notFoundAction
 
 files:
     path: /files/
     defaults:
-        _controller: CMSBundle:Admin:elfinder
+        _controller: Monolith\CMSBundle\Controller\AdminController::elfinderAction
 
 # Modules
 module:
     path: /modules/
     defaults:
-        _controller: CMSBundle:AdminModule:enabled
+        _controller: Monolith\CMSBundle\Controller\AdminModuleController::enabledAction
 
 module_disabled:
     path: /modules/disabled/
     defaults:
-        _controller: CMSBundle:AdminModule:disabled
+        _controller: Monolith\CMSBundle\Controller\AdminModuleController::disabledAction
 
 module_all:
     path: /modules/all/
     defaults:
-        _controller: CMSBundle:AdminModule:index
+        _controller: Monolith\CMSBundle\Controller\AdminModuleController::indexAction
 
 module_install_updatedb:
     path: /modules/install/updatedb
     methods: 'POST'
     defaults:
-        _controller: CMSBundle:AdminModule:moduleInstallUpdateDb
+        _controller: Monolith\CMSBundle\Controller\AdminModuleController::moduleInstallUpdateDbAction
 
 module_install:
     path: /modules/install/{filename}
     defaults:
-        _controller: CMSBundle:AdminModule:install
+        _controller: Monolith\CMSBundle\Controller\AdminModuleController::installAction
         filename: ''
 
 # languages
 language:
     path: /language/
     defaults:
-        _controller: CMSBundle:AdminLanguage:index
+        _controller: Monolith\CMSBundle\Controller\AdminLanguageController::indexAction
 
 language_create:
     path: /language/create/
     defaults:
-        _controller: CMSBundle:AdminLanguage:create
+        _controller: Monolith\CMSBundle\Controller\AdminLanguageController::createAction
 
 language_edit:
     path: /language/{id}/
     defaults:
-        _controller: CMSBundle:AdminLanguage:edit
+        _controller: Monolith\CMSBundle\Controller\AdminLanguageController::editAction
     requirements:
         id: \d+
 
@@ -58,33 +58,33 @@ language_edit:
 development:
     path: /development/
     defaults:
-        _controller: CMSBundle:AdminDevelopment:index
+        _controller: Monolith\CMSBundle\Controller\AdminDevelopmentController::indexAction
 
 development_sync:
     path: /development/sync/
     defaults:
-        _controller: CMSBundle:AdminDevelopment:sync
+        _controller: Monolith\CMSBundle\Controller\AdminDevelopmentController::syncAction
 
 development_db:
     path: /development/db/
     defaults:
-        _controller: CMSBundle:AdminDevelopment:database
+        _controller: Monolith\CMSBundle\Controller\AdminDevelopmentController::databaseAction
 
 # sites
 site:
     path: /site/
     defaults:
-        _controller: CMSBundle:AdminSite:index
+        _controller: Monolith\CMSBundle\Controller\AdminSiteController::indexAction
 
 site_create:
     path: /site/create/
     defaults:
-        _controller: CMSBundle:AdminSite:create
+        _controller: Monolith\CMSBundle\Controller\AdminSiteController::createAction
 
 site_edit:
     path: /site/{id}/
     defaults:
-        _controller: CMSBundle:AdminSite:edit
+        _controller: Monolith\CMSBundle\Controller\AdminSiteController::editAction
     requirements:
         id: \d+
 
@@ -92,24 +92,24 @@ site_edit:
 domains:
     path: /site/domains/
     defaults:
-        _controller: CMSBundle:AdminDomain:index
+        _controller: Monolith\CMSBundle\Controller\AdminDomainController::indexAction
 
 domain_create:
     path: /domain_create/
     defaults:
-        _controller: CMSBundle:AdminDomain:create
+        _controller: Monolith\CMSBundle\Controller\AdminDomainController::createAction
 
 domain_edit:
     path: /domain/{id}/
     defaults:
-        _controller: CMSBundle:AdminDomain:edit
+        _controller: Monolith\CMSBundle\Controller\AdminDomainController::editAction
     requirements:
         id: \d+
 
 domain_create_alias:
     path: /domain_create_alias/{id}/
     defaults:
-        _controller: CMSBundle:AdminDomain:createAlias
+        _controller: Monolith\CMSBundle\Controller\AdminDomainController::createAliasAction
     requirements:
         id: \d+
 
@@ -117,71 +117,71 @@ domain_create_alias:
 reports:
     path: /reports/
     defaults:
-        _controller: CMSBundle:Admin:reports
+        _controller: Monolith\CMSBundle\Controller\AdminController::reports
 
 # Backup
 backup_download:
     path: /backup/{filename}
     defaults:
-        _controller: CMSBundle:Admin:backupDownload
+        _controller: Monolith\CMSBundle\Controller\AdminController::backupDownload
         filename: '.+'
 
 backup:
     path: /backup/
     defaults:
-        _controller: CMSBundle:Admin:backupIndex
+        _controller: Monolith\CMSBundle\Controller\AdminController::backupIndex
 
 # Structure
 structure_index:
     path: /structure/
     defaults:
-        _controller: CMSBundle:AdminStructure:structure
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::structureAction
 
 structure:
     path: /structure/
     defaults:
-        _controller: CMSBundle:AdminStructure:structure
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::structureAction
 
 megastructure:
     path: /megastructure/
     defaults:
-        _controller: CMSBundle:AdminStructure:megastructure
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::megastructureAction
 
 structure_trash:
     path: /structure/trash/
     defaults:
-        _controller: CMSBundle:AdminStructure:trash
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::trashAction
 
 structure_trash_restore_node:
     path: /structure/trash/restore_node/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:trashRestoreNode
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::trashRestoreNodeAction
 
 structure_trash_purge_node:
     path: /structure/trash/purge_node/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:trashPurgeNode
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::trashPurgeNodeAction
 
 structure_trash_restore_folder:
     path: /structure/trash/restore_folder/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:trashRestoreFolder
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::trashRestoreFolderAction
 
 structure_trash_purge_folder:
     path: /structure/trash/purge_folder/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:trashPurgeFolder
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::trashPurgeFolderAction
 
 # Region
 structure_region:
     path: /structure/region/
     defaults:
-        _controller: CMSBundle:AdminStructure:regionIndex
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::regionIndexAction
 
 structure_region_edit:
     path: /structure/region/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:regionEdit
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::regionEditAction
     requirements:
         id: \d+
 
@@ -189,20 +189,20 @@ structure_region_edit:
 structure_folder_create:
     path: /structure/folder/create/
     defaults:
-        _controller: CMSBundle:AdminStructure:folderCreate
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::folderCreateAction
 #        parent: 1
 
 structure_folder_create_in_folder:
     path: /structure/folder/create/{parent}/
     defaults:
-        _controller: CMSBundle:AdminStructure:folderCreate
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::folderCreateAction
     requirements:
         parent: \d+
 
 structure_folder:
     path: /structure/folder/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:folderEdit
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::folderEditAction
     requirements:
         id: \d+
 
@@ -210,29 +210,29 @@ structure_folder:
 structure_node_create:
     path: /structure/node/create/
     defaults:
-        _controller: CMSBundle:AdminStructure:nodeCreate
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::nodeCreateAction
 
 structure_node_create_in_folder:
     path: /structure/node/create/{folder_pid}/
     defaults:
-        _controller: CMSBundle:AdminStructure:nodeCreate
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::nodeCreateAction
 
 #structure_node_all:
 #    path: /structure/node/
 #    defaults:
-#        _controller: CMSBundle:AdminStructure:node
+#        _controller: Monolith\CMSBundle\Controller\AdminStructureController::nodeAction
 
 structure_node_properties:
     path: /structure/node/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:nodeEdit
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::nodeEditAction
     requirements:
         id: \d+
 
 structure_node_setup_controller:
     path: /structure/node/{id}/setup_controller/
     defaults:
-        _controller: CMSBundle:AdminStructure:nodeSetupController
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::nodeSetupControllerAction
     requirements:
         id: \d+
 
@@ -240,100 +240,100 @@ structure_node_setup_controller:
 appearance:
     path: /appearance/
     defaults:
-        _controller: CMSBundle:AdminAppearance:index
+        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::indexAction
 
 appearance_template:
     path: /appearance/{name}.twig/
     defaults:
-        _controller: CMSBundle:AdminAppearance:templateEdit
+        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::templateEditAction
 
 appearance_template_history:
     path: /appearance/{name}.twig/history/
     defaults:
-        _controller: CMSBundle:AdminAppearance:templateHistory
+        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::templateHistoryAction
 
 appearance_style_history:
     path: /appearance/{name}/history/
     defaults:
-        _controller: CMSBundle:AdminAppearance:styleHistory
+        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::styleHistoryAction
 
 appearance_history_code:
     path: /appearance/history/{id}/
     defaults:
-        _controller: CMSBundle:AdminAppearance:historyCode
+        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::historyCodeAction
 
 appearance_history_rollback:
     path: /appearance/history/rollback/{id}/
     defaults:
-        _controller: CMSBundle:AdminAppearance:historyRollback
+        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::historyRollbackAction
 
 appearance_style:
     path: /appearance/{name}/
     defaults:
-        _controller: CMSBundle:AdminAppearance:styleEdit
+        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::styleEditAction
 
 # Users
 user:
     path: /user/
     defaults:
-        _controller: CMSBundle:AdminUser:index
+        _controller: Monolith\CMSBundle\Controller\AdminUserController::indexAction
 
 user_create:
     path: /user/create/
     defaults:
-        _controller: CMSBundle:AdminUser:create
+        _controller: Monolith\CMSBundle\Controller\AdminUserController::createAction
 
 user_groups:
     path: /user/groups/
     defaults:
-        _controller: CMSBundle:AdminUser:groups
+        _controller: Monolith\CMSBundle\Controller\AdminUserController::groupsAction
 
 user_group_edit:
     path: /user/group/{id}/
     defaults:
-        _controller: CMSBundle:AdminUser:groupEdit
+        _controller: Monolith\CMSBundle\Controller\AdminUserController::groupEditAction
     requirements:
         id: \d+
 
 user_group_create:
     path: /user/group/create/
     defaults:
-        _controller: CMSBundle:AdminUser:groupCreate
+        _controller: Monolith\CMSBundle\Controller\AdminUserController::groupCreateAction
     requirements:
         id: \d+
 
 user_edit:
     path: /user/{id}/
     defaults:
-        _controller: CMSBundle:AdminUser:edit
+        _controller: Monolith\CMSBundle\Controller\AdminUserController::editAction
 
 # Configuration
 
 config_media:
     path: /config/media/
     defaults:
-        _controller: CMSBundle:AdminMediaLibrary:index
+        _controller: Monolith\CMSBundle\Controller\AdminMediaLibraryController::indexAction
 
 config_media_create_storage:
     path: /config/media/storage_create/
     defaults:
-        _controller: CMSBundle:AdminMediaLibrary:createStorage
+        _controller: Monolith\CMSBundle\Controller\AdminMediaLibraryController::createStorageAction
 
 config_media_edit_storage:
     path: /config/media/storage_{id}/
     defaults:
-        _controller: CMSBundle:AdminMediaLibrary:editStorage
+        _controller: Monolith\CMSBundle\Controller\AdminMediaLibraryController::editStorageAction
     requirements:
         id: \d+
 
 config_media_create_collection:
     path: /config/media/collection_create/
     defaults:
-        _controller: CMSBundle:AdminMediaLibrary:createCollection
+        _controller: Monolith\CMSBundle\Controller\AdminMediaLibraryController::createCollectionAction
 
 config_media_edit_collection:
     path: /config/media/collection_{id}/
     defaults:
-        _controller: CMSBundle:AdminMediaLibrary:editCollection
+        _controller: Monolith\CMSBundle\Controller\AdminMediaLibraryController::editCollectionAction
     requirements:
         id: \d+

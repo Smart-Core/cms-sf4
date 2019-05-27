@@ -8,7 +8,7 @@
 {%- endblock cms_folder_tree_widget -%}
 
 {%- block cms_folder_tree_widget_expanded -%}
-    {% spaceless %}
+    {% apply spaceless %}
         {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' ' ~ (multiple ? 'checkbox' : 'radio'))}) %}
         {% set label_attr = label_attr|merge({'class': (label_attr.class ~ ' ' ~ (widget_type ? widget_type : ''))}) %}
         {% set label_attr = label_attr|merge({'class': (label_attr.class ~ ' ' ~ (inline is defined and inline ? 'inline' : ''))|trim}) %}
@@ -25,7 +25,7 @@
                 </label>
             {% endfor %}
         </div>
-    {% endspaceless %}
+    {% endapply %}
 {%- endblock cms_folder_tree_widget_expanded -%}
 
 {% block cms_folder_tree_widget_collapsed %}

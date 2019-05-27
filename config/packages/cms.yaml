@@ -1,2 +1,2 @@
 cms:
-    cache_provider: cms_cache_pool.array
+#    cache_provider: cms_cache_pool.array

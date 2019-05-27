@@ -3,7 +3,6 @@
 namespace Monolith\CMSBundle\Form\Tree;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Monolith\CMSBundle\Container;
 use Monolith\CMSBundle\Manager\ContextManager;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Monolith\CMSBundle\Entity\Folder;

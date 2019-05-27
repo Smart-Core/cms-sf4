@@ -2,25 +2,25 @@
 monolith_module.menu.admin:
     path: /
     defaults:
-        _controller: MenuModuleBundle:Admin:index
+        _controller: Monolith\Module\Menu\Controller\AdminController::indexAction
 
 monolith_module.menu.admin_menu:
     path: /{id}
     defaults:
-        _controller: MenuModuleBundle:Admin:menu
+        _controller: Monolith\Module\Menu\Controller\AdminController::menuAction
     requirements:
         menu_id: \d+
 
 monolith_module.menu.admin_menu_edit:
     path: /{id}/edit
     defaults:
-        _controller: MenuModuleBundle:Admin:menuEdit
+        _controller: Monolith\Module\Menu\Controller\AdminController::menuEditAction
     requirements:
         menu: \d+
 
 monolith_module.menu.admin_item:
     path: /item/{id}
     defaults:
-        _controller: MenuModuleBundle:Admin:item
+        _controller: Monolith\Module\Menu\Controller\AdminController::itemAction
     requirements:
         item_id: \d+

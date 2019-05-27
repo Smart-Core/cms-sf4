@@ -2,12 +2,12 @@
 cms_api.syslog:
     path: /syslog/
     defaults:
-        _controller: CMSBundle:Api:syslog
+        _controller: Monolith\CMSBundle\Controller\ApiController::syslogAction
 
 cms_api.get_database_dump:
     path: /get_db_dump/
     defaults:
-        _controller: CMSBundle:Api:getDatabaseDump
+        _controller: Monolith\CMSBundle\Controller\ApiController::getDatabaseDumpAction
 
 cms_api:
     path: /

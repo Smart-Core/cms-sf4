@@ -14,10 +14,12 @@
                 <tr>
                     <td style="width: 200px;">
                         {% set first = true %}
-                        {% for img_filename in e.screenshots if first %}
+                        {% for img_filename in e.screenshots %}
+                            {% if first %}
                             <a href="{{ path('cms_admin.theme_show', {'name': name}) }}">
                                 <img src="{{ path('cms_admin.theme_get_screenshot', {'theme': name, 'filename': img_filename}) }}" width="200">
                             </a>
+                            {% endif %}
                             {% set first = false %}
                         {% endfor %}
                     </td>

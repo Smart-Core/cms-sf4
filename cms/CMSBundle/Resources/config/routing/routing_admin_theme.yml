@@ -1,21 +1,21 @@
 theme_index:
     path: /
     defaults:
-        _controller: CMSBundle:AdminTheme:index
+        _controller: Monolith\CMSBundle\Controller\AdminThemeController::indexAction
 
 theme_show:
     path: /{name}/
     defaults:
-        _controller: CMSBundle:AdminTheme:theme
+        _controller: Monolith\CMSBundle\Controller\AdminThemeController::themeAction
 
 theme_file_edit:
     path: /{theme}/{dir}:{relativePathname}
     defaults:
-        _controller: CMSBundle:AdminTheme:fileEdit
+        _controller: Monolith\CMSBundle\Controller\AdminThemeController::fileEditAction
     requirements:
         relativePathname: '.+'
 
 theme_get_screenshot:
     path: /get_screenshot/{theme}/{filename}
     defaults:
-        _controller: CMSBundle:AdminTheme:getScreenshot
+        _controller: Monolith\CMSBundle\Controller\AdminThemeController::getScreenshotAction

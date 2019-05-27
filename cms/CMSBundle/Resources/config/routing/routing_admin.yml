@@ -20,14 +20,14 @@ system_themes:
 node: # @deprecated
     path: /node/{id}/
     defaults:
-        _controller: CMSBundle:AdminStructure:node
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::nodeAction
     requirements:
         id: \d+
 
 node_w_slug: # @deprecated
     path: /node/{id}/{slug}
     defaults:
-        _controller: CMSBundle:AdminStructure:node
+        _controller: Monolith\CMSBundle\Controller\AdminStructureController::nodeAction
     requirements:
         id: \d+
         slug: '.+'

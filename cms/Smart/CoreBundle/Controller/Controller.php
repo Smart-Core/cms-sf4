@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseControll
 /**
  * Inspired by KnpRadBundle
  *
- * @deprecated
+ * deprecated
  */
 class Controller extends BaseController
 {

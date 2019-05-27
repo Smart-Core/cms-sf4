@@ -2,3 +2,4 @@ doctrine:
     orm:
         resolve_target_entities:
             FOS\UserBundle\Model\UserInterface: "%user_class%"
+#            Symfony\Component\Security\Core\User\UserInterface: "%user_class%"

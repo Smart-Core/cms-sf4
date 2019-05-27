@@ -6,7 +6,7 @@ cms_admin.site_switch_selected:
     path: /__cms_site_switch_selected/
     methods: POST
     defaults:
-        _controller: CMSBundle:Cms:switchSelectedSite
+        _controller: Monolith\CMSBundle\Controller\CmsController::switchSelectedSiteAction
 
 cms_api:
     resource: routing_api.yml

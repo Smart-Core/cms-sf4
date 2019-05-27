@@ -6,7 +6,6 @@ namespace Monolith\CMSBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Monolith\CMSBundle\Container;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -211,6 +210,11 @@ class AdminMenu implements ContainerAwareInterface
     {
         $rootFolder = $this->container->get('cms.context')->getSite()->getRootFolder();
 
+        // Фикс с кешированием.
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $rootFolder = $em->find('CMSBundle:Folder', $rootFolder->getId());
+
         if (empty($rootFolder)) {
             $rootFolder = [];
         } else {
@@ -221,6 +225,10 @@ class AdminMenu implements ContainerAwareInterface
             //? $this->container->get('cms.folder')->findByParent(null)
             ? $rootFolder
             : $parent_folder->getChildren();
+
+        if (empty($folders)) {
+            return;
+        }
 
         /** @var $folder Folder */
         foreach ($folders as $folder) {
@@ -261,6 +269,10 @@ class AdminMenu implements ContainerAwareInterface
             $sub_menu = $menu[$folder->getTitle()];
 
             $this->addChild($sub_menu, $folder);
+
+            if (empty($folder->getNodes())) {
+                continue;
+            }
 
             /** @var $node \Monolith\CMSBundle\Entity\Node */
             foreach ($folder->getNodes() as $node) {

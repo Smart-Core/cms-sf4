@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Manager;
 
 use Doctrine\ORM\Tools\SchemaValidator;
+use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Entity\Permission;
@@ -436,11 +437,19 @@ class SecurityManager
         /** @var UserModel $user */
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->container->get('doctrine.orm.entity_manager');
+        if ($user == 'anon.') {
+            /** @var CmsCacheProvider $cache */
+            $cache     = $this->container->get('cms.cache');
+            $cache_key = md5('cms security guest group');
 
-        /** @var хранить в кеше данные о гостевой группе $guestGroup */
-        $guestGroup = $em->getRepository(UserGroup::class)->findOneBy(['name' => 'guests']);
+            if (null === $guestGroup = $cache->get($cache_key)) {
+                $guestGroup = $this->em->getRepository(UserGroup::class)->findOneBy(['name' => 'guests']);
+
+                $cache->set($cache_key, $guestGroup, ['security']);
+            }
+        } else {
+            $guestGroup = $this->em->getRepository(UserGroup::class)->findOneBy(['name' => 'guests']);
+        }
 
         if ($guestGroup) {
             $userGroups = [
