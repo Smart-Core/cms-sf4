@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PermissionsUpdateFoldersCommand extends ContainerAwareCommand
+class PermissionsUpdateFoldersCommand extends Command
 {
+    protected static $defaultName = 'cms:permissions:update-folders';
+
     protected function configure(): void
     {
         $this
-            ->setName('cms:permissions:update-folders')
             ->setDescription('Update all folders permissions with default value from user groups.')
         ;
     }

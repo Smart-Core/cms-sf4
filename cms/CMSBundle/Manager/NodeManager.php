@@ -16,7 +16,6 @@ use Monolith\CMSBundle\Form\Type\NodeDefaultPropertiesFormType;
 use Monolith\CMSBundle\Form\Type\NodeFormType;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Monolith\CMSBundle\Twig\RegionRenderHelper;
-use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -30,7 +29,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class NodeManager
 {
     use ContainerAwareTrait;
-    use ControllerTrait;
 
     /**
      * @var EntityManager
@@ -61,10 +59,8 @@ class NodeManager
      * Список всех нод, запрошенных в текущем контексте.
      *
      * @var Node[]
-     *
-     * @todo переименовать с $contextNodes
      */
-    protected $nodes = [];
+    protected $contextNodes = [];
 
     /**
      * Коллекция фронтальных элементов управления.
@@ -146,8 +142,8 @@ class NodeManager
             return null;
         }
 
-        if (isset($this->nodes[$id])) {
-            return $this->nodes[$id];
+        if (isset($this->contextNodes[$id])) {
+            return $this->contextNodes[$id];
         }
 
         $node = $this->repository->find($id);
@@ -233,8 +229,6 @@ class NodeManager
      */
     public function getPropertiesFormType(Node $node): string
     {
-        $cmsNode = $this->container->get('cms.node');
-
         $module_name = $node->getModule();
 
         try {
@@ -274,13 +268,13 @@ class NodeManager
      */
     public function buildList(array $router_data): array
     {
-        if (!empty($this->nodes)) {
-            return $this->nodes;
+        if (!empty($this->contextNodes)) {
+            return $this->contextNodes;
         }
 
         $cmsSecurity = $this->container->get('cms.security');
 
-        $this->nodes = [];
+        $this->contextNodes = [];
 
         // Try to get nodes from cache
         if ($router_data['http_method'] == 'GET') {
@@ -292,19 +286,19 @@ class NodeManager
 
             $cache_key = md5('cms_node_list'.serialize($router_data).$userGroups);
 
-            if (null === $this->nodes = $this->cache->get($cache_key)) {
-                $this->nodes = [];
+            if (null === $this->contextNodes = $this->cache->get($cache_key)) {
+                $this->contextNodes = [];
             } else {
                 // Обход странного бага с кешем нод.
-                foreach ($this->nodes as $node) {
+                foreach ($this->contextNodes as $node) {
                     if (empty($node->getRegion())) {
-                        $this->nodes = [];
+                        $this->contextNodes = [];
 
                         goto Bad_Cache;
                     }
                 }
 
-                return $this->nodes;
+                return $this->contextNodes;
 
                 Bad_Cache:
             }
@@ -378,30 +372,30 @@ class NodeManager
                     $used_nodes[] = $node_id;
                 }
 
-                $this->nodes[$node_id] = $node_id;
+                $this->contextNodes[$node_id] = $node_id;
             }
         }
 
         foreach ($lockout_nodes['single'] as $node_id) {
-            unset($this->nodes[$node_id]);
+            unset($this->contextNodes[$node_id]);
         }
 
         foreach ($lockout_nodes['inherit'] as $node_id) {
-            unset($this->nodes[$node_id]);
+            unset($this->contextNodes[$node_id]);
         }
 
         if (!empty($lockout_nodes['except'])) {
-            foreach ($this->nodes as $node_id) {
+            foreach ($this->contextNodes as $node_id) {
                 if (!array_key_exists($node_id, $lockout_nodes['except'])) {
-                    unset($this->nodes[$node_id]);
+                    unset($this->contextNodes[$node_id]);
                 }
             }
         }
 
         // Заполнение массива с нодами сущностями нод.
-        foreach ($this->repository->findIn($this->nodes) as $node) {
+        foreach ($this->repository->findIn($this->contextNodes) as $node) {
             if (!$cmsSecurity->checkForRegionAccess($node->getRegion()) or !$cmsSecurity->checkForNodeAccess($node)) {
-                unset($this->nodes[$node->getId()]);
+                unset($this->contextNodes[$node->getId()]);
                 continue;
             }
 
@@ -412,17 +406,17 @@ class NodeManager
                 $node->setPriority(255);
             }
 
-            $this->nodes[$node->getId()] = $node;
+            $this->contextNodes[$node->getId()] = $node;
         }
 
         \Profiler::end('Build Nodes List');
 
         // Store nodes to cache
         if ($router_data['http_method'] == 'GET' and $this->container->get('smart_core.settings.manager')->get('cms:enable_node_cache')) {
-            $this->cache->set($cache_key, $this->nodes, ['folder', 'node']);
+            $this->cache->set($cache_key, $this->contextNodes, ['folder', 'node']);
         }
 
-        return $this->nodes;
+        return $this->contextNodes;
     }
 
     /**
@@ -434,7 +428,7 @@ class NodeManager
      *
      * @return array|Response|RedirectResponse
      *
-     * // @todo убрать из контента обёртки для фронт админки
+     * @todo убрать из контента обёртки для фронт админки
      */
     public function buildModulesData(Request $request, array $nodes)
     {
@@ -452,10 +446,13 @@ class NodeManager
 
         krsort($prioritySorted);
 
+        $authorizationChecker = $this->container->get('security.authorization_checker');
+
         foreach ($prioritySorted as $nodes) {
             /** @var \Monolith\CMSBundle\Entity\Node $node */
             foreach ($nodes as $node) {
-                if ($this->isGranted('ROLE_ADMIN') and $node->getIsUseEip()) {
+
+                if ($authorizationChecker->isGranted('ROLE_ADMIN') and $node->getIsUseEip()) {
                     $node->setEip(true);
                 }
 
@@ -487,7 +484,7 @@ class NodeManager
                 }
 
                 // @todo сделать отправку front_controls в ответе метода.
-                if ($this->isGranted('ROLE_ADMIN')) {
+                if ($authorizationChecker->isGranted('ROLE_ADMIN')) {
                     $this->front_controls['node']['__node_'.$node->getId()] = $node->getFrontControls();
                     $this->front_controls['node']['__node_'.$node->getId()]['cms_node_properties'] = [
                         'title' => 'Параметры модуля '.$node->getModule(),
@@ -495,7 +492,7 @@ class NodeManager
                     ];
                 }
 
-                if ($this->isGranted('ROLE_ADMIN') and $node->getIsUseEip()) {
+                if ($authorizationChecker->isGranted('ROLE_ADMIN') and $node->getIsUseEip()) {
                     $moduleResponse->setContent(
                         "\n<div class=\"cms-frontadmin-node\" id=\"__node_{$node->getId()}\" data-module=\"{$node->getModule()}\">\n".$moduleResponse->getContent()."\n</div>\n"
                     );
@@ -578,7 +575,7 @@ class NodeManager
      */
     public function getNodes(): array
     {
-        return $this->nodes;
+        return $this->contextNodes;
     }
 
     /**

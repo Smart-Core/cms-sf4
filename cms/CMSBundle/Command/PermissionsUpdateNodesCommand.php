@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PermissionsUpdateNodesCommand extends ContainerAwareCommand
+class PermissionsUpdateNodesCommand extends Command
 {
+    protected static $defaultName = 'cms:permissions:update-nodes';
+
     protected function configure(): void
     {
         $this
-            ->setName('cms:permissions:update-nodes')
             ->setDescription('Update all Nodes permissions with default value from user groups.')
         ;
     }
