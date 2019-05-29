@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use Monolith\CMSBundle\Entity\Language;
 use Monolith\CMSBundle\Entity\Site;
@@ -12,13 +12,21 @@ use Smart\CoreBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_LANGUAGE') or is_granted('ROLE_SUPER_ADMIN')")
+ *
+ * @Route("/site")
  */
 class AdminSiteController extends Controller
 {
+    /**
+     * @return Response
+     *
+     * @Route("/", name="cms_admin.site")
+     */
     public function indexAction(): Response
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -31,6 +39,13 @@ class AdminSiteController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @Route("/create/", name="cms_admin.site_create")
+     */
     public function createAction(Request $request): Response
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -69,6 +84,14 @@ class AdminSiteController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Site    $site
+     *
+     * @return Response
+     *
+     * @Route("/{id<\d+>}/", name="cms_admin.site_edit")
+     */
     public function editAction(Request $request, Site $site): Response
     {
         $form = $this->createForm(SiteFormType::class, $site);

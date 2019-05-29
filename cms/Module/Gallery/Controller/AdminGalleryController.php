@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Monolith\Module\Gallery\Controller;
 
-use Smart\CoreBundle\Controller\Controller;
+use Doctrine\ORM\EntityManagerInterface;
+use Monolith\CMSBundle\Controller\AbstractAdminController;
 use Monolith\Module\Gallery\Entity\Album;
 use Monolith\Module\Gallery\Entity\Gallery;
 use Monolith\Module\Gallery\Entity\Photo;
@@ -16,15 +17,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class AdminGalleryController extends Controller
+class AdminGalleryController extends AbstractAdminController
 {
     /**
      * @param Request $request
      *
      * @return RedirectResponse|Response
+     *
+     * @Route("/", name="monolith_module.gallery.admin")
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(Request $request, EntityManagerInterface $em): Response
     {
         $gallery = new Gallery();
         $gallery->setUser($this->getUser());
@@ -35,15 +39,13 @@ class AdminGalleryController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $this->persist($form->getData(), true);
+                $em->persist($form->getData());
+                $em->flush($form->getData());
                 $this->addFlash('success', 'Gallery created successfully.');
 
                 return $this->redirectToRoute('monolith_module.gallery.admin');
             }
         }
-
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
 
         return $this->render('@GalleryModule/Admin/index.html.twig', [
             'form'      => $form->createView(),
@@ -53,15 +55,17 @@ class AdminGalleryController extends Controller
 
     /**
      * @param Request $request
-     * @param         $id
+     * @param Gallery $gallery
      *
      * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      * @throws \Exception
+     *
+     * @Route("/gallery_{id}/", name="monolith_module.gallery.admin_gallery")
      */
-    public function galleryAction(Request $request, Gallery $gallery): Response
+    public function galleryAction(Request $request, Gallery $gallery, EntityManagerInterface $em): Response
     {
         $album = new Album();
         $album
@@ -77,7 +81,8 @@ class AdminGalleryController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $this->persist($form->getData(), true);
+                $em->persist($form->getData());
+                $em->flush($form->getData());
                 $this->addFlash('success', 'Album created successfully.');
 
                 return $this->redirectToRoute('monolith_module.gallery.admin_gallery', ['id' => $gallery->getId()]);
@@ -86,7 +91,7 @@ class AdminGalleryController extends Controller
 
         $folderPath = null;
         foreach ($this->get('cms.node')->findByModule('GalleryModuleBundle') as $node) {
-            if ($node->getParam('gallery_id') === (int) $gallery->getId()) {
+            if ($node->getParam('gid') === (int) $gallery->getId()) {
                 $folderPath = $this->get('cms.folder')->getUri($node);
 
                 break;
@@ -103,9 +108,6 @@ class AdminGalleryController extends Controller
             $albumOrderBy = ['updated_at' => 'DESC'];
         }
 
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
         return $this->render('@GalleryModule/Admin/gallery.html.twig', [
             'form'       => $form->createView(),
             'folderPath' => $folderPath,
@@ -119,8 +121,10 @@ class AdminGalleryController extends Controller
      * @param Gallery $gallery
      *
      * @return Response
+     *
+     * @Route("/gallery_{id}/edit/", name="monolith_module.gallery.admin_gallery_edit")
      */
-    public function galleryEditAction(Request $request, Gallery $gallery): Response
+    public function galleryEditAction(Request $request, Gallery $gallery, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(GalleryFormType::class, $gallery);
         $form->add('update', SubmitType::class, ['attr' => ['class' => 'btn-success']])
@@ -134,7 +138,8 @@ class AdminGalleryController extends Controller
             }
 
             if ($form->isValid()) {
-                $this->persist($form->getData(), true);
+                $em->persist($form->getData());
+                $em->flush($form->getData());
                 $this->addFlash('success', 'Gallery updated successfully.');
 
                 return $this->redirectToRoute('monolith_module.gallery.admin');
@@ -149,23 +154,23 @@ class AdminGalleryController extends Controller
 
     /**
      * @param Request $request
-     * @param int $id
-     * @param int $gallery_id
+     * @param int     $id
+     * @param int     $gid
+     * @param EntityManagerInterface $em
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      *
+     * @Route("/gallery_{gid}/album_{aid}/", name="monolith_module.gallery.admin_album")
+     *
      * @todo pagination
      */
-    public function albumAction(Request $request, $id, $gallery_id): Response
+    public function albumAction(Request $request, int $aid, int $gid, EntityManagerInterface $em): Response
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+        $album = $em->find(Album::class, $aid);
 
-        $album = $em->find(Album::class, $id);
-
-        if (empty($album) or $album->getGallery()->getId() != $gallery_id) {
+        if (empty($album) or $album->getGallery()->getId() != $gid) {
             throw $this->createNotFoundException();
         }
 
@@ -189,7 +194,8 @@ class AdminGalleryController extends Controller
                     $photo->setImageId($mc->upload($photo->getFile()));
                 }
 
-                $this->persist($photo, true);
+                $em->persist($photo);
+                $em->flush($photo);
                 $this->addFlash('success', 'Photo uploaded successfully.');
 
                 if ($album->getCoverImageId() == $album->getLastImageId()) {
@@ -201,21 +207,22 @@ class AdminGalleryController extends Controller
                     ->setLastImageId($photo->getImageId())
                 ;
 
-                $this->persist($album, true);
+                $em->persist($album);
+                $em->flush($album);
 
                 return $this->redirectToRoute('monolith_module.gallery.admin_album', [
                     'id'         => $album->getId(),
-                    'gallery_id' => $album->getGallery()->getId(),
+                    'gid' => $album->getGallery()->getId(),
                 ]);
             }
         }
 
         $albumPath  = null;
         foreach ($this->get('cms.node')->findByModule('GalleryModuleBundle') as $node) {
-            if ($node->getParam('gallery_id') === (int) $id) {
+            if ($node->getParam('gid') === (int) $gid) {
                 $albumPath = $this->generateUrl('monolith_module.gallery.album', [
                     '_folderPath' => $this->get('cms.folder')->getUri($node),
-                    'id' => $id,
+                    'id' => $aid,
                 ]);
 
                 break;
@@ -233,18 +240,17 @@ class AdminGalleryController extends Controller
     /**
      * @param Request $request
      * @param int $id
-     * @param int $gallery_id
+     * @param int $gid
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/gallery_{gid}/album_{aid}/edit/", name="monolith_module.gallery.admin_album_edit")
      */
-    public function albumEditAction(Request $request, $id, $gallery_id): Response
+    public function albumEditAction(Request $request, int $aid, int $gid, EntityManagerInterface $em): Response
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+        $album = $em->find(Album::class, $aid);
 
-        $album = $em->find(Album::class, $id);
-
-        if (empty($album) or $album->getGallery()->getId() != $gallery_id) {
+        if (empty($album) or $album->getGallery()->getId() != $gid) {
             throw $this->createNotFoundException();
         }
 
@@ -260,24 +266,26 @@ class AdminGalleryController extends Controller
                 if ($album->getPhotosCount() > 0) {
                     $this->addFlash('error', 'Удалить можно только пустой альбом.');
 
-                    return $this->redirectToRoute('monolith_module.gallery.admin_album_edit', ['id' => $album->getId(), 'gallery_id' => $gallery_id]);
+                    return $this->redirectToRoute('monolith_module.gallery.admin_album_edit', ['aid' => $album->getId(), 'gid' => $gid]);
                 } else {
                     $this->addFlash('success', 'Album <b>'.$album.'</b> deleted successfully.');
                     $this->remove($album, true);
                 }
 
-                return $this->redirectToRoute('monolith_module.gallery.admin_gallery', ['id' => $gallery_id]);
+                return $this->redirectToRoute('monolith_module.gallery.admin_gallery', ['id' => $gid]);
             }
 
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('monolith_module.gallery.admin_gallery', ['id' => $gallery_id]);
+                return $this->redirectToRoute('monolith_module.gallery.admin_gallery', ['id' => $gid]);
             }
 
             if ($form->isValid()) {
-                $this->persist($form->getData(), true);
+                $em->persist($form->getData());
+                $em->flush($form->getData());
+
                 $this->addFlash('success', 'Album updated successfully.');
 
-                return $this->redirectToRoute('monolith_module.gallery.admin_gallery', ['id' => $gallery_id]);
+                return $this->redirectToRoute('monolith_module.gallery.admin_gallery', ['id' => $gid]);
             }
         }
 
@@ -290,22 +298,25 @@ class AdminGalleryController extends Controller
     /**
      * @param Request $request
      * @param int $id
-     * @param int $gallery_id
+     * @param int $gid
      * @param int $album_id
      * @param bool $set_as_cover
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @Route("/gallery_{gid}/album_{aid}/photo_{id}/cover/",
+     *         name="monolith_module.gallery.admin_photo_make_cover",
+     *         defaults={"set_as_cover"="true"
+     * })
+     * @Route("/gallery_{gid}/album_{aid}/photo_{id}/", name="monolith_module.gallery.admin_photo")
      */
-    public function photoAction(Request $request, $id, $gallery_id, $album_id, $set_as_cover = false): Response
+    public function photoAction(Request $request, int $id, int $gid, $aid, EntityManagerInterface $em, $set_as_cover = false): Response
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
         $photo = $em->find(Photo::class, $id);
 
-        if (empty($photo) or $photo->getAlbum()->getId() != $album_id or $photo->getAlbum()->getGallery()->getId() != $gallery_id) {
+        if (empty($photo) or $photo->getAlbum()->getId() != $aid or $photo->getAlbum()->getGallery()->getId() != $gid) {
             throw $this->createNotFoundException();
         }
 
@@ -313,10 +324,11 @@ class AdminGalleryController extends Controller
 
         if ($set_as_cover) {
             $album->setCoverImageId($photo->getImageId());
-            $this->persist($album, true);
+            $em->persist($album);
+            $em->flush($album);
             $this->addFlash('success', 'Photo set as cover successfully.');
 
-            return $this->redirectToRoute('monolith_module.gallery.admin_photo', ['album_id' => $album_id, 'gallery_id' => $gallery_id, 'id' => $id]);
+            return $this->redirectToRoute('monolith_module.gallery.admin_photo', ['aid' => $aid, 'gid' => $gid, 'id' => $id]);
         }
 
         $form = $this->createForm(PhotoFormType::class, $photo);
@@ -334,7 +346,7 @@ class AdminGalleryController extends Controller
                 $photo = $form->getData();
 
                 if ($form->get('cancel')->isClicked()) {
-                    return $this->redirectToRoute('monolith_module.gallery.admin_album', ['id' => $album_id, 'gallery_id' => $gallery_id]);
+                    return $this->redirectToRoute('monolith_module.gallery.admin_album', ['aid' => $aid, 'gid' => $gid]);
                 }
 
                 if ($form->get('delete')->isClicked()) {
@@ -351,18 +363,18 @@ class AdminGalleryController extends Controller
                         $album->setCoverImageId(empty($lastPhoto) ? null : $lastPhoto->getImageId());
                     }
 
-                    $this->persist($album, true);
+                    $em->persist($album);
+                    $em->flush($album);
 
-                    return $this->redirectToRoute('monolith_module.gallery.admin_album', ['id' => $album_id, 'gallery_id' => $gallery_id]);
+                    return $this->redirectToRoute('monolith_module.gallery.admin_album', ['aid' => $aid, 'gid' => $gid]);
                 }
 
-                $this->persist($photo, true);
+                $em->persist($photo);
+                $em->flush($photo);
+
                 $this->addFlash('success', 'Photo updated successfully.');
 
-                return $this->redirectToRoute('monolith_module.gallery.admin_album', [
-                    'id'         => $album_id,
-                    'gallery_id' => $gallery_id,
-                ]);
+                return $this->redirectToRoute('monolith_module.gallery.admin_album', ['aid' => $aid, 'gid' => $gid]);
             }
         }
 

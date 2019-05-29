@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/%admin_path%/", name="cms_admin.index", methods={"GET"})
+     * @Route("/", name="cms_admin.index", methods={"GET"})
      */
-    public function index(string $slug = '')
+    public function indexAction(string $slug = '')
     {
         if (!$this->get('cms.security')->isGranted('ROLE_ADMIN')) {
             return $this->render('@CMS/Admin/login.html.twig');
@@ -43,6 +43,8 @@ class AdminController extends AbstractController
      * Render Elfinder FileManager.
      *
      * @return Response
+     *
+     * @Route("/files/", name="cms_admin.files")
      */
     public function elfinderAction(): Response
     {

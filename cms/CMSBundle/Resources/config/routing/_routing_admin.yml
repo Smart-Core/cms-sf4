@@ -9,13 +9,9 @@
 #    defaults:
 #        _controller: FOSUserBundle:Security:logout
 
-system:
-    resource: 'routing_admin_system.yml'
-    prefix: /system/
-
-system_themes:
-    resource: 'routing_admin_theme.yml'
-    prefix: /system/theme/
+#system:
+#    resource: 'routing_admin_system.yml'
+#    prefix: /system/
 
 node: # @deprecated
     path: /node/{id}/

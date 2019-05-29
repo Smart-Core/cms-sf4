@@ -112,7 +112,7 @@ class TextItem
      *
      * @return $this
      */
-    public function setLocale($locale): self
+    public function setLocale(?string $locale): self
     {
         $this->locale = $locale;
 
@@ -122,7 +122,7 @@ class TextItem
     /**
      * @return string
      */
-    public function getLocale(): self
+    public function getLocale(): ?string
     {
         return $this->locale;
     }

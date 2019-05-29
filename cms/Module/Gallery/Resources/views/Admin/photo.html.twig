@@ -12,7 +12,7 @@
     {{ smart_media_img(photo.imageId, '200x200') }}
 
     <p>
-        <a href="{{ path('monolith_module.gallery.admin_photo_make_cover', {'id': photo.id, 'album_id': photo.album.id, 'gallery_id': photo.album.gallery.id}) }}">
+        <a href="{{ path('monolith_module.gallery.admin_photo_make_cover', {'id': photo.id, 'aid': photo.album.id, 'gid': photo.album.gallery.id}) }}">
             Сделать обложкой альбома
         </a>
     </p>

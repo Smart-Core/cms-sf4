@@ -2,18 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use Monolith\CMSBundle\Entity\Module;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Smart\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_MODULE') or is_granted('ROLE_SUPER_ADMIN')")
+ *
+ * @Route("/modules")
  */
 class AdminModuleController extends Controller
 {
+    /**
+     * @return Response
+     *
+     * @Route("/", name="cms_admin.module")
+     */
+    public function enabledAction(): Response
+    {
+        return $this->indexAction('enabled');
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/disabled/", name="cms_admin.module_disabled")
+     */
+    public function disabledAction(): Response
+    {
+        return $this->indexAction('disabled');
+    }
+
+    /**
+     * @param string $mode
+     *
+     * @return Response
+     *
+     * @Route("/all/", name="cms_admin.module_all")
+     */
     public function indexAction($mode = 'all'): Response
     {
         //$modules = $this->getRepository(Module::class)->findBy([], ['name' => 'ASC']);
@@ -78,15 +108,5 @@ class AdminModuleController extends Controller
         return $this->render('@CMS/Admin/Module/index.html.twig', [
             'modules' => $modules
         ]);
-    }
-
-    public function enabledAction(): Response
-    {
-        return $this->indexAction('enabled');
-    }
-
-    public function disabledAction(): Response
-    {
-        return $this->indexAction('disabled');
     }
 }

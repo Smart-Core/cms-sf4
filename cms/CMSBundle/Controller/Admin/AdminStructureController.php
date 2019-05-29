@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\Node;
@@ -22,9 +22,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_SYSTEM') or is_granted('ROLE_SUPER_ADMIN')")
+ *
+ * @Route("/structure")
  */
 class AdminStructureController extends Controller
 {
@@ -36,6 +39,8 @@ class AdminStructureController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @Route("/megastructure/", name="cms_admin.megastructure")
      */
     public function megastructureAction(Request $request): Response
     {
@@ -112,6 +117,8 @@ class AdminStructureController extends Controller
 
     /**
      * @return Response
+     *
+     * @Route("/", name="cms_admin.structure")
      */
     public function structureAction(): Response
     {
@@ -131,6 +138,9 @@ class AdminStructureController extends Controller
      * @param Folder|null  $parent
      *
      * @return Response|RedirectResponse
+     *
+     * @Route("/folder/create/", name="cms_admin.structure_folder_create")
+     * @Route("/folder/create/{parent<\d+>}/", name="cms_admin.structure_folder_create_in_folder")
      */
     public function folderCreateAction(Request $request, Folder $parent = null): Response
     {
@@ -273,6 +283,8 @@ class AdminStructureController extends Controller
      * @param Folder|null $folder
      *
      * @return Response|RedirectResponse
+     *
+     * @Route("/folder/{id<\d+>}/", name="cms_admin.structure_folder")
      */
     public function folderEditAction(Request $request, Folder $folder = null): Response
     {
@@ -373,6 +385,8 @@ class AdminStructureController extends Controller
      * @param Region  $region
      *
      * @return Response|RedirectResponse
+     *
+     * @Route("/region/{id<\d+>}/", name="cms_admin.structure_region_edit")
      */
     public function regionEditAction(Request $request, Region $region)
     {
@@ -417,6 +431,8 @@ class AdminStructureController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @Route("/region/", name="cms_admin.structure_region")
      */
     public function regionIndexAction(Request $request)
     {
@@ -466,13 +482,14 @@ class AdminStructureController extends Controller
      * @param int     $folder_pid
      *
      * @return RedirectResponse|Response
+     *
+     * @Route("/node/create/", name="cms_admin.structure_node_create")
+     * @Route("/node/create/{folder_pid<\d+>}/", name="cms_admin.structure_node_create_in_folder")
      */
     public function nodeCreateAction(Request $request, $folder_pid = 1)
     {
         $moduleManager = $this->get('cms.module');
         $modules_controllers = $moduleManager->allNodeModulesControllers();
-
-//        dump($modules_controllers);
 
         $folderManager = $this->get('cms.folder');
 
@@ -557,6 +574,8 @@ class AdminStructureController extends Controller
      * @param Node    $node
      *
      * @return RedirectResponse|Response
+     *
+     * @Route("/node/{id<\d+>}/", name="cms_admin.structure_node_properties")
      */
     public function nodeEditAction(Request $request, Node $node)
     {
@@ -756,8 +775,10 @@ class AdminStructureController extends Controller
      * @param Node    $node
      *
      * @return RedirectResponse|Response
+     *
+     * @Route("/node/{id<\d+>}/setup_controller/", name="cms_admin.structure_node_setup_controller")
      */
-    public function nodeSetupControllerAction(Request $request, Node $node)
+    public function nodeSetupControllerAction(Request $request, Node $node): Response
     {
         $methods = $this->get('cms.node')->getReflectionMethods($node);
         if (count($methods) === 1) {
@@ -827,38 +848,11 @@ class AdminStructureController extends Controller
             '_overlay'        => $request->query->has('_overlay') ? true : false
         ]);
     }
-    
-    /**
-     * @param Request     $request
-     * @param int         $id
-     * @param string|null $slug
-     *
-     * @return Response
-     *
-     * @deprecated надо делать напрямую через модуль
-     */
-    public function nodeAction(Request $request, $id, $slug = null)
-    {
-        $node = $this->get('cms.node')->get((int) $id);
-
-        $shortName = $this->get('kernel')->getBundle($node->getModule())->getShortName();
-
-        $controller = $this->get('cms.router')->matchModuleAdmin(strtolower($shortName), '/'.$slug);
-        $controller['node'] = $node;
-
-        $subRequest = $this->get('request_stack')->getCurrentRequest()->duplicate($request->query->all(), null, $controller);
-
-        $response = $this->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-
-        if ($response->isRedirection() and $request->query->has('redirect_to')) {
-            return $this->redirect($request->query->get('redirect_to'));
-        }
-
-        return $response;
-    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/trash/", name="cms_admin.structure_trash")
      *
      * @todo пагинация и табы.
      */
@@ -877,6 +871,8 @@ class AdminStructureController extends Controller
      * @param Folder $folder
      *
      * @return RedirectResponse
+     *
+     * @Route("/trash/restore_folder/{id<\d+>}/", name="cms_admin.structure_trash_restore_folder")
      */
     public function trashRestoreFolderAction(Folder $folder): RedirectResponse
     {
@@ -893,8 +889,10 @@ class AdminStructureController extends Controller
      * @param Folder $folder
      *
      * @return RedirectResponse
+     *
+     * @Route("/trash/purge_folder/{id<\d+>}/", name="cms_admin.structure_trash_restore_folder")
      */
-    public function trashPurgeFolderAction(Folder $folder)
+    public function trashPurgeFolderAction(Folder $folder): RedirectResponse
     {
         $this->get('cms.folder')->remove($folder);
 
@@ -907,6 +905,8 @@ class AdminStructureController extends Controller
      * @param Node $node
      *
      * @return RedirectResponse
+     *
+     * @Route("/trash/restore_node/{id<\d+>}/", name="cms_admin.structure_trash_restore_node")
      */
     public function trashRestoreNodeAction(Node $node): RedirectResponse
     {
@@ -929,6 +929,8 @@ class AdminStructureController extends Controller
      * @param Node $node
      *
      * @return RedirectResponse
+     *
+     * @Route("/trash/purge_node/{id<\d+>}/", name="cms_admin.structure_trash_purge_node")
      */
     public function trashPurgeNodeAction(Node $node): RedirectResponse
     {

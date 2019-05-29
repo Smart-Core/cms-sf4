@@ -1,0 +1,58 @@
+#system:
+#    path: /
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminController::notFoundAction
+
+# reports
+#reports:
+#    path: /reports/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminController::reports
+
+# Backup
+#backup_download:
+#    path: /backup/{filename}
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminController::backupDownload
+#        filename: '.+'
+#
+#backup:
+#    path: /backup/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminController::backupIndex
+
+# Appearance
+#appearance:
+#    path: /appearance/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::indexAction
+#
+#appearance_template:
+#    path: /appearance/{name}.twig/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::templateEditAction
+#
+#appearance_template_history:
+#    path: /appearance/{name}.twig/history/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::templateHistoryAction
+#
+#appearance_style_history:
+#    path: /appearance/{name}/history/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::styleHistoryAction
+#
+#appearance_history_code:
+#    path: /appearance/history/{id}/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::historyCodeAction
+#
+#appearance_history_rollback:
+#    path: /appearance/history/rollback/{id}/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::historyRollbackAction
+#
+#appearance_style:
+#    path: /appearance/{name}/
+#    defaults:
+#        _controller: Monolith\CMSBundle\Controller\AdminAppearanceController::styleEditAction

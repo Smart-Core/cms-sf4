@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Manager;
 
 use Monolith\CMSBundle\CMSKernel;
+use Monolith\CMSBundle\Controller\AbstractAdminController;
 use Monolith\CMSBundle\Controller\AbstractNodeController;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Monolith\CMSBundle\Module\ModuleBundleInterface;
@@ -62,7 +63,7 @@ class ModuleManager
     }
 
     /**
-     * Получение списка контроллеров модуля, который можно подключить в ноду.
+     * Получение списка контроллеров модуля, которые можно подключить в ноду.
      *
      * @param string $name
      *
@@ -79,6 +80,27 @@ class ModuleManager
      * @return array
      */
     static public function getNodeControllers(ModuleBundleInterface $module): array
+    {
+        return self::getControllersByParent($module, AbstractNodeController::class);
+    }
+
+    /**
+     * @param ModuleBundleInterface $module
+     *
+     * @return array
+     */
+    static public function getAdminControllers(ModuleBundleInterface $module): array
+    {
+        return self::getControllersByParent($module, AbstractAdminController::class);
+    }
+
+    /**
+     * @param ModuleBundleInterface $module
+     * @param string                $parentClass
+     *
+     * @return array
+     */
+    static protected function getControllersByParent(ModuleBundleInterface $module, string $parentClass): array
     {
         $namespace = $module->getNamespace();
         $path = $module->getPath();
@@ -98,10 +120,8 @@ class ModuleManager
                 continue;
             }
 
-            $parentClass = $reflected->getParentClass();
-
             // @todo добавить проверку на трейт
-            if ($parentClass and $parentClass->getName() == AbstractNodeController::class) {
+            if ($reflected->getParentClass() and $reflected->getParentClass()->getName() == $parentClass) {
                 $controllers[$controller] = [
                     'class' => $namespace.'\\Controller\\'.$controller,
                     'params' => [],

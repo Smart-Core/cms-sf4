@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
@@ -19,10 +19,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_USER') or is_granted('ROLE_SUPER_ADMIN')")
+ *
+ * @Route("/user")
  */
 class AdminUserController extends Controller
 {
@@ -31,9 +34,11 @@ class AdminUserController extends Controller
      *
      * @return Response
      *
+     * @Route("/", name="cms_admin.user")
+     *
      * @todo постраничность
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
@@ -51,8 +56,10 @@ class AdminUserController extends Controller
      * @param Request $request
      *
      * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/create/", name="cms_admin.user_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request): Response
     {
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
@@ -100,11 +107,13 @@ class AdminUserController extends Controller
      * На основе \FOS\UserBundle\Controller\ProfileController::editAction.
      *
      * @param Request $request
-     * @param $id
+     * @param int     $id
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/{id<\d+>}/", name="cms_admin.user_edit")
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, int $id): Response
     {
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
@@ -147,6 +156,8 @@ class AdminUserController extends Controller
      *
      * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or is_granted('ROLE_SUPER_ADMIN')")
      *
+     * @Route("/groups/", name="cms_admin.user_groups")
+     *
      * @todo вынести в контроллер AdminSecurity
      */
     public function groupsAction()
@@ -168,6 +179,8 @@ class AdminUserController extends Controller
      * @return Response
      *
      * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or is_granted('ROLE_SUPER_ADMIN')")
+     *
+     * @Route("/group/{id<\d+>}/", name="cms_admin.user_group_edit")
      *
      * @todo вынести в контроллер AdminSecurity
      */
@@ -214,6 +227,8 @@ class AdminUserController extends Controller
      * @return Response
      *
      * @Security("is_granted('ROLE_ADMIN_USER_GROUPS') or is_granted('ROLE_SUPER_ADMIN')")
+     *
+     * @Route("/group/create/", name="cms_admin.user_group_create")
      *
      * @todo вынести в контроллер AdminSecurity
      */

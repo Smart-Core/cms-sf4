@@ -195,7 +195,7 @@
                     {% set sites = cms_sites_switcher() %}
                     {% if sites|length > 1 %}
                     <div class="cms-site-switcher">
-                    <form method="post" action="{{ path('cms_admin.site_switch_selected') }}" name="cms-site-switcher">
+                    <form method="post" action="{{ path('cms.site_switch_selected') }}" name="cms-site-switcher">
                         <input type="hidden" name="route" value="cms_admin.index">
                         <select name="site" onchange="this.form.submit()">
                             {% for s in sites %}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Smart\CoreBundle\Controller\Controller;
@@ -13,14 +13,19 @@ use SmartCore\Bundle\MediaBundle\Form\Type\StorageFormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_SYSTEM') or is_granted('ROLE_SUPER_ADMIN')")
+ *
+ * @Route("/config/media")
  */
 class AdminMediaLibraryController extends Controller
 {
     /**
      * @return Response
+     *
+     * @Route("/", name="cms_admin.config_media")
      */
     public function indexAction()
     {
@@ -39,8 +44,10 @@ class AdminMediaLibraryController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @Route("/storage_create/", name="cms_admin.config_media_create_storage")
      */
-    public function createStorageAction(Request $request)
+    public function createStorageAction(Request $request): Response
     {
         $form = $this->createForm(StorageFormType::class, new Storage('/_media'));
         $form->add('create', SubmitType::class, ['attr' => ['class' => 'btn btn-success']]);
@@ -71,8 +78,10 @@ class AdminMediaLibraryController extends Controller
      * @param int $id
      *
      * @return Response
+     *
+     * @Route("/storage_{id<\d+>}/", name="cms_admin.config_media_edit_storage")
      */
-    public function editStorageAction(Request $request, $id)
+    public function editStorageAction(Request $request, int $id): Response
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $storage = $em->find(Storage::class, $id);
@@ -109,6 +118,8 @@ class AdminMediaLibraryController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @Route("/collection_create/", name="cms_admin.config_media_create_collection")
      */
     public function createCollectionAction(Request $request)
     {
@@ -144,8 +155,10 @@ class AdminMediaLibraryController extends Controller
      * @param int $id
      *
      * @return Response
+     *
+     * @Route("/collection_{id<\d+>}/", name="cms_admin.config_media_edit_collection")
      */
-    public function editCollectionAction(Request $request, $id)
+    public function editCollectionAction(Request $request, int $id): Response
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $collection = $em->find(Collection::class, $id);

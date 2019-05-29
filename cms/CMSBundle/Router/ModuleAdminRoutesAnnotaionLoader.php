@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Router;
 
 use Monolith\CMSBundle\Manager\ModuleManager;
+use Monolith\CMSBundle\Module\ModuleBundle;
 use Monolith\CMSBundle\Module\ModuleBundleInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouteCollection;
 
-/**
- * Загрузчик маршрутов модулей для работы глобального резолвера.
- */
-class ModuleRoutesAnnotaionLoader extends AnnotatedRouteControllerLoader implements LoaderInterface
+class ModuleAdminRoutesAnnotaionLoader extends AnnotatedRouteControllerLoader implements LoaderInterface
 {
     /**
      * @var KernelInterface;
@@ -46,20 +44,18 @@ class ModuleRoutesAnnotaionLoader extends AnnotatedRouteControllerLoader impleme
 
         $collection = new RouteCollection();
 
+        /** @var ModuleBundle $bundle */
         foreach ($this->kernel->getBundles() as $bundleName => $bundle) {
             if (!in_array(ModuleBundleInterface::class, (new \ReflectionClass($bundle))->getInterfaceNames())) {
                 continue;
             }
 
-            $controllers = ModuleManager::getNodeControllers(new $bundle);
+            $controllers = ModuleManager::getAdminControllers(new $bundle);
 
             foreach ($controllers as $controller) {
+                /** @var RouteCollection $importedRoutes */
                 $importedRoutes = parent::load($controller['class'], $type);
-                $importedRoutes->addPrefix(
-                    '/{_folderPath}/',
-                    ['_folderPath' => ''],
-                    ['_folderPath' => '.*']
-                );
+                $importedRoutes->addPrefix('/'.$bundle->getShortName().'/');
 
                 $collection->addCollection($importedRoutes);
             }
@@ -90,6 +86,6 @@ class ModuleRoutesAnnotaionLoader extends AnnotatedRouteControllerLoader impleme
      */
     public function supports($resource, $type = null): bool
     {
-        return 'modules_annotation' === $type;
+        return 'module_admin_annotation' === $type;
     }
 }

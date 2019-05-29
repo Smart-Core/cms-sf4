@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use Monolith\CMSBundle\Entity\Domain;
 use Monolith\CMSBundle\Form\Type\DomainFormType;
@@ -11,12 +11,18 @@ use Smart\CoreBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_SYSTEM') or is_granted('ROLE_SUPER_ADMIN')")
  */
 class AdminDomainController extends Controller
 {
+    /**
+     * @return Response
+     *
+     * @Route("/site/domains/", name="cms_admin.domains")
+     */
     public function indexAction(): Response
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -28,7 +34,14 @@ class AdminDomainController extends Controller
             'domains' => $domains,
         ]);
     }
-    
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @Route("/domain_create/", name="cms_admin.domain_create")
+     */
     public function createAction(Request $request): Response
     {
         $form = $this->createForm(DomainFormType::class, new Domain());
@@ -60,6 +73,14 @@ class AdminDomainController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Domain  $domain
+     *
+     * @return Response
+     *
+     * @Route("/domain/{id<\d+>}/", name="cms_admin.domain_edit")
+     */
     public function editAction(Request $request, Domain $domain): Response
     {
         $form = $this->createForm(DomainFormType::class, $domain);
@@ -94,6 +115,14 @@ class AdminDomainController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Domain  $domain
+     *
+     * @return Response
+     *
+     * @Route("/domain_create_alias/{id<\d+>}/", name="cms_admin.domain_create_alias")
+     */
     public function createAliasAction(Request $request, Domain $domain): Response
     {
         $alias = new Domain();

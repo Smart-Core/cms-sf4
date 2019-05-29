@@ -1,4 +1,4 @@
-ZZZZZZZ
+ZZZ
 
 <?php
 $cnt = count($items);

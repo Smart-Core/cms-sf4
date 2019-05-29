@@ -73,13 +73,13 @@ services:
     Monolith\CMSBundle\Router\CmsRouter:
         alias: cms.router
 
-    cms.routes.module_admin.loader:
-        class: Monolith\CMSBundle\Router\ModuleAdminRoutesLoader
-        calls:
-            - [ setContainer, [ '@service_container' ] ]
-            - [ setResolver,  [ '@routing.resolver' ] ]
-        tags:
-            - { name: routing.loader }
+#    cms.routes.module_admin.loader:
+#        class: Monolith\CMSBundle\Router\ModuleAdminRoutesLoader
+#        calls:
+#            - [ setContainer, [ '@service_container' ] ]
+#            - [ setResolver,  [ '@routing.resolver' ] ]
+#        tags:
+#            - { name: routing.loader }
 
 #    cms.routes.modules.loader:
 #        class: Monolith\CMSBundle\Router\ModuleRoutesLoader
@@ -89,12 +89,21 @@ services:
 #        tags:
 #            - { name: routing.loader }
 
+    cms.routes.module_admin.loader.annotation:
+        class: Monolith\CMSBundle\Router\ModuleAdminRoutesAnnotaionLoader
+        arguments: [ '@annotations.reader' ]
+        calls:
+            - [ setKernel,   [ '@kernel' ] ]
+            - [ setResolver, [ '@routing.resolver' ] ]
+        tags:
+            - { name: routing.loader }
+
     cms.routes.modules.loader.annotation:
         class: Monolith\CMSBundle\Router\ModuleRoutesAnnotaionLoader
         arguments: [ '@annotations.reader' ]
         calls:
-            - [ setKernel, [ '@kernel' ] ]
-            - [ setResolver,  [ '@routing.resolver' ] ]
+            - [ setKernel,   [ '@kernel' ] ]
+            - [ setResolver, [ '@routing.resolver' ] ]
         tags:
             - { name: routing.loader }
 

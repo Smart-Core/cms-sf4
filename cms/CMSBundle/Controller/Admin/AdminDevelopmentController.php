@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use GuzzleHttp\Client;
 use Lsw\ApiCallerBundle\Call\HttpGetJson;
@@ -19,12 +19,20 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_SYSTEM') or is_granted('ROLE_SUPER_ADMIN')")
  */
 class AdminDevelopmentController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @Route("/development/", name="cms_admin.development")
+     */
     public function indexAction(Request $request): Response
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -49,7 +57,14 @@ class AdminDevelopmentController extends Controller
         ]);
     }
 
-    public function syncAction(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @Route("/development/sync/", name="cms_admin.development_sync")
+     */
+    public function syncAction(Request $request): Response
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
@@ -127,6 +142,8 @@ class AdminDevelopmentController extends Controller
      *
      * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @Route("/development/db/", name="cms_admin.development_db")
      */
     public function databaseAction(Request $request)
     {
@@ -203,7 +220,12 @@ class AdminDevelopmentController extends Controller
         ]);
     }
 
-    protected function ungzip($file_name)
+    /**
+     * @param string $file_name
+     *
+     * @return string
+     */
+    protected function ungzip(string $file_name): string
     {
         // Raising this value may increase performance
         $buffer_size = 4096; // read 4kb at a time
@@ -211,12 +233,14 @@ class AdminDevelopmentController extends Controller
         // Open our files (in binary mode)
         $file = gzopen($file_name, 'rb');
         $out_file = fopen($out_file_name, 'wb');
+
         // Keep repeating until the end of the input file
         while(!gzeof($file)) {
             // Read buffer-size bytes
             // Both fwrite and gzread and binary-safe
             fwrite($out_file, gzread($file, $buffer_size));
         }
+
         // Files are done, close files
         fclose($out_file);
         gzclose($file);

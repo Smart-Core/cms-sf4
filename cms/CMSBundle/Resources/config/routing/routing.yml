@@ -2,7 +2,7 @@ cms.smart_media:
     resource: '@SmartMediaBundle/Resources/config/routing.yml'
     prefix: /_media/
 
-cms_admin.site_switch_selected:
+cms.site_switch_selected:
     path: /__cms_site_switch_selected/
     methods: POST
     defaults:
@@ -12,33 +12,42 @@ cms_api:
     resource: routing_api.yml
     prefix: /%api_path%/
 
-cms_admin:
-    resource: routing_admin.yml
-    name_prefix: 'cms_admin.'
+#cms_admin:
+#    resource: routing_admin.yml
+#    name_prefix: 'cms_admin.'
+#    prefix: /%admin_path%/
+
+cms_controllers_admin:
+    resource: '../../../Controller/Admin/'
+    type: annotation
     prefix: /%admin_path%/
+    #prefix: /%admin_path%/system/
+    #name_prefix: cms_admin.
 
 admin_settings:
     resource: '@SmartSettingsBundle/Resources/config/routing.yml'
-    prefix: /%admin_path%/system/config/
+    #prefix: /%admin_path%/system/config/
+    prefix: /%admin_path%/config/
 
-# @todo   Подлючение маршрутов модулей в админку.
-module_routes:
+module_admin_routes_annotation:
     resource: .
-    type: module_admin
+    type: module_admin_annotation
     prefix: /%admin_path%/
+
+cms_controllers:
+    resource: '../../../Controller/*'
+    type: annotation
+
+#module_admin_routes_yaml:
+#    resource: .
+#    type: module_admin
+#    prefix: /%admin_path%/
 
 #elfinder:
 #    resource: '@FMElfinderBundle/Resources/config/routing.yml'
-
-controllers:
-    resource: '../../../Controller/'
-    type: annotation
+#    prefix: /%admin_path%/
 
 # Эти маршруты нужны для генерации ссылок к модулям с учетом пути, куда они подключены.
-#cms_modules:
-#    resource: .
-#    type: modules_enabled
-
 cms_modules:
     resource: .
     type: modules_annotation

@@ -35,6 +35,14 @@ use Twig\Error\LoaderError;
 class CmsController extends AbstractController
 {
     /**
+     * @Route("/%admin_path%/", name="cms_admin.index")
+     */
+    public function admin()
+    {
+        return $this->forward('CMSBundle:Admin\Admin:index');
+    }
+
+    /**
      * @Route("/{slug<.+>}", name="cms_index", methods={"GET"})
      */
     public function index(

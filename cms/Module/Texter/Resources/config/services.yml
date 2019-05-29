@@ -1,5 +1,8 @@
-
 services:
+    Monolith\Module\Texter\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+
     monolith_module.texter:
         class: Monolith\Module\Texter\Service\TexterService
         public: true

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
 use Monolith\CMSBundle\Entity\AppearanceHistory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -12,16 +12,21 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\MimeType\FileinfoMimeTypeGuesser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Twig\Error\SyntaxError;
 use Twig\Source;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_SYSTEM') or is_granted('ROLE_SUPER_ADMIN')")
+ *
+ * @Route("/theme")
  */
 class AdminThemeController extends Controller
 {
     /**
      * @return Response
+     *
+     * @Route("/", name="cms_admin.theme_index")
      */
     public function indexAction(): Response
     {
@@ -35,6 +40,8 @@ class AdminThemeController extends Controller
      * @param string $filename
      *
      * @return Response
+     *
+     * @Route("/get_screenshot/{theme}/{filename}", name="cms_admin.theme_get_screenshot")
      */
     public function getScreenshotAction(string $theme, string $filename): Response
     {
@@ -59,6 +66,8 @@ class AdminThemeController extends Controller
      * @param string $theme
      *
      * @return Response
+     *
+     * @Route("/{name}/", name="cms_admin.theme_show")
      */
     public function themeAction(string $name): Response
     {
@@ -116,8 +125,10 @@ class AdminThemeController extends Controller
      * @param string $relativePathname
      *
      * @return Response
+     *
+     * @Route("/{theme}/{dir}:{relativePathname<.+>}", name="cms_admin.theme_file_edit")
      */
-    public function fileEditAction(Request $request, string $theme, string $dir, string $relativePathname)
+    public function fileEditAction(Request $request, string $theme, string $dir, string $relativePathname): Response
     {
         $themeName = $theme;
         $theme = $this->get('cms.theme')->get($theme);
@@ -147,6 +158,8 @@ class AdminThemeController extends Controller
                     $twig->compileSource($source);
                 }
 
+                // @todo History
+                /**
                 $history = new AppearanceHistory();
                 $history
                     ->setPath('/Resources/views/')
@@ -156,6 +169,7 @@ class AdminThemeController extends Controller
                 ;
 
                 $this->persist($history, true);
+                 */
 
                 file_put_contents($filepath, $code);
 

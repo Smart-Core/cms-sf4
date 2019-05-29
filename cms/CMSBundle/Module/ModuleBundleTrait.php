@@ -102,12 +102,10 @@ trait ModuleBundleTrait
      * Есть ли у модуля административный раздел.
      *
      * @return bool
-     *
-     * @deprecated - определять по наличию админских контроллеров
      */
     final public function hasAdmin(): bool
     {
-        return $this->container->has('cms.router_module.'.strtolower($this->getShortName()).'.admin') ? true : false;
+        return $this->container->has('cms.router_module.'.strtolower($this->getName()).'.admin') ? true : false;
     }
 
     /**

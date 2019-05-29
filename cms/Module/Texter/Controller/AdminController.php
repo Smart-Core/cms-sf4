@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Monolith\Module\Texter\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Monolith\CMSBundle\Controller\AbstractAdminController;
 use Monolith\CMSBundle\Module\CacheTrait;
 use Monolith\Module\Texter\Entity\TextItem;
 use Monolith\Module\Texter\Entity\TextItemHistory;
-use Smart\CoreBundle\Controller\Controller;
+//use Smart\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends Controller
+class AdminController extends AbstractAdminController
 {
     use CacheTrait;
 
@@ -20,6 +23,8 @@ class AdminController extends Controller
      * @param  Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @Route("/", name="monolith_module.texter.admin")
      */
     public function indexAction(Request $request): Response
     {
@@ -59,10 +64,13 @@ class AdminController extends Controller
     /**
      * @param  Request  $request
      * @param  TextItem $item
+     * @param  EntityManagerInterface $em
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response|JsonResponse
+     *
+     * @Route("/{id<\d+>}/", name="monolith_module.texter.admin.edit")
      */
-    public function itemAction(Request $request, TextItem $item): Response
+    public function itemAction(Request $request, TextItem $item, EntityManagerInterface $em): Response
     {
         $folderPath = null;
         foreach ($this->get('cms.node')->findByModule('TexterModuleBundle') as $node) {
@@ -90,10 +98,13 @@ class AdminController extends Controller
             }
 
             try {
-                $this->persist($item, true);
+                $em->persist($item);
+                $em->flush($item);
 
                 $history = new TextItemHistory($oldItem);
-                $this->persist($history, true);
+
+                $em->persist($history);
+                $em->flush($history);
 
                 if ($request->isXmlHttpRequest()) {
                     return new JsonResponse([
@@ -105,6 +116,7 @@ class AdminController extends Controller
                     ]);
                 }
 
+                /*
                 if (!$request->query->has('_overlay')) {
                     $this->addFlash('success', 'Текст обновлён (id: <b>' . $item->getId() . '</b>)');
                 }
@@ -117,6 +129,7 @@ class AdminController extends Controller
                         ]
                     ]);
                 }
+                */
 
                 if ($request->request->has('update_and_redirect_to_site') and $folderPath) {
                     return $this->redirect($folderPath);
@@ -124,7 +137,7 @@ class AdminController extends Controller
                     return $this->redirectToRoute('monolith_module.texter.admin');
                 }
             } catch (\Exception $e) {
-                $this->addFlash('error', ['sql_debug' => $e->getMessage()]);
+                $this->addFlash('error', $e->getMessage());
 
                 return $this->redirectToRoute('monolith_module.texter.admin.edit', ['id' => $item->getId()]);
             }
@@ -144,11 +157,11 @@ class AdminController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @todo пагинацию.
+     *
+     * @Route("/{id<\d+>}/history/", name="monolith_module.texter.admin.history")
      */
-    public function historyAction(TextItem $item): Response
+    public function historyAction(TextItem $item, EntityManagerInterface $em): Response
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-
         $itemsHistory = $em->getRepository(TextItemHistory::class)->findBy(
             ['item' => $item],
             ['created_at' => 'DESC']
@@ -164,6 +177,8 @@ class AdminController extends Controller
      * @param TextItemHistory $itemHistory
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/{id<\d+>}/history/view/", name="monolith_module.texter.admin.history_view")
      */
     public function historyViewAction(TextItemHistory $itemHistory): Response
     {
@@ -174,14 +189,14 @@ class AdminController extends Controller
 
     /**
      * @param  int $id
+     * @param  EntityManagerInterface $em
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/rollback/{id<\d+>}/", name="monolith_module.texter.admin.rollback")
      */
-    public function rollbackAction($id): Response
+    public function rollbackAction(int $id, EntityManagerInterface $em): Response
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->get('doctrine.orm.entity_manager');
-
         $historyItem = $em->find(TextItemHistory::class, $id);
 
         if ($historyItem) {
@@ -195,7 +210,8 @@ class AdminController extends Controller
                 ->setUser($historyItem->getUser())
             ;
 
-            $this->persist($item, true);
+            $em->persist($item);
+            $em->flush($item);
 
             $this->addFlash('success', 'Откат успешно выполнен.');
         } else {

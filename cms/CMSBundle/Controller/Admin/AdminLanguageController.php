@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Monolith\CMSBundle\Controller;
+namespace Monolith\CMSBundle\Controller\Admin;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Monolith\CMSBundle\Entity\Language;
 use Monolith\CMSBundle\Form\Type\LanguageFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -11,6 +12,7 @@ use Smart\CoreBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('ROLE_ADMIN_LANGUAGE') or is_granted('ROLE_SUPER_ADMIN')")
@@ -19,11 +21,13 @@ class AdminLanguageController extends Controller
 {
     //use ControllerTrait;
 
-    public function indexAction(): Response
+    /**
+     * @return Response
+     *
+     * @Route("/language/", name="cms_admin.language")
+     */
+    public function indexAction(EntityManagerInterface $em): Response
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->get('doctrine.orm.entity_manager');
-
         $languages = $em->getRepository(Language::class)->findAll();
 
         return $this->render('@CMS/Admin/Language/index.html.twig', [
@@ -31,6 +35,13 @@ class AdminLanguageController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @Route("/language/create/", name="cms_admin.language_create")
+     */
     public function createAction(Request $request): Response
     {
         $form = $this->createForm(LanguageFormType::class, new Language());
@@ -62,6 +73,14 @@ class AdminLanguageController extends Controller
         ]);
     }
 
+    /**
+     * @param Request  $request
+     * @param Language $language
+     *
+     * @return Response
+     *
+     * @Route("/language/{id<\d+>}/", name="cms_admin.language_edit")
+     */
     public function editAction(Request $request, Language $language): Response
     {
         $form = $this->createForm(LanguageFormType::class, $language);

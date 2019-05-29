@@ -31,27 +31,27 @@
         {% for album in albums %}
             <tr>
                 <td>{{ album.id }}</td>
-                <td><a href="{{ path('monolith_module.gallery.admin_album', {'id': album.id, 'gallery_id': album.gallery.id }) }}">{{ smart_media_img(album.coverImageId, '200x200') }}</a></td>
+                <td><a href="{{ path('monolith_module.gallery.admin_album', {'aid': album.id, 'gid': album.gallery.id }) }}">{{ smart_media_img(album.coverImageId, '200x200') }}</a></td>
                 <td>
-                    <a href="{{ path('monolith_module.gallery.admin_album_edit', {'id': album.id, 'gallery_id': album.gallery.id }) }}" style="float: right;">
+                    <a href="{{ path('monolith_module.gallery.admin_album_edit', {'aid': album.id, 'gid': album.gallery.id }) }}" style="float: right;">
                         <i class="icon-edit" title="{{ 'Edit'|trans }}"></i>
                     </a>
 
-                    <a href="{{ path('monolith_module.gallery.admin_album', {'id': album.id, 'gallery_id': album.gallery.id }) }}">{{ album.title }}</a>
+                    <a href="{{ path('monolith_module.gallery.admin_album', {'aid': album.id, 'gid': album.gallery.id }) }}">{{ album.title }}</a>
 
-                    <a href="{{ path('monolith_module.gallery.admin_album_edit', {'id': album.id, 'gallery_id': album.gallery.id }) }}" style="float: right;">
+                    <a href="{{ path('monolith_module.gallery.admin_album_edit', {'aid': album.id, 'gid': album.gallery.id }) }}" style="float: right;">
                         <i class="icon-edit" title="{{ 'Edit'|trans }}"></i><span class="glyphicon glyphicon-edit" aria-hidden="true" title="{{ 'Edit'|trans }}"></span>
                     </a>
 
                 </td>
                 <td>{{ album.description }}</td>
                 <td>
-                    <a href="{{ path('monolith_module.gallery.admin_album', {'id': album.id, 'gallery_id': album.gallery.id }) }}">
+                    <a href="{{ path('monolith_module.gallery.admin_album', {'aid': album.id, 'gid': album.gallery.id }) }}">
                         {{ album.photos|length }} {# @todo более оптимальный #}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('monolith_module.gallery.admin_album_edit', {'id': album.id, 'gallery_id': album.gallery.id }) }}">
+                    <a href="{{ path('monolith_module.gallery.admin_album_edit', {'aid': album.id, 'gid': album.gallery.id }) }}">
                     {% if album.enabled %}
                         <span class="label label-success">{{ 'Enabled'|trans }}</span>
                     {% else %}
