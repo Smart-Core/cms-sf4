@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Monolith\Module\Menu\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Monolith\CMSBundle\Manager\ContextManager;
 use Monolith\CMSBundle\Module\CacheTrait;
 use Monolith\Module\Menu\Entity\Menu;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class MenuController extends AbstractNodeController
+class MenuController extends AbstractModuleNodeController
 {
     use CacheTrait;
 

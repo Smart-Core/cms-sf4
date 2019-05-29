@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Monolith\Module\Texter\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Monolith\CMSBundle\Controller\AbstractAdminController;
+use Monolith\CMSBundle\Controller\AbstractModuleAdminController;
 use Monolith\CMSBundle\Module\CacheTrait;
 use Monolith\Module\Texter\Entity\TextItem;
 use Monolith\Module\Texter\Entity\TextItemHistory;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends AbstractAdminController
+class AdminController extends AbstractModuleAdminController
 {
     use CacheTrait;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Monolith\CMSBundle\Listener;
 
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Monolith\CMSBundle\Manager\ContextManager;
 use Monolith\CMSBundle\Manager\FolderManager;
 use Monolith\CMSBundle\Manager\ModuleManager;
@@ -84,9 +84,9 @@ class ModuleControllerModifierListener
             /** @var $node \Monolith\CMSBundle\Entity\Node */
             $node = $request->attributes->get('_node');
 
-            /** @var AbstractNodeController $controllerObj */
+            /** @var AbstractModuleNodeController $controllerObj */
             $controllerObj = $controller[0];
-            if ($controllerObj instanceof AbstractNodeController) {
+            if ($controllerObj instanceof AbstractModuleNodeController) {
                 foreach ($node->getParams() as $param => $val) {
                     $controllerObj->$param = $val;
                 }

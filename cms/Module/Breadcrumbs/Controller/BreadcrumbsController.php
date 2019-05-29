@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Monolith\Module\Breadcrumbs\Controller;
 
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Monolith\CMSBundle\Tools\Breadcrumbs;
 use Symfony\Component\HttpFoundation\Response;
 
-class BreadcrumbsController extends AbstractNodeController
+class BreadcrumbsController extends AbstractModuleNodeController
 {
     /** @var string */
     public $delimiter = '&raquo;';

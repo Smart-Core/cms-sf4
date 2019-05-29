@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Monolith\Module\Gallery\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Tools\Breadcrumbs;
 use Monolith\Module\Gallery\Entity\Album;
@@ -14,7 +14,7 @@ use Monolith\Module\Gallery\Entity\Photo;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GalleryController extends AbstractNodeController
+class GalleryController extends AbstractModuleNodeController
 {
     public $gallery_id;
 
@@ -70,8 +70,8 @@ class GalleryController extends AbstractNodeController
         $this->node->addFrontControl('manage_album')
             ->setTitle('Редактировать фотографии')
             ->setUri($this->generateUrl('monolith_module.gallery.admin_album', [
-                'id' => $id,
-                'gallery_id' => $this->gallery_id,
+                'aid' => $id,
+                'gid' => $this->gallery_id,
             ]));
 
         $breadcrumbs->add((string) $album->getId(), $album->getTitle());

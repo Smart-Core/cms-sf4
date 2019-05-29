@@ -4,10 +4,10 @@
  */
 declare(strict_types=1);
 
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Symfony\Component\HttpFoundation\Response;
 
-class SimpleController extends AbstractNodeController
+class SimpleController extends AbstractModuleNodeController
 {
     protected $delimiter;
 

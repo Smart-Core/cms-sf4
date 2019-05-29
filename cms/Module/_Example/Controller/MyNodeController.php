@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Monolith\CMSBundle\Annotation\CMS;
 use Monolith\CMSBundle\Annotation\CMS\Route;
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Monolith\CMSBundle\Entity\Node;
 
 /**
@@ -13,7 +13,7 @@ use Monolith\CMSBundle\Entity\Node;
  * Отвечает по маршрутам вида: http://site.com/some/node/path/, притом нода в этом маршруте
  * может быть подключена веше, например http://site.com/some/
  */
-class MyNodeController extends AbstractNodeController
+class MyNodeController extends AbstractModuleNodeController
 {
     protected $nodePropertiesFormClass = MyNodePropertiesFormType::class;
 

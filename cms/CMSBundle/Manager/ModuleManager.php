@@ -6,7 +6,9 @@ namespace Monolith\CMSBundle\Manager;
 
 use Monolith\CMSBundle\CMSKernel;
 use Monolith\CMSBundle\Controller\AbstractAdminController;
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
+use Monolith\CMSBundle\Controller\ModuleAdminControllerInterface;
+use Monolith\CMSBundle\Controller\ModuleNodeControllerInterface;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Monolith\CMSBundle\Module\ModuleBundleInterface;
 use Symfony\Component\Finder\Finder;
@@ -81,7 +83,7 @@ class ModuleManager
      */
     static public function getNodeControllers(ModuleBundleInterface $module): array
     {
-        return self::getControllersByParent($module, AbstractNodeController::class);
+        return self::getControllersByInterface($module, ModuleNodeControllerInterface::class);
     }
 
     /**
@@ -91,7 +93,7 @@ class ModuleManager
      */
     static public function getAdminControllers(ModuleBundleInterface $module): array
     {
-        return self::getControllersByParent($module, AbstractAdminController::class);
+        return self::getControllersByInterface($module, ModuleAdminControllerInterface::class);
     }
 
     /**
@@ -100,7 +102,7 @@ class ModuleManager
      *
      * @return array
      */
-    static protected function getControllersByParent(ModuleBundleInterface $module, string $parentClass): array
+    static protected function getControllersByInterface(ModuleBundleInterface $module, string $interface): array
     {
         $namespace = $module->getNamespace();
         $path = $module->getPath();
@@ -120,8 +122,7 @@ class ModuleManager
                 continue;
             }
 
-            // @todo добавить проверку на трейт
-            if ($reflected->getParentClass() and $reflected->getParentClass()->getName() == $parentClass) {
+            if (in_array($interface, $reflected->getInterfaceNames())) {
                 $controllers[$controller] = [
                     'class' => $namespace.'\\Controller\\'.$controller,
                     'params' => [],

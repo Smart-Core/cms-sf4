@@ -18,7 +18,7 @@ trait AbstractNodeControllerTrait
     /**
      * @return mixed
      */
-    public function getNode()
+    public function getNode(): Node
     {
         return $this->node;
     }
@@ -28,7 +28,7 @@ trait AbstractNodeControllerTrait
      *
      * @return $this
      */
-    public function setNode($node): self
+    public function setNode(Node $node): self
     {
         $this->node = $node;
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Monolith\Module\Texter\Controller;
 
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Monolith\CMSBundle\Entity\Node;
 use Symfony\Component\HttpFoundation\Response;
 
-class TexterController extends AbstractNodeController
+class TexterController extends AbstractModuleNodeController
 {
     /** @var int */
     public $text_item_id = 0;

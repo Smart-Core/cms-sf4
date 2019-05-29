@@ -6,9 +6,8 @@ namespace Monolith\CMSBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Monolith\CMSBundle\Cache\CmsCacheProvider;
-use Monolith\CMSBundle\CMSAppKernel;
 use Monolith\CMSBundle\CMSKernel;
-use Monolith\CMSBundle\Controller\AbstractNodeController;
+use Monolith\CMSBundle\Controller\AbstractModuleNodeController;
 use Monolith\CMSBundle\Entity\Folder;
 use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Entity\Region;
@@ -16,6 +15,7 @@ use Monolith\CMSBundle\Form\Type\NodeDefaultPropertiesFormType;
 use Monolith\CMSBundle\Form\Type\NodeFormType;
 use Monolith\CMSBundle\Module\ModuleBundle;
 use Monolith\CMSBundle\Twig\RegionRenderHelper;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -24,7 +24,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class NodeManager
 {
@@ -181,7 +183,7 @@ class NodeManager
     public function create(Node $node): Node
     {
         $contollerClassName = $node->getController();
-        /** @var AbstractNodeController $contoller */
+        /** @var AbstractModuleNodeController $contoller */
         $contoller = new $contollerClassName();
         $contoller->setContainer($this->container);
 
@@ -210,7 +212,7 @@ class NodeManager
     public function update(Node $node): void
     {
         $contollerClassName = $node->getController();
-        /** @var AbstractNodeController $contoller */
+        /** @var AbstractModuleNodeController $contoller */
         $contoller = new $contollerClassName();
         $contoller->setContainer($this->container);
 
@@ -238,7 +240,7 @@ class NodeManager
         }
 
         $controllerClass = $node->getController();
-        /** @var AbstractNodeController $controllerObject */
+        /** @var AbstractModuleNodeController $controllerObject */
         $controllerObject = new $controllerClass;
 
         if (!$controllerObject->isDefaultNodePropertiesFormTypeClass()) {
@@ -503,6 +505,34 @@ class NodeManager
         }
 
         return $nodesResponses;
+    }
+
+    /**
+     * Forwards the request to another controller.
+     *
+     * @param string $controller The controller name (a string like Bundle\BlogBundle\Controller\PostController::indexAction)
+     *
+     * @final
+     */
+    protected function forward(string $controller, array $path = [], array $query = []): Response
+    {
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $path['_controller'] = $controller;
+        $subRequest = $request->duplicate($query, null, $path);
+
+        return $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+    }
+
+    /**
+     * Generates a URL from the given parameters.
+     *
+     * @see UrlGeneratorInterface
+     *
+     * @final
+     */
+    protected function generateUrl(string $route, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
+    {
+        return $this->container->get('router')->generate($route, $parameters, $referenceType);
     }
 
     /**

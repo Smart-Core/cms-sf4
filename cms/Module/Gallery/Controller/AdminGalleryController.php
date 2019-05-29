@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Monolith\Module\Gallery\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Monolith\CMSBundle\Controller\AbstractAdminController;
+use Monolith\CMSBundle\Controller\AbstractModuleAdminController;
 use Monolith\Module\Gallery\Entity\Album;
 use Monolith\Module\Gallery\Entity\Gallery;
 use Monolith\Module\Gallery\Entity\Photo;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminGalleryController extends AbstractAdminController
+class AdminGalleryController extends AbstractModuleAdminController
 {
     /**
      * @param Request $request

@@ -6,7 +6,6 @@ namespace Monolith\CMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-abstract class AbstractNodeController extends AbstractController
+abstract class AbstractModuleAdminController extends AbstractController implements ModuleAdminControllerInterface
 {
-    use AbstractNodeControllerTrait;
 }

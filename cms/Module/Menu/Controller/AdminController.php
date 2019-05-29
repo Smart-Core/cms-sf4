@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Monolith\Module\Menu\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Monolith\CMSBundle\Controller\AbstractAdminController;
+use Monolith\CMSBundle\Controller\AbstractModuleAdminController;
 use Monolith\CMSBundle\Module\CacheTrait;
 use Monolith\Module\Menu\Entity\Menu;
 //use Smart\CoreBundle\Controller\Controller;
@@ -17,7 +17,7 @@ use Monolith\Module\Menu\Form\Type\MenuFormType;
 use Monolith\Module\Menu\Form\Type\ItemFormType;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends AbstractAdminController
+class AdminController extends AbstractModuleAdminController
 {
     use CacheTrait;
 
