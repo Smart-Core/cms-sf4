@@ -14,6 +14,7 @@ use Monolith\CMSBundle\Manager\ContextManager;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -38,17 +39,18 @@ class CmsExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
+            new TwigFunction('cms_context',                 [$this, 'cmsContext']),
+            new TwigFunction('cms_context_set',             [$this, 'cmsContextSet']),
             new TwigFunction('cms_current_folder',          [$this, 'getCurrentFolder']),
+            new TwigFunction('cms_device',                  [$this, 'getDevice']),
             new TwigFunction('cms_folder',                  [$this, 'getFolder']),
             new TwigFunction('cms_folder_path',             [$this, 'generateFolderPath']),
+            new TwigFunction('cms_get_notifications',       [$this, 'getNotifications']),
             new TwigFunction('cms_node_render',             [$this, 'nodeRender']),
             new TwigFunction('cms_nodes_count_in_region',   [$this, 'nodesCountInRegion']),
-            new TwigFunction('cms_get_notifications',       [$this, 'getNotifications']),
             new TwigFunction('cms_version',                 [$this, 'getCMSKernelVersion']),
-            new TwigFunction('cms_context_set',             [$this, 'cmsContextSet']),
+            new TwigFunction('cms_region',                  [$this, 'cmsRegion']),
             new TwigFunction('cms_sites_switcher',          [$this, 'cmsSiteSwitcher']),
-            new TwigFunction('cms_context',                 [$this, 'cmsContext']),
-            new TwigFunction('cms_device',                  [$this, 'getDevice']),
             new TwigFunction('cms_users_count_in_group',    [$this, 'getUsersCountInGroup']),
         ];
     }
@@ -238,6 +240,37 @@ class CmsExtension extends AbstractExtension
         ')->setParameter('group', $group);
 
         return (int) $query->getSingleScalarResult();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public function cmsRegion(string $name): string
+    {
+        $output = "\n<div class=\"cms-region\" data-cms-region=\"$name\">\n";
+
+        $data = $this->container->get('cms.context')->getRenderedRegion($name);
+
+        if ($data instanceof RegionRenderHelper) {
+            $output .= (string) $data;
+            $output .= "\n\n";
+        } elseif (is_iterable($data)) {
+            foreach ($data as $val) {
+                if ($val instanceof Response) {
+                    $output .= $val->getContent();
+                } else {
+                    $output .= (string) $val;
+                }
+
+                $output .= "\n\n";
+            }
+        }
+
+        $output .= "\n</div>\n";
+
+        return $output;
     }
     
     /**

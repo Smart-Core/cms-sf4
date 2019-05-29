@@ -136,10 +136,12 @@ class CmsController extends AbstractController
             return $nodesResponses;
         }
 
+        $cmsContext->setRenderedRegions($nodesResponses);
+
         $cmsToolbar->prepare($cmsNode->getFrontControls());
 
         try {
-            return $this->render($cmsContext->getTemplate().'.html.twig', $nodesResponses);
+            return $this->render($cmsContext->getTemplate().'.html.twig'); // $nodesResponses
         } catch (LoaderError $e) {
             if ($kernel->isDebug()) {
                 return $this->render('@CMS/error.html.twig', ['errors' => [$e->getMessage()]]);

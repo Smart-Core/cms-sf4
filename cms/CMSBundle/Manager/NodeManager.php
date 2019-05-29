@@ -494,9 +494,12 @@ class NodeManager
                     ];
                 }
 
+                // @todo пересмотреть логику, лучше в другом месте подмешивать обёртки front_controls
                 if ($authorizationChecker->isGranted('ROLE_ADMIN') and $node->getIsUseEip()) {
                     $moduleResponse->setContent(
-                        "\n<div class=\"cms-frontadmin-node\" id=\"__node_{$node->getId()}\" data-module=\"{$node->getModule()}\">\n".$moduleResponse->getContent()."\n</div>\n"
+                        "\n<div class=\"cms-frontadmin-node\" id=\"__cms_node_{$node->getId()}\" data-module-name=\"{$node->getModule()}\" data-node-id=\"{$node->getId()}\">\n"
+                        .$moduleResponse->getContent()
+                        ."\n</div>\n"
                     );
                 }
 

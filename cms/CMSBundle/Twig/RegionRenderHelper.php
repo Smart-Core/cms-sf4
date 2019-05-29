@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Monolith\CMSBundle\Twig;
 
 /**
- * @deprecated переделать на twig функцию {{ cms_region('container') }}
+ * @deprecated пересмотреть логику.
+ *
+ * @todo возможно лучше избавиться и просто получать в твиг функцию просто массив.
  */
-class RegionRenderHelper
+class RegionRenderHelper // implements \Iterator
 {
     public function __toString(): string
     {
@@ -16,12 +18,14 @@ class RegionRenderHelper
 
     public function render(): string
     {
+        $output = '';
+
         /** @var \Symfony\Component\HttpFoundation\Response $response */
         foreach ($this as $_dummy_nodeId => $response) {
-            echo $response->getContent();
+            $output .= $response->getContent();
         }
 
-        return '';
+        return $output;
     }
 
     public function count(): int

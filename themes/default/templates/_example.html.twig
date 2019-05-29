@@ -18,24 +18,24 @@
 <div class="container">
     <div class="row-fluid">
         <div class="span3">
-            {{ main_menu }}
+            {{ cms_region('main_menu') }}
         </div>
 
         <div class="span9">
             <div id="breadcrumbs">
-                {{ breadcrumbs }}
+                {{ cms_region('breadcrumbs') }}
             </div>
 
             {% include '@SmartCore/flash_messages.html.twig' %}
 
             <div id="content">
-                {% block content content %}
+                {% block content cms_region('content') %}
             </div>
         </div>
     </div>
     <div class="row-fluid" id="footer">
         <div class="span12">
-            {{ footer }}
+            {{ cms_region('footer') }}
         </div>
     </div>
 </div>

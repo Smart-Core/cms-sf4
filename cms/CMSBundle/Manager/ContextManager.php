@@ -8,9 +8,11 @@ use Doctrine\DBAL\Exception\TableNotFoundException;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Monolith\CMSBundle\Cache\CmsCacheProvider;
 use Monolith\CMSBundle\Entity\Site;
+use Monolith\CMSBundle\Twig\RegionRenderHelper;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
 
@@ -25,6 +27,7 @@ class ContextManager
     protected $site                 = null;
     protected $stopwatch            = null;
     protected $template             = 'default';
+    protected $rendered_regions     = [];
 
     /** @var UserManagerInterface|null */
     protected $userManager          = null;
@@ -251,5 +254,40 @@ class ContextManager
         }
 
         return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRenderedRegions(): array
+    {
+        return $this->rendered_regions;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Response[]|RegionRenderHelper|array
+     */
+    public function getRenderedRegion(string $name)
+    {
+        if (isset($this->rendered_regions[$name])) {
+            return $this->rendered_regions[$name];
+        } else {
+            // @todo случае отсутствия региона - вывод в профайлер.
+            return [new Response('')];
+        }
+    }
+
+    /**
+     * @param array $rendered_regions
+     *
+     * @return $this
+     */
+    public function setRenderedRegions($rendered_regions): self
+    {
+        $this->rendered_regions = $rendered_regions;
+
+        return $this;
     }
 }

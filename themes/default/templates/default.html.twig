@@ -42,22 +42,22 @@
             <div class="span3 col-md-3 col-sm-3 col-xs-12">
                 Hello, <b>{% if app.user %}{{ app.user }}{% else %}{{ 'Guest'|trans }}{% endif %}</b>
 
-                {{ main_menu }}
+                {{ cms_region('main_menu') }}
             </div>
 
             <div class="span9 col-md-9 col-sm-9 col-xs-12">
                 <div id="breadcrumbs">
-                    {{ breadcrumbs }}
+                    {{ cms_region('breadcrumbs') }}
                 </div>
 
                 <div id="content">
-                    {% block content content %}
+                    {% block content cms_region('content') %}
                 </div>
             </div>
         </div>
         <div class="row row-fluid" id="footer">
             <div class="span12 col-md-12 col-sm-12 col-xs-12">
-                {{ footer }}
+                {{ cms_region('footer') }}
             </div>
 
             <div class="span11 text-center">
