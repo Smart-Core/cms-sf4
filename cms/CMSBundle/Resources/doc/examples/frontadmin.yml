@@ -7,7 +7,7 @@ toolbar:
     (my_menu_item_name):
         type: menu # тип элемента menu, в принципе сейчас уже достаточно хорошо реализовано, надо
         float: left # позиционирование, по умолчанию left
-        title: Заголовок пункта # не обязательно, если нету заголовка, то будет отображена только иконка.
+        title: 'Заголовок пункта' # не обязательно, если нету заголовка, то будет отображена только иконка.
         description: Описание всплывающее при наведении мышки # не обязательно
         icon: 'dashboard' # не обязательно
         method: plain # метод обработки клика по ссылке:
@@ -32,12 +32,12 @@ toolbar:
         float: right
         type: user_profile
         photo: /img/my_photo.jpg
-        username: Моё Имя
+        username: 'Моё Имя'
         profile:
-            title: Профиль
+            title: 'Профиль'
             path: /admin/system/user/1/
         logout:
-            title: Выход
+            title: 'Выход'
             path: /admin/logout
     (my_notification_item_name):
         float: right
