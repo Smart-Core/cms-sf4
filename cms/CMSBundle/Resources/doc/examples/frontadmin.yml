@@ -32,7 +32,7 @@ toolbar:
         float: right
         type: user_profile
         photo: /img/my_photo.jpg
-        username: 'Моё Имя'
+        #username: 'Моё Имя'
         profile:
             title: 'Профиль'
             path: /admin/system/user/1/
