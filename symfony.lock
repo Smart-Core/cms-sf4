@@ -394,6 +394,9 @@
             "./config/bootstrap.php"
         ]
     },
+    "symfony/contracts": {
+        "version": "v1.1.0"
+    },
     "symfony/debug": {
         "version": "v4.2.8"
     },
