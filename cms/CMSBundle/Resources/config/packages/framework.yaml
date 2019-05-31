@@ -1,3 +1,4 @@
 framework:
+    ide: 'phpstorm://open?url=file://%%f&line=%%l'
     templating:
         engines: ['twig', 'php']

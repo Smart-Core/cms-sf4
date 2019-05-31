@@ -2,7 +2,7 @@ security:
     always_authenticate_before_granting: true
     encoders:
         Symfony\Component\Security\Core\User\UserInterface:
-            algorithm: 'auto' # 'sodium' # 'argon2i'
+            algorithm: 'argon2i' # 'auto' # 'sodium'
             cost:      30
 
     providers:
