@@ -1,8 +1,0 @@
-{
-    "name": "monolith-software/module-user",
-    "autoload": {
-        "psr-4": {
-            "Monolith\\Module\\User\\": ""
-        }
-    }
-}

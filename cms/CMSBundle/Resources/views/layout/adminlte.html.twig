@@ -166,13 +166,19 @@
                                     <img src="{{ asset('bundles/felib/adminlte/img/avatar5.png') }}" class="img-circle" alt="User Image" />
                                     <p>
                                         {{ app.user.userName }}
-                                        <small>{{ 'Member since'|trans }} {{ app.user.createdAt|format_date }}</small>
+                                        {% if app.user.createdAt is defined %}
+                                        <small>{{ 'Member since'|trans }}
+                                            {{ app.user.createdAt|format_date }}
+                                        </small>
+                                        {% endif %}
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="{{ path('cms_admin.user_edit', {'id': app.user.id}) }}" class="btn btn-default btn-flat">{{ 'My profile'|trans }}</a>
+                                        {% if app.user.id is defined %}
+                                            <a href="{{ path('cms_admin.user_edit', {'id': app.user.id}) }}" class="btn btn-default btn-flat">{{ 'My profile'|trans }}</a>
+                                        {% endif %}
                                     </div>
                                     <div class="pull-right">
                                         <a href="{{ logout_path() }}" class="btn btn-default btn-flat">{{ 'Exit'|trans }}</a>

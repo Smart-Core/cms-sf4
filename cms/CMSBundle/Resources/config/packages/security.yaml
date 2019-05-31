@@ -2,6 +2,7 @@ security:
     always_authenticate_before_granting: true
     encoders:
         Symfony\Component\Security\Core\User\UserInterface:
+        #App\Entity\User:
             algorithm: 'argon2i' # 'auto' # 'sodium'
             cost:      30
 
@@ -9,6 +10,15 @@ security:
         #in_memory: { memory: ~ }
         fos_userbundle:
             id: fos_user.user_provider.username
+#        database_users:
+#            entity: { class: App\Entity\User, property: username }
+#        backend_users:
+#            memory:
+#                users:
+#                    test: { password: '$argon2i$v=19$m=1024,t=2,p=2$dUJPcHR2cjhlMzVidUlhRg$+CFhcNgXNnHylSCirj9MjEDO4ry0+3pSv3L1FGWNfms', roles: ['ROLE_ADMIN'] }
+#        all_users:
+#            chain:
+#                providers: ['database_users', 'backend_users']
 
     role_hierarchy:
         ROLE_ADMIN:       [ ROLE_USER ]
@@ -24,6 +34,7 @@ security:
             context: monolith_cms
             pattern: ^/%admin_path%
             form_login:
+                provider: fos_userbundle
                 check_path: /%admin_path%/login_check
                 login_path: /%admin_path%/
                 default_target_path: /%admin_path%/
@@ -40,6 +51,7 @@ security:
             context: monolith_cms
             pattern: ^/
             form_login:
+                provider: fos_userbundle
                 # csrf_provider: form.csrf_provider # @deprecated in 3.x
                 check_path: /%user_path%/login_check
                 login_path: /%user_path%/

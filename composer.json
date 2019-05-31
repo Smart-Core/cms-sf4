@@ -24,21 +24,21 @@
         "sonata-project/intl-bundle": "^2.6",
         "stfalcon/tinymce-bundle": "*",
         "symfony/asset": "4.2.*",
-        "symfony/console": "^4.2",
+        "symfony/console": "4.2.*",
         "symfony/debug-pack": "^1.0",
         "symfony/dotenv": "^4.2",
         "symfony/expression-language": "4.2.*",
         "symfony/flex": "^1.1",
-        "symfony/framework-bundle": "^4.2",
+        "symfony/framework-bundle": "4.2.*",
         "symfony/maker-bundle": "^1.11",
         "symfony/messenger": "4.2.*",
         "symfony/monolog-bundle": "^3.3",
         "symfony/orm-pack": "^1.0",
         "symfony/profiler-pack": "^1.0",
-        "symfony/security-bundle": "^4.2.",
+        "symfony/security-bundle": "4.2.*",
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/web-server-bundle": "4.2.*",
-        "symfony/yaml": "^4.2",
+        "symfony/yaml": "4.2.*",
         "twig/extensions": "^1.5",
         "webonyx/graphql-php": "^0.13.4",
         "white-october/pagerfanta-bundle": "^1.2"
@@ -79,7 +79,9 @@
         "auto-scripts": {
             "sh bin/clear_cache": "script",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-            "security-checker security:check": "script"
+            "security-checker security:check": "script",
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts",

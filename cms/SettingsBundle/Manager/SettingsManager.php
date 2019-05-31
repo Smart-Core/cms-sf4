@@ -582,7 +582,10 @@ class SettingsManager
         $userId = 0;
 
         $token = $this->container->get('security.token_storage')->getToken();
-        if ($token instanceof TokenInterface and $token->getUser() instanceof UserInterface) {
+        if ($token instanceof TokenInterface
+            and $token->getUser() instanceof UserInterface
+            and method_exists($token->getUser(), 'getId')
+        ) {
             $userId = $token->getUser()->getId();
         }
 

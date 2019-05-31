@@ -2,15 +2,19 @@
 
 namespace App\Command;
 
+use App\Entity\Example;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 class TestCommand extends Command
 {
+    use ContainerAwareTrait;
+
     protected static $defaultName = 'app:test';
 
     protected function configure()
@@ -24,6 +28,12 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        $repo = $em->getRepository(Example::class);
+
+
         dump('Test OK');
 
         /*

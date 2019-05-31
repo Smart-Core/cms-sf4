@@ -3,4 +3,5 @@ web_profiler:
     intercept_redirects: false
 
 framework:
+    ide: 'phpstorm://open?url=file://%%f&line=%%l'
     profiler: { only_exceptions: false }

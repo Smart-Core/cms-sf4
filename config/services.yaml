@@ -33,3 +33,10 @@ services:
     #app.my_filesystem:
         #alias: 'oneup_flysystem.default_filesystem'
         #public: true
+
+    app.test.command:
+        class: App\Command\TestCommand
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+        tags:
+            - { name: console.command, command: 'app:test' }

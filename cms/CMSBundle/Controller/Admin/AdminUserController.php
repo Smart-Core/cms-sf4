@@ -7,8 +7,6 @@ namespace Monolith\CMSBundle\Controller\Admin;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
-use Monolith\CMSBundle\Entity\Folder;
-use Monolith\CMSBundle\Entity\Node;
 use Monolith\CMSBundle\Entity\Permission;
 use Monolith\CMSBundle\Entity\UserGroup;
 use Monolith\CMSBundle\Form\Type\UserGroupFormType;
