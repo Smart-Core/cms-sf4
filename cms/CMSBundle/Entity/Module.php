@@ -31,21 +31,21 @@ class Module
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=190)
      */
     protected $developer;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=190)
      */
     protected $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=180, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=190, nullable=false, unique=true)
      */
     protected $bundle;
 
