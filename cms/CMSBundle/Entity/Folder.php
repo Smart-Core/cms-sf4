@@ -103,7 +103,7 @@ class Folder
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=190, nullable=true)
      */
     protected $uri_part;
 
