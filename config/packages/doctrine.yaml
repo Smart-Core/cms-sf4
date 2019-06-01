@@ -11,9 +11,9 @@ doctrine:
         driver: 'pdo_mysql'
         server_version: '5.7'
         charset: utf8mb4
-        default_table_options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
+#        default_table_options:
+#            charset: utf8mb4
+#            collate: utf8mb4_unicode_ci
         unix_socket: /var/run/mysqld/mysqld.sock
 
         url: '%env(resolve:DATABASE_URL)%'
