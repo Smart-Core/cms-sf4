@@ -39,6 +39,14 @@ class Configuration implements ConfigurationInterface
                             //->info()
                         ->end()
 
+                        ->scalarNode('admin_logo')
+                            ->defaultValue('<!-- mini logo for sidebar mini 50x50 pixels -->
+                                <span class="logo-mini"><b>C</b>MS</span>
+                                <!-- logo for regular state and mobile devices -->
+                                <span class="logo-lg"><b>Monolith</b> CMS</span>')
+                            //->info()
+                        ->end()
+
                 ->end()
             ->end()
         ;

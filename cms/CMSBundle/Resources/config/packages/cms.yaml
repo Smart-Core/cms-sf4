@@ -1,4 +1,5 @@
 cms:
     cache_provider: cms_cache_pool.filesystem
     design:
-        admin_login_logo: '<a href="/" title="Go to site homepage"><b>Monolith</b> CMS !!!</a>'
+        #admin_login_logo: '<a href="/" title="Go to site homepage"><b>Monolith</b> CMS</a>'
+        admin_logo: '<span class="logo-mini"><b>C</b>MS</span><span class="logo-lg"><b>Symfony4</b> CMF</span>'
