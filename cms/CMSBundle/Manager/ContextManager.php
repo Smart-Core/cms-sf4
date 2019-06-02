@@ -290,4 +290,18 @@ class ContextManager
 
         return $this;
     }
+
+    /**
+     * @param string|null $key
+     *
+     * @return string|array
+     */
+    public function getConfigDesign(?string $key = null)
+    {
+        if ($key) {
+            return $this->container->getParameter('cms.design')[$key];
+        } else {
+            return $this->container->getParameter('cms.design');
+        }
+    }
 }

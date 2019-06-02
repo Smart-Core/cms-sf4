@@ -31,6 +31,15 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('cache_provider')->defaultValue('cms_cache_pool.filesystem')->end()
+                ->arrayNode('design')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('admin_login_logo')
+                            ->defaultValue('<a href="/" title=""><b>Monolith</b> CMS</a>')
+                            //->info()
+                        ->end()
+
+                ->end()
             ->end()
         ;
 

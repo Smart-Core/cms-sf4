@@ -46,6 +46,7 @@ class CmsExtension extends AbstractExtension
             new TwigFunction('cms_folder',                  [$this, 'getFolder']),
             new TwigFunction('cms_folder_path',             [$this, 'generateFolderPath']),
             new TwigFunction('cms_get_notifications',       [$this, 'getNotifications']),
+            new TwigFunction('cms_get_config_design',       [$this, 'getConfigDesign']),
             new TwigFunction('cms_node_render',             [$this, 'nodeRender']),
             new TwigFunction('cms_nodes_count_in_region',   [$this, 'nodesCountInRegion']),
             new TwigFunction('cms_version',                 [$this, 'getCMSKernelVersion']),
@@ -272,7 +273,17 @@ class CmsExtension extends AbstractExtension
 
         return $output;
     }
-    
+
+    /**
+     * @param string|null $key
+     *
+     * @return array|string
+     */
+    public function getConfigDesign(?string $key = null)
+    {
+        return $this->container->get('cms.context')->getConfigDesign($key);
+    }
+
     /**
      * @return string
      */

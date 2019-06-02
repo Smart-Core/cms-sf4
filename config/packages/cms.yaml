@@ -1,2 +1,4 @@
 cms:
 #    cache_provider: cms_cache_pool.array
+    design:
+        admin_login_logo: '<a href="/" title="Go to site homepage"><b>My Site</b> Admin Panel</a>'

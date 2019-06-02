@@ -1,2 +1,4 @@
 cms:
     cache_provider: cms_cache_pool.filesystem
+    design:
+        admin_login_logo: '<a href="/" title="Go to site homepage"><b>Monolith</b> CMS !!!</a>'

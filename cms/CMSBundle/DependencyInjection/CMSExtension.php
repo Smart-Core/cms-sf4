@@ -30,6 +30,8 @@ class CMSExtension extends Extension
         $loader->load('services.yml');
 
         $this->createCacheService($container, $config['cache_provider']);
+
+        $container->setParameter('cms.design', $config['design']);
     }
 
     /**
