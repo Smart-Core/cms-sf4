@@ -28,6 +28,8 @@ Blocks: Блоки
 Briefly: Кратко
 Bundle: Пакет
 Cancel: Отменить
+Class: Класс
+Classes: Классы
 Close: Закрыть
 Code: Код
 Code before: Код перед
@@ -92,6 +94,7 @@ Email: Email
 Enabled: Включен
 Enables: Включеные
 Entity: Сущность
+Entities: Сущности
 Error: Ошибка
 Exit: Выход
 Filemanager: Управление файлами

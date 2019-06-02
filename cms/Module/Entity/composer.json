@@ -1,0 +1,12 @@
+{
+    "name": "monolith-software/module-entity",
+    "description": "EasyAdmin integration",
+    "autoload": {
+        "psr-4": {
+            "Monolith\\Module\\Entity\\": ""
+        }
+    },
+    "require": {
+        "easycorp/easyadmin-bundle": "^2.1"
+    }
+}

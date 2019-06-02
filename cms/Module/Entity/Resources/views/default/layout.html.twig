@@ -1,22 +1,23 @@
-{% extends '@CMS/admin.html.twig' %}
+{% extends '@EntityModule/Admin/index.html.twig' %}
 
 {% block title %}
     {{ block('content_title')|striptags|raw }}
-    / EasyAdmin / {{ parent() }}
+    / Entity / {{ parent() }}
 {% endblock %}
 
-{% block page_header easyadmin_config('site_name')|raw %}
-{% block page_description 'EasyAdminBundle'|trans %}
+{#{% block page_header easyadmin_config('site_name')|raw %}#}
+{#{% block page_description 'EasyAdminBundle'|trans %}#}
 
 {% block body_attr %}
     {{ parent() }}
     id="{% block body_id %}{% endblock %}" class="easyadmin {% block body_class %}{% endblock %}"
 {% endblock body_attr %}
 
+{#
 {% block html_head_custom_code -%}
     {{ parent() }}
         {% block head_stylesheets %}
-{#            <link rel="stylesheet" href="{{ asset('bundles/easyadmin/app.css') }}">#}
+            <link rel="stylesheet" href="{{ asset('bundles/easyadmin/app.css') }}">
         {% endblock %}
 
         {% for css_asset in easyadmin_config('design.assets.css') %}
@@ -41,7 +42,7 @@
         {% endif %}
 
 {%- endblock html_head_custom_code -%}
-
+#}
 {% block content %}
 {#
 <!DOCTYPE html>
@@ -184,18 +185,21 @@
                 <div id="sidebar-resizer-handler" class="resizer-handler resizer-handler-left"></div>
 #}
 {#                {% block content %}#}
+{#
     <script>
         document.body.classList.add(
             'easyadmin-content-width-' + (localStorage.getItem('easyadmin/content/width') || 'normal'),
             'easyadmin-sidebar-width-' + (localStorage.getItem('easyadmin/sidebar/width') || 'normal')
         );
     </script>
+#}
 
-
-                    <div class="content">
+<div class="box box-body">
+    <div class="box-header with-border">
+{#                    <div class="content">#}
                         {% block content_header_wrapper %}
                         {% set _has_content_help = _entity_config is defined and _entity_config[app.request.query.get('action')]['help']|default(false) %}
-                        <section class="content-header {{ _has_content_help ? 'has-content-help' }}">
+{#                        <section class="content-header {{ _has_content_help ? 'has-content-help' }}">#}
                             {% block content_header %}
                                 <div class="d-flex flex-row justify-content-between align-content-center w-100">
                                     <div class="content-header-title">
@@ -215,7 +219,7 @@
                                     {% endif %}
                                 {% endblock content_help %}
                             {% endblock content_header %}
-                        </section>
+{#                        </section>#}
                         {% endblock content_header_wrapper %}
 
                         <section id="main" class="content-body">
@@ -227,13 +231,15 @@
                                 {% block content_footer %}{% endblock %}
                             </section>
                         {% endblock %}
-                    </div>
+{#                    </div>#}
+    </div>
+</div>
 
-    {% block body_javascript %}{% endblock body_javascript %}
 
     {% for js_asset in easyadmin_config('design.assets.js') %}
         <script src="{{ asset(js_asset) }}"></script>
     {% endfor %}
+
 
 {#                {% endblock content %}#}
 {#
@@ -246,9 +252,6 @@
 
         {% block body_javascript %}{% endblock body_javascript %}
 
-        {% for js_asset in easyadmin_config('design.assets.js') %}
-            <script src="{{ asset(js_asset) }}"></script>
-        {% endfor %}
     </body>
     {% endblock body %}
 </html>
