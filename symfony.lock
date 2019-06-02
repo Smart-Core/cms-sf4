@@ -29,6 +29,9 @@
     "cache/tag-interop": {
         "version": "1.0.0"
     },
+    "cocur/slugify": {
+        "version": "v3.2"
+    },
     "components/elfinder": {
         "version": "3.1.3"
     },
