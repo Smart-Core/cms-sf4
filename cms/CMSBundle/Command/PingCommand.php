@@ -75,9 +75,11 @@ class PingCommand extends Command
             'project_key' => $pkey,
             'modules' => $modules,
             'sites' => $sites,
-            'php' => phpversion(),
+            'php' => PHP_VERSION_ID,
             'symfony' => Kernel::VERSION,
         ];
+
+        dump($data);
 
         $url = 'http://ping.smart-core.org/';
 
