@@ -67,7 +67,7 @@ class HelloController extends AbstractController
             'modules' => $modules,
             'sites' => $sites,
             'domain' => $request->server->get('SERVER_NAME'),
-            'php' => $matches[0],
+            'php' => $php_version,
             'symfony' => Kernel::VERSION,
         ];
 
