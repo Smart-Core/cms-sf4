@@ -71,11 +71,13 @@ class PingCommand extends Command
             ];
         }
 
+        preg_match('~^(\d+(?:\.\d+)*)(.+)?$~', (string) PHP_VERSION, $matches);
+
         $data = [
             'project_key' => $pkey,
             'modules' => $modules,
             'sites' => $sites,
-            'php' => PHP_VERSION_ID,
+            'php' => $matches[0],
             'symfony' => Kernel::VERSION,
         ];
 

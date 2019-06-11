@@ -57,12 +57,14 @@ class HelloController extends AbstractController
             ];
         }
 
+        preg_match('~^(\d+(?:\.\d+)*)(.+)?$~', (string) PHP_VERSION, $matches);
+
         $data = [
             'project_key' => $pkey,
             'modules' => $modules,
             'sites' => $sites,
             'domain' => $request->server->get('SERVER_NAME'),
-            'php' => PHP_VERSION_ID,
+            'php' => $matches[0],
             'symfony' => Kernel::VERSION,
         ];
 
