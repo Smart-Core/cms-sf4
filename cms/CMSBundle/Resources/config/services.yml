@@ -20,6 +20,13 @@ services:
         tags:
             - { name: console.command, command: 'cms:themes:create-symlinks' }
 
+    cms.command.ping:
+        class: Monolith\CMSBundle\Command\PingCommand
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+        tags:
+            - { name: console.command, command: 'cms:ping' }
+
     # Menu selected items
     cms.menu.voter.request:
         class: Monolith\CMSBundle\Menu\RequestVoter

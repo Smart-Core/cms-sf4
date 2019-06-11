@@ -1,5 +1,4 @@
-instance_uid:
-    value: ''
+project_key:
     hidden: true
 appearance_editor:
     type: ChoiceType

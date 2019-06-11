@@ -136,7 +136,7 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
      *
      * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface
      */
-    protected function getBundleFromController(string $controller): BundleInterface
+    protected function getBundleFromController(string $controller): ?BundleInterface
     {
         if (0 === preg_match('#^(.*?\\\\Controller\\\\(.+)Controller)::(.+)Action$#', $controller, $match)) {
             if (0 === preg_match('#^(.*?\\\\Controller\\\\(.+)Controller)::(.+)$#', $controller, $match)) {
@@ -155,6 +155,7 @@ class ResolveControllerNameSubscriber extends BaseResolveControllerNameSubscribe
             return $bundle;
         }
 
-        throw new \InvalidArgumentException(sprintf('Unable to find a bundle that defines controller "%s".', $controller));
+        return null;
+        //throw new \InvalidArgumentException(sprintf('Unable to find a bundle that defines controller "%s".', $controller));
     }
 }

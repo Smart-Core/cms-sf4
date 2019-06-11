@@ -626,9 +626,8 @@ class SettingsManager
 
                             if(isset($val['value'])) {
                                 $val = $val['value'];
-
                             } else {
-                                throw new \Exception("Missing value for key '$name' in Bundle '$bundleName'.");
+                                $val = null;
                             }
                         }
 
