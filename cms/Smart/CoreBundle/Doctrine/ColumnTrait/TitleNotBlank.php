@@ -13,7 +13,7 @@ trait TitleNotBlank
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=190, nullable=true)
      * @Assert\NotBlank()
      */
     protected $title;
