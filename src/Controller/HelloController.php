@@ -5,6 +5,7 @@ namespace App\Controller;
 use Monolith\CMSBundle\Entity\Site;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HelloController extends AbstractController
