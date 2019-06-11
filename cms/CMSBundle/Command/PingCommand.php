@@ -79,8 +79,6 @@ class PingCommand extends Command
             'symfony' => Kernel::VERSION,
         ];
 
-        dump($data);
-
         $url = 'http://ping.smart-core.org/';
 
         $ch = curl_init();
