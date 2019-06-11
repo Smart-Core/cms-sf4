@@ -71,7 +71,10 @@ class PingCommand extends Command
             ];
         }
 
-        preg_match('~^(\d+(?:\.\d+)*)(.+)?$~', (string) PHP_VERSION, $matches);
+        $php_version = PHP_VERSION;
+        if (preg_match('~^(\d+(?:\.\d+)*)(.+)?$~', PHP_VERSION, $matches) && isset($matches[2])) {
+            $php_version = $matches[1];
+        }
 
         $data = [
             'project_key' => $pkey,
