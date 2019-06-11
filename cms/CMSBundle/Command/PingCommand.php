@@ -71,8 +71,7 @@ class PingCommand extends Command
             ];
         }
 
-        //$php_version = PHP_VERSION;
-        $php_version = '7.3.5-1+0~20190503094000.38+jessie~1.gbp60a41b';
+        $php_version = PHP_VERSION;
         if (preg_match('~^(\d+(?:\.\d+)*)(.+)?$~', PHP_VERSION, $matches) && isset($matches[2])) {
             $php_version = $matches[1];
         }
@@ -81,6 +80,7 @@ class PingCommand extends Command
             'project_key' => $pkey,
             'modules' => $modules,
             'sites' => $sites,
+            'domain' => '__cli__',
             'php' => $php_version,
             'symfony' => Kernel::VERSION,
         ];
