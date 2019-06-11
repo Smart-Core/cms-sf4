@@ -5,6 +5,7 @@ namespace App\Controller;
 use Monolith\CMSBundle\Entity\Site;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,7 +14,7 @@ class HelloController extends AbstractController
     /**
      * @Route("/hello", name="hello")
      */
-    public function index(ContainerInterface $container)
+    public function index(Request $request, ContainerInterface $container)
     {
         $settings = $container->get('settings');
 
@@ -60,6 +61,8 @@ class HelloController extends AbstractController
             'project_key' => $pkey,
             'modules' => $modules,
             'sites' => $sites,
+            'server_addr' => $request->server->get('SERVER_ADDR'),
+            'server_name' => $request->server->get('SERVER_NAME'),
             'php' => phpversion(),
             'symfony' => Kernel::VERSION,
         ];
