@@ -16,7 +16,6 @@
         "mopa/bootstrap-bundle": "^3.3",
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^5.0",
-        "smart-core/db-dumper-bundle": "dev-master",
         "smart-core/felib-bundle": "dev-master",
         "smart-core/html-bundle": "dev-master",
         "smart-core/rich-editor-bundle": "dev-master",
@@ -59,6 +58,7 @@
             "Doctrine\\ORM\\": "cms/CMSBundle/Doctrine/ORM",
             "Monolith\\": "cms/",
             "Smart\\": "cms/Smart/",
+            "SmartCore\\Bundle\\DbDumperBundle\\": "cms/DbDumperBundle/",
             "SmartCore\\Bundle\\MediaBundle\\": "cms/MediaBundle/",
             "SmartCore\\Bundle\\SettingsBundle\\": "cms/SettingsBundle/",
             "SmartCore\\Bundle\\SmartSimpleProfilerBundle\\": "cms/SimpleProfilerBundle/"

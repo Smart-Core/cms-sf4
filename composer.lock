@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76cfa184d3cd99ae1bc7483bc9a0076d",
+    "content-hash": "5b8d6b0eebaefad047e8ad7613da8cf7",
     "packages": [
         {
             "name": "cache/adapter-bundle",
@@ -4335,37 +4335,6 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2018-12-19T17:14:59+00:00"
-        },
-        {
-            "name": "smart-core/db-dumper-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Smart-Core/DbDumperBundle.git",
-                "reference": "bfe7affb683989f1565b6c0d89e11df4dfbddf26"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Smart-Core/DbDumperBundle/zipball/bfe7affb683989f1565b6c0d89e11df4dfbddf26",
-                "reference": "bfe7affb683989f1565b6c0d89e11df4dfbddf26",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.1"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "SmartCore\\Bundle\\DbDumperBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Smart and simple database dumper for Symfony2",
-            "homepage": "http://smart-core.org",
-            "time": "2019-05-16T15:08:30+00:00"
         },
         {
             "name": "smart-core/felib-bundle",
@@ -9666,7 +9635,6 @@
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
         "knplabs/knp-menu-bundle": 20,
-        "smart-core/db-dumper-bundle": 20,
         "smart-core/felib-bundle": 20,
         "smart-core/html-bundle": 20,
         "smart-core/rich-editor-bundle": 20,

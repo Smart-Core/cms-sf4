@@ -1,0 +1,3 @@
+[submodule "cms/DbDumperBundle"]
+	path = cms/DbDumperBundle
+	url = git@github.com:Smart-Core/DbDumperBundle.git
