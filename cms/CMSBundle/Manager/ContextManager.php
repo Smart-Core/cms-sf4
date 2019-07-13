@@ -72,6 +72,9 @@ class ContextManager
 
         $cache_key = md5('context-site-by-hostname='.$hostname);
 
+        /**
+         * Сущность сайта достаётся из кеша, по этому если надо произвести связи с сайтом, надо достать персистную сущность из БД
+         */
         if (null === $this->site = $this->cache->get($cache_key)) {
             $domain = $em->getRepository('CMSBundle:Domain')->findOneBy(['name' => $hostname, 'is_enabled' => true]);
 
@@ -219,8 +222,19 @@ class ContextManager
     /**
      * @return Site|null
      */
-    public function getSite(): ?Site
+    public function getSite(bool $force = false): ?Site
     {
+        if ($force and $this->site instanceof Site) {
+            $em = $this->container->get('doctrine.orm.entity_manager');
+
+            if ( ! $em->contains($this->site)) {
+                $site = $em->find(Site::class, $this->site->getId());
+
+                $this->site = $site;
+            }
+
+        }
+
         return $this->site;
     }
 

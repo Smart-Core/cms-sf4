@@ -61,9 +61,10 @@ class RegionManager
     public function checkForDefault(): bool
     {
         try {
-            if (!empty($this->cmsContext->getSite()) and
-                empty($this->repository->findOneBy(['name' => 'content', 'site' => $this->cmsContext->getSite()]))) {
-                $this->update(new Region('content', 'Content workspace', $this->cmsContext->getSite()));
+            if (!empty($this->cmsContext->getSite())
+                and empty($this->repository->findOneBy(['name' => 'content', 'site' => $this->cmsContext->getSite()])))
+            {
+                $this->update(new Region('content', 'Content workspace', $this->cmsContext->getSite(true)));
 
                 return false;
             }
@@ -110,6 +111,9 @@ class RegionManager
 
     /**
      * @param Region $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function remove(Region $entity): void
     {
@@ -118,15 +122,21 @@ class RegionManager
         }
 
         $this->em->remove($entity);
-        $this->em->flush($entity);
+        $this->em->flush();
     }
 
     /**
      * @param Region $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function update(Region $entity): void
     {
+        $this->em->persist($entity->getSite());
+        $this->em->flush();
+
         $this->em->persist($entity);
-        $this->em->flush($entity);
+        $this->em->flush();
     }
 }

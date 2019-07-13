@@ -45,18 +45,18 @@ class NodeRepository extends EntityRepository
      * @param Region|int $region
      *
      * @return int|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countInRegion($region): int
     {
-        $query = $this->_em->createQuery('
-            SELECT COUNT(n.id)
-            FROM CMSBundle:Node AS n
-            JOIN CMSBundle:Region AS r
-            WHERE r.id = :region
-            AND n.region = r
-        ')->setParameter('region', $region);
+        $qb = $this->createQueryBuilder('e')
+            ->select('COUNT(e.id)')
+            ->join('e.region', 'r')
+            ->where('r.id = :region')
+            ->setParameter('region', $region)
+        ;
 
-        return (int) $query->getSingleScalarResult();
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     /**
