@@ -7,9 +7,7 @@
     "require": {
         "php": ">=5.4.1",
         "misd/phone-number-bundle": "^1.0",
-        "symfony/framework-bundle": ">=2.1",
         "symfony/process": ">=2.1",
-        "sensio/distribution-bundle": ">=5.0.6"
     },
     "autoload": {
         "psr-4": {
