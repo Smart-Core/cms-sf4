@@ -8,7 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * Uuid column
  */
-trait Id
+trait Uuid
 {
     /**
      * @var UuidInterface
