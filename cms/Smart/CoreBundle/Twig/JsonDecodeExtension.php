@@ -3,6 +3,8 @@
 namespace Smart\CoreBundle\Twig;
 
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class JsonDecodeExtension extends AbstractExtension
 {
@@ -21,9 +23,9 @@ class JsonDecodeExtension extends AbstractExtension
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('json_decode', [$this, 'jsonDecode']),
-        );
+        return [
+            new TwigFilter('json_decode', [$this, 'jsonDecode']),
+        ];
     }
 
     /**
@@ -34,7 +36,7 @@ class JsonDecodeExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('json_decode', [$this, 'jsonDecode']),
+            new TwigFunction('json_decode', [$this, 'jsonDecode']),
         ];
     }
 
