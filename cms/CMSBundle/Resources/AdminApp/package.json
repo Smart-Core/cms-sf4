@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "featherlight": "^1.7.13",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "jstree": "^3.3.5"
   }
 }
